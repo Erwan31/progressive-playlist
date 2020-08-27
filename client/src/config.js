@@ -9,7 +9,7 @@ export const scopes = [
     "user-read-playback-state",
     "playlist-read-private",    // access playlist of the user
     "playlist-modify-private",  // create new playlist
-    "playlist-read-collaborative", // access collaborative playlist of the user
+ //   "playlist-read-collaborative", // access collaborative playlist of the user
     "streaming" // Web Playback SDK in the case 
 ];
 

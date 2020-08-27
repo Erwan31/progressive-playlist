@@ -8,6 +8,7 @@ import { Navbar,  NavbarBrand, Button, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle} from 'reactstrap';
 import logo from "./logo.svg";
 import TrackList from './Components/tracklist';
+import Playlists from "./Components/playlists";
 
 class App extends Component {
   constructor() {
@@ -149,7 +150,7 @@ class App extends Component {
             className="navbarBrandRS"
           >
             <img src={logo} className="App-logo" alt="logo" ></img>
-            Progressive Playlist
+            Playlits
           </NavbarBrand>
         </Navbar>
         <header className="App-header">
@@ -173,7 +174,7 @@ class App extends Component {
           )}
           {this.state.token && !this.state.no_data && (
             <>
-              <img src={this.state.playlists[0].images[0].url}></img>
+              <Playlists playlists={this.state.playlists}/>
               <Player
                 item={this.state.item}
                 is_playing={this.state.is_playing}

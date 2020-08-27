@@ -1,13 +1,21 @@
 import React from 'react';
 import axios from 'axios';
 
+const instance = axios.create({
+    baseURL: "https://localhost:3000/",
+    withCredentials: false,
+    headers: {
+      'Access-Control-Allow-Origin' : '*',
+      'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
+  });
+
 const Login = () => {
 
     const loginGet = () => {
         axios.get('/login').then(response => {
-            this.setState({cars: response.data});
             console.log(response.data)
-          })
+        })
     }
     return ( 
         <>

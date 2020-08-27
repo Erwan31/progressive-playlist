@@ -15,8 +15,8 @@ var cookieParser = require('cookie-parser');
 
 var client_id = 'e05fe4b7d4a74271b22c4b4fe9dd8030'; // Your client id
 var client_secret = '10f89968457949bd869f8ffe6a90de5f'; // Your secret
-var redirect_uri = 'https:://localhost:3000/callback'; // Your redirect uri 
- 
+var redirect_uri = 'http://localhost:3001/callback'; // Your redirect uri 
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -37,16 +37,20 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
+// MW
 app.use(express.static(__dirname + '/client/public'))
-   .use(cors())
+   .use(cors()) //{credentials: true}
    .use(cookieParser());
+    
 
-app.get('/login', function(req, res) {
+app.get('/login', cors(), function(req, res) {
 
   console.log('login try out');
    
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
+
+  console.log(stateKey, state);
 
   // your application requests authorization
   var scope = 'user-read-private user-read-email';
@@ -59,6 +63,7 @@ app.get('/login', function(req, res) {
       state: state
     }));
 });
+
 
 app.get('/callback', function(req, res) {
 
@@ -146,5 +151,8 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 3001');
-app.listen(3001);
+
+const port = process.env.PORT || 3001;
+
+console.log('Listening on ', port);
+app.listen(port);

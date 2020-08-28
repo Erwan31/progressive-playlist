@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import * as $ from "jquery";
-import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
 import Player from "./Components/Player";
 import "./App.css";
@@ -9,6 +8,16 @@ import { Navbar,  NavbarBrand, Button, Card, CardImg, CardText, CardBody,
 import logo from "./logo.svg";
 import TrackList from './Components/tracklist';
 import Playlists from "./Components/playlists";
+import Login from './Components/login';
+import {
+
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
 
 class App extends Component {
   constructor() {
@@ -185,7 +194,7 @@ class App extends Component {
     if(this.state.playlists[0].images[0].url) console.log(' render print', this.state.playlists[0].images[0].url);
 
     return (
-      <div className="App">
+      <Router>
         <Navbar className="navbarRS">
           <NavbarBrand 
             href="/"
@@ -195,43 +204,43 @@ class App extends Component {
             Playlits
           </NavbarBrand>
         </Navbar>
-        <header className="App-header">
-          {!this.state.token && (
-            <>
-              <h1></h1>
+        <div className="App">
+          <header className="App-header">
+            <Switch>
+              <Route path="/playlists/:id" component={TrackList} />
+              <Route path="/redirect" render={() => <Playlists playlists={this.state.playlists} />} />
+              <Route path="/" exact component={Login} />
+            </Switch>
+
+            {/*!this.state.token && (
+              <>
+                <h1></h1>
+                <p>
+                  Explaination of the app and so on
+                </p>
+                <Button
+                  color="success"
+                  size="lg"
+                  //className="btn btn--loginApp-link"
+                  href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+                    "%20"
+                  )}&response_type=token&show_dialog=true`}
+                >
+                  Login to Spotify
+                </Button>
+              </>
+                  )*/}
+            {/*this.state.token && !this.state.no_data && (
+                <Playlists playlists={this.state.playlists}/>
+            )*/}
+            {this.state.no_data && (
               <p>
-                Explaination of the app and so on
+                You need to be playing a song on Spotify, for something to appear here.
               </p>
-              <Button
-                color="success"
-                size="lg"
-                //className="btn btn--loginApp-link"
-                href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-                  "%20"
-                )}&response_type=token&show_dialog=true`}
-              >
-                Login to Spotify
-              </Button>
-            </>
-          )}
-          {this.state.token && !this.state.no_data && (
-            <>
-              <Playlists playlists={this.state.playlists}/>
-              <Player
-                item={this.state.item}
-                is_playing={this.state.is_playing}
-                progress_ms={this.state.progress_ms}
-              />
-              <TrackList/>
-            </>
-          )}
-          {this.state.no_data && (
-            <p>
-              You need to be playing a song on Spotify, for something to appear here.
-            </p>
-          )}
-        </header>
-      </div>
+            )}
+          </header>
+        </div>
+      </Router>
     );
   }
 }

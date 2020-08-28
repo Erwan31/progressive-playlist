@@ -1,37 +1,26 @@
 import React from 'react';
 import axios from 'axios';
-
-const instance = axios.create({
-    baseURL: "https://localhost:3000/",
-    withCredentials: false,
-    headers: {
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      }
-  });
+import { Button } from 'reactstrap';
+import { authEndpoint, clientId, redirectUri, scopes } from "../config";
 
 const Login = () => {
 
-    const loginGet = () => {
-        axios.get('/login').then(response => {
-            console.log(response.data)
-        })
-    }
     return ( 
         <>
-            <div className="container">
-            <div id="login">
-                <h1>This is an example of the Authorization Code flow</h1>
-                <button onClick={loginGet} className="btn btn-primary">Log in with Spotify</button>
-            </div>
-            <div id="loggedin">
-                <div id="user-profile">
-                </div>
-                <div id="oauth">
-                </div>
-                <button className="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
-            </div>
-            </div>
+            <h1></h1>
+            <p>
+                Explaination of the app and so on
+            </p>
+            <Button
+                color="success"
+                size="lg"
+                //className="btn btn--loginApp-link"
+                href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+                "%20"
+                )}&response_type=token&show_dialog=true`}
+            >
+                Login to Spotify
+            </Button>
         </>
      );
 }

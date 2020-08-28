@@ -25,6 +25,7 @@ class App extends Component {
     this.state = {
       user_id: null,
       token: null,
+      selectedPlaylist: null,
       item: {
         album: {
           images: [{ url: "" }]
@@ -132,7 +133,7 @@ class App extends Component {
 
     // Make a call using the token
     const userData = await $.ajax({
-      url: `https://api.spotify.com/v1/me`,
+      url: 'https://api.spotify.com/v1/me',
       type: "GET",
       beforeSend: xhr => {
         xhr.setRequestHeader("Authorization", "Bearer " + token);
@@ -163,6 +164,7 @@ class App extends Component {
     let items = null;
 
     console.log('id before playlist',this.state.user_id);
+
     // Make a call using the token
     $.ajax({
       url: `https://api.spotify.com/v1/users/${id}/playlists`,
@@ -182,13 +184,18 @@ class App extends Component {
         let limit = data.limit;
         items = data.items;
         this.setState({ limit, playlists: items });
-        
-        console.log('fct print', this.state.playlists);
       }
     });
 
     return items;
   }
+
+  handlePlaylistSelection = (id) => {
+    // Update state by passing the id of the selected playlist
+    // Possibly just pass the necessary info to the component then
+    this.setState({selectedPlaylist: id});
+  }
+
 
   render() {
     if(this.state.playlists[0].images[0].url) console.log(' render print', this.state.playlists[0].images[0].url);
@@ -207,37 +214,12 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             <Switch>
-              <Route path="/playlists/:id" component={TrackList} />
-              <Route path="/redirect" render={() => <Playlists playlists={this.state.playlists} />} />
+              <Route path="/redirect" 
+              render={() => <Playlists playlists={this.state.playlists} 
+              onSelectPlaylist={this.handlePlaylistSelection} />} />
+              <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>
               <Route path="/" exact component={Login} />
             </Switch>
-
-            {/*!this.state.token && (
-              <>
-                <h1></h1>
-                <p>
-                  Explaination of the app and so on
-                </p>
-                <Button
-                  color="success"
-                  size="lg"
-                  //className="btn btn--loginApp-link"
-                  href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-                    "%20"
-                  )}&response_type=token&show_dialog=true`}
-                >
-                  Login to Spotify
-                </Button>
-              </>
-                  )*/}
-            {/*this.state.token && !this.state.no_data && (
-                <Playlists playlists={this.state.playlists}/>
-            )*/}
-            {this.state.no_data && (
-              <p>
-                You need to be playing a song on Spotify, for something to appear here.
-              </p>
-            )}
           </header>
         </div>
       </Router>

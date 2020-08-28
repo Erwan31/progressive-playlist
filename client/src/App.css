@@ -5,6 +5,7 @@
   font-family: 'Anonymous Pro', monospace;
   color: white;
   height:  auto;
+  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
 }
 
 html{
@@ -24,13 +25,6 @@ html{
   height: 35px;
   pointer-events: none;
 }
-/*
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-*/
 
 .App-header {
   background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */

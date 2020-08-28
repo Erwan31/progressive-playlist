@@ -14,6 +14,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      user_id: null,
       token: null,
       item: {
         album: {
@@ -50,12 +51,13 @@ class App extends Component {
 
     this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
     this.getUserPlaylists = this.getUserPlaylists.bind(this);
+    this.getUserInfo = this.getUserInfo.bind(this);
     this.tick = this.tick.bind(this);
   }
 
 
 
-  componentDidMount() {
+  async componentDidMount() {
     // Set token
     let _token = hash.access_token;
 
@@ -64,8 +66,11 @@ class App extends Component {
       this.setState({
         token: _token
       });
-      this.getCurrentlyPlaying(_token);
-      this.getUserPlaylists(_token);
+
+      
+      const idInfo = await this.getUserInfo(_token);
+      const playlists = this.getUserPlaylists(idInfo.id);
+
     }
 
     // set interval for polling every 5 seconds
@@ -101,6 +106,8 @@ class App extends Component {
           return;
         }
 
+        console.log(data);
+
         this.setState({
           item: data.item,
           is_playing: data.is_playing,
@@ -112,13 +119,47 @@ class App extends Component {
     });
   }
 
-  getUserPlaylists(token) {
+  async getUserInfo(token) {
+
     // Make a call using the token
-    $.ajax({
-      url: "https://api.spotify.com/v1/users/me/playlists",
+    const userData = await $.ajax({
+      url: `https://api.spotify.com/v1/me`,
       type: "GET",
       beforeSend: xhr => {
         xhr.setRequestHeader("Authorization", "Bearer " + token);
+      },
+      success: data => {
+        // Checks if the data is not empty
+        if(!data) {
+          console.log('data', data);
+          this.setState({
+            no_data: true,
+          });
+          return;
+        }
+        else{
+          const id = data.id;
+          this.setState({user_id: id});
+          console.log('id', this.state.user_id);
+          return;
+        }
+      }
+    });
+
+    return userData;
+  }
+
+  getUserPlaylists(id) {
+
+    let items = null;
+
+    console.log('id before playlist',this.state.user_id);
+    // Make a call using the token
+    $.ajax({
+      url: `https://api.spotify.com/v1/users/${id}/playlists`,
+      type: "GET",
+      beforeSend: xhr => {
+        xhr.setRequestHeader("Authorization", "Bearer " + this.state.token);
       },
       success: data => {
         // Checks if the data is not empty
@@ -130,13 +171,14 @@ class App extends Component {
         }
 
         let limit = data.limit;
-        let items = data.items;
+        items = data.items;
         this.setState({ limit, playlists: items });
         
         console.log('fct print', this.state.playlists);
-
       }
     });
+
+    return items;
   }
 
   render() {

@@ -3,14 +3,16 @@ import React, { Component } from 'react';
 const Playlists = ({playlists}) => {
     return ( 
         <>
-            <div></div>
-            {
-                playlists.map( (playlist) =>
-                    <>
-                        <img src={playlist.images[0].url} />
-                    </>
-                 )
-            }
+            <div className="playlistsThumbnails">
+                {
+                    playlists.map( (playlist) =>
+                        <div className="playlistThumbnail">
+                            <img src={playlist.images[0].url} />
+                            <p>{playlist.name}</p>
+                        </div>
+                    )
+                }
+            </div>
         </>
      );
 }

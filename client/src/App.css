@@ -94,3 +94,12 @@ html{
 }
 
 
+/* Table with Tracks */
+.tableTracks{
+  width: 80vw;
+}
+
+.albumThumbnail{
+  height: 10rem;
+}
+

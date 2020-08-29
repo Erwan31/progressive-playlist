@@ -36,31 +36,38 @@ class TrackList extends Component {
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return ( 
-            <Table hover>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Title</th>
-                <th>Artist</th>
-                <th>Album</th>
-              </tr>
-            </thead>
-
-            <tbody>
-                {
-                    tracks.map( (track, i) => 
-                    <tr key={i}>
-                        <th scope="row" className="albumThumbnail">
-                            <img src={track.track.album.images[1].url}></img>
-                        </th>
-                        <td>{track.track.name}</td>
-                        <td>{track.track.artists[0].name}</td>
-                        <td>{track.track.album.name}</td>
+            <div className="tableTracks">
+                <div className="filterPanel">
+                    <div className="filtersKnobs">Knobs</div>
+                    <div className="graphCanvas">Graph</div>
+                    <div className="mainFilterCriteria">Canvas</div>
+                </div>
+                <Table  hover>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Album</th>
                     </tr>
-                    )
-                }
-            </tbody>
-          </Table>
+                    </thead>
+
+                    <tbody>
+                        {
+                            tracks.map( (track, i) => 
+                            <tr key={i}>
+                                <th scope="row">
+                                    <img className="albumThumbnail" src={track.track.album.images[1].url}></img>
+                                </th>
+                                <td>{track.track.name}</td>
+                                <td>{track.track.artists[0].name}</td>
+                                <td>{track.track.album.name}</td>
+                            </tr>
+                            )
+                        }
+                    </tbody>
+                </Table>
+            </div>
          );
     }
 }

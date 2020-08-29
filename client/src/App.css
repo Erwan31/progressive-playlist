@@ -15,6 +15,7 @@ html{
   height:  auto;
   min-width: 600px; /* Beware for Responsive !! */
   font-size: 62.5%;
+  overflow: scroll;
 }
 
 

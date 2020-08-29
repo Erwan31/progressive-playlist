@@ -9,6 +9,7 @@ class TrackList extends Component {
         this.state = {
             tracks: [],
             filteredTracks: [],
+            audio_features: []
         };
     }
 
@@ -29,39 +30,52 @@ class TrackList extends Component {
 
         //Get tracks ids and request audio features
         for(let i = 0; i < this.state.tracks.length; i++){
-            console.log('id', this.state.tracks[i].track.id)
+            //console.log('id', this.state.tracks[i].track.id)
             ids.push(this.state.tracks[i].track.id);
         }
-        console.log('ids', ids);
 
         const idsString = ids.join(",");
-        console.log('idsString', idsString);
-
         const response1 = await axios.get(`https://api.spotify.com/v1/audio-features/?ids=${idsString}`, {headers: headerContent});
         const data1 = await response1.data;
            
-        console.log(data1);
-        const dance = this.sortByAscCriteria(data1.audio_features, "danceability");
-        //const ascDance = this.sortByAscCriteria(dance);
-        //console.log(ascDance);
+        this.setState({ audio_features:  data1.audio_features});
     }
 
     sortByAscCriteria = (arr, parameter) => {
-        const danceable = arr.sort( ( a, b) =>
+        const sorted = arr.sort( ( a, b) =>
         a[parameter] - b[parameter]);
+
+        return sorted
     }
 
     sortByDescCriteria = (arr, parameter) => {
-        const danceable = arr.sort( ( a, b) =>
+        const sorted = arr.sort( ( a, b) =>
         b[parameter] - a[parameter]);
+
+        return sorted
     }
 
 
     render() { 
-
-        console.log('render tracklist', this.props);
-        console.log('tracks', this.state.tracks);
         const tracks = this.state.tracks;
+        const audio_features = this.state.audio_features;
+        let filteredTracks = [];
+
+        if( audio_features.length > 0 ){
+            // Filter tracks based on a parameter
+            const filtered_features = this.sortByAscCriteria(audio_features, "danceability");
+            const filtered_ids = filtered_features.map( (track) =>
+                                    track.id);
+            const filteredTracks = filtered_ids.map( id => {
+                for( let i = 0; i < tracks.length; i++ ){
+                    //console.log( id, tracks[i].track.id);
+                    if( id === tracks[i].track.id) return tracks[i].track;
+                }
+            });
+
+            console.log('filteredTracks', filteredTracks);
+            this.setState( { filteredTracks });
+        }
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return ( 
@@ -83,14 +97,14 @@ class TrackList extends Component {
 
                     <tbody>
                         {
-                            tracks.map( (track, i) => 
+                           filteredTracks && filteredTracks.map( (track, i) => 
                             <tr key={i}>
                                 <th scope="row">
-                                    <img className="albumThumbnail" src={track.track.album.images[1].url}></img>
+                                    <img className="albumThumbnail" src={track.album.images[1].url || track.album.images[0].url}></img>
                                 </th>
-                                <td>{track.track.name}</td>
-                                <td>{track.track.artists[0].name}</td>
-                                <td>{track.track.album.name}</td>
+                                <td>{track.name}</td>
+                                <td>{track.artists[0].name}</td>
+                                <td>{track.album.name}</td>
                             </tr>
                             )
                         }

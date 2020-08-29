@@ -17,7 +17,7 @@ class Playlists extends Component {
     }
     render() { 
         const playlists = this.props.playlists;
-        console.log('playlists', this.props);
+        //console.log('playlists', this.props);
 
         return ( 
             <>

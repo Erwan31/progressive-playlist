@@ -39,6 +39,26 @@ class TrackList extends Component {
         const data1 = await response1.data;
            
         this.setState({ audio_features:  data1.audio_features});
+
+        if( this.state.audio_features.length > 0 ){
+
+            const tracks = this.state.tracks;
+            const audio_features = this.state.audio_features;
+
+            // Filter tracks based on a parameter
+            const filtered_features = this.sortByAscCriteria(audio_features, "danceability");
+            const filtered_ids = filtered_features.map( (track) =>
+                                    track.id);
+            const filteredTracks = filtered_ids.map( id => {
+                for( let i = 0; i < tracks.length; i++ ){
+                    //console.log( id, tracks[i].track.id);
+                    if( id === tracks[i].track.id) return tracks[i].track;
+                }
+            });
+
+            console.log('filteredTracks', filteredTracks);
+            this.setState( { filteredTracks });
+        }
     }
 
     sortByAscCriteria = (arr, parameter) => {
@@ -57,25 +77,7 @@ class TrackList extends Component {
 
 
     render() { 
-        const tracks = this.state.tracks;
-        const audio_features = this.state.audio_features;
-        let filteredTracks = [];
-
-        if( audio_features.length > 0 ){
-            // Filter tracks based on a parameter
-            const filtered_features = this.sortByAscCriteria(audio_features, "danceability");
-            const filtered_ids = filtered_features.map( (track) =>
-                                    track.id);
-            const filteredTracks = filtered_ids.map( id => {
-                for( let i = 0; i < tracks.length; i++ ){
-                    //console.log( id, tracks[i].track.id);
-                    if( id === tracks[i].track.id) return tracks[i].track;
-                }
-            });
-
-            console.log('filteredTracks', filteredTracks);
-            this.setState( { filteredTracks });
-        }
+        const filteredTracks = this.state.filteredTracks;
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return ( 

@@ -41,6 +41,25 @@ class TrackList extends Component {
         const data1 = await response1.data;
            
         console.log(data1);
+        const dance = this.sortByDanceability(data1.audio_features);
+        const ascDance = this.sortByAscCriteria(dance);
+        console.log(ascDance);
+    }
+
+    sortByDanceability = (arr) => {
+        const danceable = arr.map( track =>
+            track.danceability);
+        return danceable;
+    }
+
+    sortByAscCriteria = (arr) => {
+        const sorted = arr.sort((a, b) => a - b);
+        return sorted;
+    }
+
+    sortByDescCriteria = (arr) => {
+        const sorted = arr.sort((a, b) => b - a);
+        return sorted;
     }
 
     render() { 

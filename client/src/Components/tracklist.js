@@ -25,7 +25,22 @@ class TrackList extends Component {
         
         this.setState( { tracks: data.items });
 
+        let ids = [];
+
+        //Get tracks ids and request audio features
+        for(let i = 0; i < this.state.tracks.length; i++){
+            console.log('id', this.state.tracks[i].track.id)
+            ids.push(this.state.tracks[i].track.id);
+        }
+        console.log('ids', ids);
+
+        const idsString = ids.join(",");
+        console.log('idsString', idsString);
+
+        const response1 = await axios.get(`https://api.spotify.com/v1/audio-features/?ids=${idsString}`, {headers: headerContent});
+        const data1 = await response1.data;
            
+        console.log(data1);
     }
 
     render() { 

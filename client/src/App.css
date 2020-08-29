@@ -93,7 +93,6 @@ html{
   overflow: hidden;
 }
 
-
 /* Table with Tracks */
 .tableTracks{
   width: 80vw;
@@ -101,5 +100,12 @@ html{
 
 .albumThumbnail{
   height: 10rem;
+}
+
+.filterPanel{
+  display: flex;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: space-between;
 }
 

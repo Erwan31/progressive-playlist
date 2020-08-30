@@ -73,7 +73,6 @@ class TrackList extends Component {
 
     sortByAscCriteria = (arr, parameter) => {
         const sorted = arr.sort( ( a, b) =>{
-            console.log(a[1][parameter])
             return a[1][parameter] - b[1][parameter]
         });
         return sorted;
@@ -105,32 +104,32 @@ class TrackList extends Component {
             rDirection[selected] = "asc";
         }
         else rDirection[selected] = "desc";
+
+        this.setState({ rSelected: selected, rDirection });
         
+        //console.log('rselected', rSelected);
+        // If the selection is the same just reverse the whole playlist order
         if( rSelected === selected){
             filteredTracksFeatures = this.reverseOrder( filteredTracksFeatures);
         }
         else{
+            // Otherwise, change the playlist order based on the main criteria selected
             if( selected !== null ){
                 console.log('features', filteredTracksFeatures);
-                filteredTracksFeatures = this.sortByAscCriteria( filteredTracksFeatures, CRITERIA[rSelected]);
-                console.log('selection', CRITERIA[rSelected]);
+                filteredTracksFeatures = this.sortByAscCriteria( filteredTracksFeatures, CRITERIA[selected]);
+                //console.log('selection', selected, CRITERIA[selected]);
                 this.setState({ filteredTracksFeatures });
             }
             else {
                 filteredTracksFeatures = tracksFeatures;
-                console.log('no selection');
+                //console.log('no selection');
             }
         }
-
-        this.setState({ rSelected: selected, rDirection });
-
     }
 
 
     render() { 
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
-
-        console.log('render');
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
@@ -141,9 +140,9 @@ class TrackList extends Component {
                     <div className="mainFilterCriteria">Canvas</div>
                 </div>
                 <ButtonGroup className="criteriaButtons">
-                    <Button color="success" onClick={() => this.onCheckboxBtnClick(0)} active={this.state.rSelected === 1}>Danceability</Button>
-                    <Button color="info" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.rSelected === 2}>Energy</Button>
-                    <Button color="warning" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.rSelected === 3}>Happiness</Button>
+                    <Button color="success" onClick={() => this.onCheckboxBtnClick(0)} active={this.state.rSelected === 0}>Danceability</Button>
+                    <Button color="info" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.rSelected === 1}>Energy</Button>
+                    <Button color="warning" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.rSelected === 2}>Happiness</Button>
                 </ButtonGroup>
                 <div className="tableTracks">
                     <Table  hover>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Table } from 'reactstrap';
+import { Table, Button, ButtonGroup } from 'reactstrap';
 
 class TrackList extends Component {
     constructor(props){
@@ -9,7 +9,11 @@ class TrackList extends Component {
         this.state = {
             tracks: [],
             filteredTracks: [],
-            audio_features: []
+            audio_features: [],
+            cSelected: [], 
+            setCSelected: [], 
+            rSelected: null,
+            setRSelected: null
         };
     }
 
@@ -75,44 +79,57 @@ class TrackList extends Component {
         return sorted
     }
 
+    // Buttons
+    onCheckboxBtnClick = (selected) => {
+        this.setState({ rSelected: selected });
+    }
+
 
     render() { 
         const filteredTracks = this.state.filteredTracks;
+        console.log(this.state.rSelected);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
-        return ( 
-            <div className="tableTracks">
+        return (
+            <>
                 <div className="filterPanel">
                     <div className="filtersKnobs">Knobs</div>
                     <div className="graphCanvas">Graph</div>
                     <div className="mainFilterCriteria">Canvas</div>
                 </div>
-                <Table  hover>
-                    <thead>
-                    <tr>
-                        <th></th>
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Album</th>
-                    </tr>
-                    </thead>
+                <ButtonGroup className="criteriaButtons">
+                    <Button color="sucess" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.rSelected === 1}>Danceability</Button>
+                    <Button color="info" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.rSelected === 2}>Energy</Button>
+                    <Button color="warning" onClick={() => this.onCheckboxBtnClick(3)} active={this.state.rSelected === 3}>Happiness</Button>
+                </ButtonGroup>
+                <div className="tableTracks">
+                    <Table  hover>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Title</th>
+                            <th>Artist</th>
+                            <th>Album</th>
+                        </tr>
+                        </thead>
 
-                    <tbody>
-                        {
-                           filteredTracks && filteredTracks.map( (track, i) => 
-                            <tr key={i}>
-                                <th scope="row">
-                                    <img className="albumThumbnail" src={track.album.images[1].url || track.album.images[0].url}></img>
-                                </th>
-                                <td>{track.name}</td>
-                                <td>{track.artists[0].name}</td>
-                                <td>{track.album.name}</td>
-                            </tr>
-                            )
-                        }
-                    </tbody>
-                </Table>
-            </div>
+                        <tbody>
+                            {
+                            filteredTracks && filteredTracks.map( (track, i) => 
+                                <tr key={i}>
+                                    <th scope="row">
+                                        <img className="albumThumbnail" src={track.album.images[1].url || track.album.images[0].url}></img>
+                                    </th>
+                                    <td>{track.name}</td>
+                                    <td>{track.artists[0].name}</td>
+                                    <td>{track.album.name}</td>
+                                </tr>
+                                )
+                            }
+                        </tbody>
+                    </Table>
+                </div>
+            </>
          );
     }
 }

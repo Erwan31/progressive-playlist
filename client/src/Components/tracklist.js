@@ -10,10 +10,9 @@ class TrackList extends Component {
             tracks: [],
             filteredTracks: [],
             audio_features: [],
-            cSelected: [], 
-            setCSelected: [], 
             rSelected: null,
-            setRSelected: null
+            rDirectionInit: ["desc", "desc", "desc"],
+            rDirection: ["desc", "desc", "desc"]
         };
     }
 
@@ -79,15 +78,27 @@ class TrackList extends Component {
         return sorted
     }
 
-    // Buttons
+    // Radio Buttons
     onCheckboxBtnClick = (selected) => {
-        this.setState({ rSelected: selected });
+        let rDirection = this.state.rDirection;
+        const selectedDirection = rDirection[selected];
+
+        // Reset state by spreading init state
+        rDirection = [...this.state.rDirectionInit];
+
+        // Modify selected state
+        if( selectedDirection === "desc"){
+            rDirection[selected] = "asc";
+        }
+        else rDirection[selected] = "desc";
+
+        this.setState({ rSelected: selected, rDirection });
     }
 
 
     render() { 
         const filteredTracks = this.state.filteredTracks;
-        console.log(this.state.rSelected);
+        console.log(this.state.rSelected, this.state.rDirection);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
@@ -98,9 +109,9 @@ class TrackList extends Component {
                     <div className="mainFilterCriteria">Canvas</div>
                 </div>
                 <ButtonGroup className="criteriaButtons">
-                    <Button color="sucess" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.rSelected === 1}>Danceability</Button>
-                    <Button color="info" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.rSelected === 2}>Energy</Button>
-                    <Button color="warning" onClick={() => this.onCheckboxBtnClick(3)} active={this.state.rSelected === 3}>Happiness</Button>
+                    <Button color="success" onClick={() => this.onCheckboxBtnClick(0)} active={this.state.rSelected === 1}>Danceability</Button>
+                    <Button color="info" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.rSelected === 2}>Energy</Button>
+                    <Button color="warning" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.rSelected === 3}>Happiness</Button>
                 </ButtonGroup>
                 <div className="tableTracks">
                     <Table  hover>

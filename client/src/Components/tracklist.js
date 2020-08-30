@@ -106,15 +106,20 @@ class TrackList extends Component {
         }
         else rDirection[selected] = "desc";
         
-        if( selected !== null ){
-            console.log('features', filteredTracksFeatures);
-            filteredTracksFeatures = this.sortByAscCriteria( filteredTracksFeatures, CRITERIA[rSelected]);
-            console.log('selection', CRITERIA[rSelected]);
-            this.setState({ filteredTracksFeatures });
+        if( rSelected === selected){
+            filteredTracksFeatures = this.reverseOrder( filteredTracksFeatures);
         }
-        else {
-            filteredTracksFeatures = tracksFeatures;
-            console.log('no selection');
+        else{
+            if( selected !== null ){
+                console.log('features', filteredTracksFeatures);
+                filteredTracksFeatures = this.sortByAscCriteria( filteredTracksFeatures, CRITERIA[rSelected]);
+                console.log('selection', CRITERIA[rSelected]);
+                this.setState({ filteredTracksFeatures });
+            }
+            else {
+                filteredTracksFeatures = tracksFeatures;
+                console.log('no selection');
+            }
         }
 
         this.setState({ rSelected: selected, rDirection });

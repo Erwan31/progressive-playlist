@@ -111,3 +111,18 @@ html{
   justify-content: space-between;
 }
 
+
+/* Charts */
+.charts{
+  display: flex;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  height: 50px;
+}
+
+/*
+.chart{
+  height: 100px;
+}
+*/

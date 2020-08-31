@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Table, Button, ButtonGroup } from 'reactstrap';
 import { redirectUri } from './../config';
+import Charts from './charts';
 
 const CRITERIA = ["danceability", "energy", "valence"];
 
@@ -72,6 +73,7 @@ class TrackList extends Component {
         }
     }
 
+    // Sorting functions
     sortByAscCriteria = (arr, parameter) => {
         const sorted = arr.sort( ( a, b) =>{
             return a[1][parameter] - b[1][parameter]
@@ -89,7 +91,7 @@ class TrackList extends Component {
         const sorted = arr.sort( ( a, b) => -1);
     }
 
-    // Radio Buttons
+    // Radio Buttons & filtering
     onCheckboxBtnClick = (selected) => {
         let rDirection = this.state.rDirection;
         const selectedDirection = rDirection[selected];
@@ -140,7 +142,7 @@ class TrackList extends Component {
             <>
                 <div className="filterPanel">
                     <div className="filtersKnobs">Knobs</div>
-                    <div className="graphCanvas">Graph</div>
+                    { filteredTracksFeatures[0] && <Charts tracksFeatures={filteredTracksFeatures}/>}
                     <div className="mainFilterCriteria">Canvas</div>
                 </div>
                 <ButtonGroup className="criteriaButtons">

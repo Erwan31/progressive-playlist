@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Table, Button, ButtonGroup } from 'reactstrap';
+import { redirectUri } from './../config';
 
 const CRITERIA = ["danceability", "energy", "valence"];
 
@@ -66,7 +67,7 @@ class TrackList extends Component {
                 }
             });
 
-            console.log('filteredTracks', filteredTracksFeatures);
+            // console.log('filteredTracks', filteredTracksFeatures);
             this.setState( { filteredTracksFeatures, tracksFeatures: filteredTracksFeatures });
         }
     }
@@ -115,9 +116,8 @@ class TrackList extends Component {
         else{
             // Otherwise, change the playlist order based on the main criteria selected
             if( selected !== null ){
-                console.log('features', filteredTracksFeatures);
+                //console.log('features', filteredTracksFeatures);
                 filteredTracksFeatures = this.sortByAscCriteria( filteredTracksFeatures, CRITERIA[selected]);
-                //console.log('selection', selected, CRITERIA[selected]);
                 this.setState({ filteredTracksFeatures });
             }
             else {
@@ -130,6 +130,10 @@ class TrackList extends Component {
 
     render() { 
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
+        const rSelected = this.state.rSelected;
+        const rDirection = this.state.rDirection;
+
+        console.log('filteredTracksFeatures', filteredTracksFeatures);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
@@ -140,9 +144,25 @@ class TrackList extends Component {
                     <div className="mainFilterCriteria">Canvas</div>
                 </div>
                 <ButtonGroup className="criteriaButtons">
-                    <Button color="success" onClick={() => this.onCheckboxBtnClick(0)} active={this.state.rSelected === 0}>Danceability</Button>
-                    <Button color="info" onClick={() => this.onCheckboxBtnClick(1)} active={this.state.rSelected === 1}>Energy</Button>
-                    <Button color="warning" onClick={() => this.onCheckboxBtnClick(2)} active={this.state.rSelected === 2}>Happiness</Button>
+                    <Button 
+                        color="success" 
+                        onClick={() => this.onCheckboxBtnClick(0)}
+                        active={rSelected === 0}>
+                        Danceability {rSelected === 0 ? rDirection[rSelected] : ""}
+                    </Button>
+
+                    <Button 
+                        color="info" 
+                        onClick={() => this.onCheckboxBtnClick(1)} 
+                        active={rSelected === 1}>
+                        Energy {rSelected === 1 ? rDirection[rSelected] : ""}
+                    </Button>
+                    <Button 
+                        color="warning" 
+                        onClick={() => this.onCheckboxBtnClick(2)} 
+                        active={rSelected === 2}>
+                        Mood {rSelected === 2 ? rDirection[rSelected] : ""}
+                    </Button>
                 </ButtonGroup>
                 <div className="tableTracks">
                     <Table  hover>

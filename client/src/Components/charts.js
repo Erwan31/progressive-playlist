@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { defaults, Line } from 'react-chartjs-2';
-import Chart from 'react-apexcharts';
 
+// Deafult font for the charts
 defaults.global.defaultFontFamily = 'Anonymous Pro';
 
 const Charts = ({tracksFeatures}) => {

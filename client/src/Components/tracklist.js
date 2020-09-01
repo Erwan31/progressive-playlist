@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Table, Button, ButtonGroup } from 'reactstrap';
 import { redirectUri } from './../config';
 import Charts from './charts';
+import HorizontalCustomLabels from './sliders';
 
 const CRITERIA = ["danceability", "energy", "valence"];
 
@@ -141,7 +142,9 @@ class TrackList extends Component {
         return (
             <>
                 <div className="filterPanel">
-                    <div className="filtersKnobs">Knobs</div>
+                    <div className="filtersKnobs">
+                        <HorizontalCustomLabels />
+                    </div>
                     { filteredTracksFeatures[0] && <Charts tracksFeatures={filteredTracksFeatures}/>}
                     <div className="mainFilterCriteria">Canvas</div>
                 </div>

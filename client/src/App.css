@@ -127,6 +127,10 @@ body{
   justify-content: space-between;
 }
 
+.filterPanel{
+  display: flex;
+  flex-direction: column;
+}
 
 /* Charts */
 .charts{

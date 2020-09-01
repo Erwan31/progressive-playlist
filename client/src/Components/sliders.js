@@ -26,6 +26,11 @@ class HorizontalCustomLabels extends Component {
         crises: values.crises});
   };
 
+  handleAndDelayChangeComplete = () => {
+    const state = this.state;
+    this.props.onChangeSliders(state);
+  }
+
   render () {
     const { danceability, energy, mood, crises } = this.state;
     const state = this.state;
@@ -47,6 +52,7 @@ class HorizontalCustomLabels extends Component {
                 handleLabel={danceability}
                 format={formatPc}
                 onChange={(danceability) => this.handleChangeVertical( danceability, "danceability")}
+                onChangeComplete={ () => this.handleAndDelayChangeComplete()}
             />
             <div className='value'>{formatPc(danceability)}</div>
         </div>
@@ -59,6 +65,7 @@ class HorizontalCustomLabels extends Component {
                 handleLabel={energy}
                 format={formatPc}
                 onChange={(energy) => this.handleChangeVertical( energy, "energy")}
+                onChangeComplete={ () => this.handleAndDelayChangeComplete()}
             />
             <div className='value'>{formatPc(energy)}</div>
         </div>
@@ -71,7 +78,7 @@ class HorizontalCustomLabels extends Component {
                 handleLabel={mood}
                 format={formatPc}
                 onChange={(mood) => this.handleChangeVertical( mood, "mood")}
-                onChangeComplete={this.props.onChangeSliders(state)}
+                onChangeComplete={ () => this.handleAndDelayChangeComplete()}
             />
             <div className='value'>{formatPc(mood)}</div>
         </div>
@@ -84,6 +91,7 @@ class HorizontalCustomLabels extends Component {
                 handleLabel={crises}
                 format={formatPc}
                 onChange={(crises) => this.handleChangeVertical( crises, "crises")}
+                onChangeComplete={ () => this.handleAndDelayChangeComplete()}
             />
             <div className='value'>{formatPc(crises)}</div>
         </div>

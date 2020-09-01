@@ -4,6 +4,7 @@ import { Table, Button, ButtonGroup } from 'reactstrap';
 import { redirectUri } from './../config';
 import Charts from './charts';
 import HorizontalCustomLabels from './sliders';
+import { computeTrackFeatureCoefficient } from './scripts/sliderCoef';
 
 const CRITERIA = ["danceability", "energy", "valence"];
 
@@ -15,10 +16,18 @@ class TrackList extends Component {
             tracks: [],
             audio_features: [],
             tracksFeatures: [],
+            coefFeatures: [],
+            average: {avD: 0, avE: 0, avM: 0},
             filteredTracksFeatures: [],
             rSelected: null,
             rDirectionInit: ["desc", "desc", "desc"],
-            rDirection: ["desc", "desc", "desc"]
+            rDirection: ["desc", "desc", "desc"],
+            sliders: {
+                danceability: 0,
+                energy: 0,
+                mood: 0,
+                crises: 0,
+            }
         };
     }
 
@@ -56,20 +65,37 @@ class TrackList extends Component {
 
             const tracks = this.state.tracks;
             const audio_features = this.state.audio_features;
-
+            const coefFeatures = this.state.coefFeatures;
+            const sliders = this.state.sliders;
+            const average = {avD: 0, avE: 0, avM: 0};
+            const length = tracks.length;
              
             // No Filter tracks based on a parameter
             //const filtered_features = this.sortByAscCriteria(audio_features, "danceability");
-            const filtered_ids = audio_features.map( (track) =>
-                                    track.id);
-            const filteredTracksFeatures = filtered_ids.map( id => {
-                for( let i = 0; i < tracks.length; i++ ){
+            // useful still?????????????????????
+
+            console.log(audio_features);
+
+            const filtered_ids = audio_features.map( (track) => {
+                average.avD += track.danceability/length;
+                average.avE += track.energy/length;
+                average.avM += track.valence/length;
+                return track.id;
+            });
+
+            this.setState({average});
+
+            const filteredTracksFeatures = filtered_ids.map( (id, j) => {
+
+                coefFeatures[j] = computeTrackFeatureCoefficient( audio_features[j], average, sliders );
+
+                for( let i = 0; i < length; i++ ){
                     //console.log( id, tracks[i].track.id);
-                    if( id === tracks[i].track.id) return [tracks[i].track, audio_features[i]];
+                    if( id === tracks[i].track.id) return [tracks[i].track, audio_features[i], coefFeatures[i]];
                 }
             });
 
-            // console.log('filteredTracks', filteredTracksFeatures);
+            console.log('filteredTracks', filteredTracksFeatures);
             this.setState( { filteredTracksFeatures, tracksFeatures: filteredTracksFeatures });
         }
     }
@@ -78,6 +104,13 @@ class TrackList extends Component {
     sortByAscCriteria = (arr, parameter) => {
         const sorted = arr.sort( ( a, b) =>{
             return a[1][parameter] - b[1][parameter]
+        });
+        return sorted;
+    }
+
+    sortByAscCoef = (arr) => {
+        const sorted = arr.sort( ( a, b) =>{
+            return a[2]- b[2]
         });
         return sorted;
     }
@@ -112,7 +145,7 @@ class TrackList extends Component {
         this.setState({ rSelected: selected, rDirection });
         
         //console.log('rselected', rSelected);
-        // If the selection is the same just reverse the whole playlist order
+        // If the selection is the same just reverse theA whole playlist order
         if( rSelected === selected){
             filteredTracksFeatures = this.reverseOrder( filteredTracksFeatures);
         }
@@ -130,6 +163,26 @@ class TrackList extends Component {
         }
     }
 
+    // Sliders
+    handleSliderChange = (sliders) => {
+        console.log("slidervalue change", sliders);
+
+      //  this.setState({ sliders }); // infinite loop
+      const average = this.state.average;
+        const nonFilteredTracksFeatures = this.state.filteredTracksFeatures.map( (track) => {
+            track[2] = computeTrackFeatureCoefficient( track[1], average, sliders );
+            return track;
+        });
+
+        console.log(nonFilteredTracksFeatures);
+
+        const filteredTracksFeatures = this.sortByAscCoef( nonFilteredTracksFeatures );
+        this.setState({ filteredTracksFeatures });
+/*
+        let  filteredTracksFeatures = this.state.filteredTracksFeatures;
+        const tracksFeatures = this.state.tracksFeatures;*/
+    }
+
 
     render() { 
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
@@ -142,9 +195,11 @@ class TrackList extends Component {
         return (
             <>
                 <div className="filterPanel">
-                    <div className="filtersKnobs">
-                        <HorizontalCustomLabels />
-                    </div>
+                    {filteredTracksFeatures[0] &&
+                        <div className="filtersKnobs">
+                            <HorizontalCustomLabels onChangeSliders={(sliders) => this.handleSliderChange(sliders)} />
+                        </div>
+                    }
                     { filteredTracksFeatures[0] && <Charts tracksFeatures={filteredTracksFeatures}/>}
                     <div className="mainFilterCriteria">Canvas</div>
                 </div>

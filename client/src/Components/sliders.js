@@ -8,7 +8,7 @@ class HorizontalCustomLabels extends Component {
     this.state = {
       danceability: 0,
       energy: 0,
-      mood: 50,
+      mood: 0,
       crises: 0,
     }
   }
@@ -27,7 +27,8 @@ class HorizontalCustomLabels extends Component {
   };
 
   render () {
-    const { danceability, energy, mood, crises } = this.state
+    const { danceability, energy, mood, crises } = this.state;
+    const state = this.state;
     const dLabels = { 0: '', 100: 'Booty Shake'};
     const eLabels = { 0: 'Sloth', 100: 'A lot'};
     const mLabels = { 0: 'Sad', 50: 'Neutral', 100: 'Happy'};
@@ -45,7 +46,6 @@ class HorizontalCustomLabels extends Component {
                 labels={dLabels}
                 handleLabel={danceability}
                 format={formatPc}
-
                 onChange={(danceability) => this.handleChangeVertical( danceability, "danceability")}
             />
             <div className='value'>{formatPc(danceability)}</div>
@@ -58,7 +58,6 @@ class HorizontalCustomLabels extends Component {
                 labels={eLabels}
                 handleLabel={energy}
                 format={formatPc}
-
                 onChange={(energy) => this.handleChangeVertical( energy, "energy")}
             />
             <div className='value'>{formatPc(energy)}</div>
@@ -71,8 +70,8 @@ class HorizontalCustomLabels extends Component {
                 labels={mLabels}
                 handleLabel={mood}
                 format={formatPc}
-
                 onChange={(mood) => this.handleChangeVertical( mood, "mood")}
+                onChangeComplete={this.props.onChangeSliders(state)}
             />
             <div className='value'>{formatPc(mood)}</div>
         </div>
@@ -84,7 +83,6 @@ class HorizontalCustomLabels extends Component {
                 labels={cLabels}
                 handleLabel={crises}
                 format={formatPc}
-
                 onChange={(crises) => this.handleChangeVertical( crises, "crises")}
             />
             <div className='value'>{formatPc(crises)}</div>

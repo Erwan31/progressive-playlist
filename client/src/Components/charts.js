@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
+import { defaults, Line } from 'react-chartjs-2';
 import Chart from 'react-apexcharts';
 
-
+defaults.global.defaultFontFamily = 'Anonymous Pro';
 
 const Charts = ({tracksFeatures}) => {
 
@@ -52,50 +52,60 @@ const Charts = ({tracksFeatures}) => {
         }
     };
 
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-            display: false
-        },
-        scales: {
-            xAxes: [{
-                display: false,
-                scaleLabel: {
+    const options = function(yLabel){
+        return {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
                     display: false,
-                    
-                }
-            }],
-            yAxes: [{
-                display: false,
-                scaleLabel: {
-                    display: false,
-                }
-            }]
+                    scaleLabel: {
+                        display: false,
+                        
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: yLabel,
+                        fontFamily: 'Helvetica',
+                        fontStyle: 'bold',
+                        fontSize: 20,
+                        fontColor: '#eeeeee'
+                    },
+                    gridLines: {
+                        display:false
+                    },
+                    ticks: {
+                        display: false //this will remove only the label
+                    }
+                }]
+            }
         }
-    }
+    } 
 
     return ( 
         <div className="charts">
-            <div className="chart">
-                <div className="chartLabel">Danceability</div> 
+            <div className="chart"> 
                 <Line
                     data={data(danceability, "Danceability", "green")}
-                    options={options}
+                    options={options("Danceability")}
                 />
             </div>
             <div className="chart">
-                <div className="chartLabel">Energy</div> 
                 <Line 
                     data={data(energy, "Energy", "blue")}
-                    options={options}
+                    options={options("Energy")}
                 />
             </div>
             <div className="chart">
-                <div className="chartLabel">Mood</div> 
                 <Line 
                     data={data(valence, "Mood", "Yellow")}
-                    options={options}
+                    options={options("Mood")}
                 />
             </div>
         </div>
@@ -104,6 +114,11 @@ const Charts = ({tracksFeatures}) => {
  
 export default Charts;
 
+/*
+    <div className="chartLabel">Danceability</div>
+    <div className="chartLabel">Energy</div> 
+    <div className="chartLabel">Mood</div> 
+*/
 /* <Chart options={options2} series={series} type="line" width={"100%"} height={"100%"} /> */
 /*
 {

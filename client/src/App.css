@@ -25,7 +25,7 @@ body{
   */
   /*background-image: linear-gradient(to right bottom, #f1e6b2, #f0dba7, #eecf9d, #edc494, #ebb88d, #e6ba88, #e1bc83, #dabf7f, #c5d189, #a9e1a1, #87f0c5, #5ffbf1);*/
   background: rgb(241,230,178);
-background: linear-gradient(137deg, rgba(241,230,178,1) 30%, rgba(255,225,238,1) 100%);
+  background: linear-gradient(137deg, rgba(241,230,178,1) 30%, rgba(255,225,238,1) 100%);
 }
 
 
@@ -136,24 +136,27 @@ background: linear-gradient(137deg, rgba(241,230,178,1) 30%, rgba(255,225,238,1)
   justify-content: space-evenly;
   position: relative; 
   height:30vh; 
-  width: 900px;
+  width: 100vw;
   /*background: linear-gradient(to right, #dc2e2e, #e74d49, #f16764, #f9807e, #ff9898);*/
 }
 
 .chart{
   margin: 1vh 0.5vw;
-  padding: 1vh 0.5vw;
-  display: flex;
-  font-size: 2rem;
-  width: 400px;
+  padding: 1vh 2vw 1vh 1vw;
+  width: 27vw;
+  height: 20vh; 
+
+  border-radius: 2.5rem;
 }
 
+/*
 .chartLabel{
   transform: rotate(-90deg) translateX(-6rem);
   height: 3rem;
   background: transparent;
   margin: 0 0 -3rem 0;
 }
+*/
 
 .chart:nth-of-type(1) {
   background-image: linear-gradient(to right, #6bdc2e, #78e54e, #85ee69, #93f781, #a1ff98);

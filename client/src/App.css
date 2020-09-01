@@ -5,7 +5,7 @@
   font-family: 'Anonymous Pro', monospace;
   color: white;
   height:  auto;
-  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
+/*  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
 }
 
 html{
@@ -16,6 +16,16 @@ html{
   min-width: 600px; /* Beware for Responsive !! */
   font-size: 62.5%;
   overflow: scroll;
+}
+
+body{
+  /*
+  background: rgb(253,29,29);
+  background: linear-gradient(286deg, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%); 
+  */
+  /*background-image: linear-gradient(to right bottom, #f1e6b2, #f0dba7, #eecf9d, #edc494, #ebb88d, #e6ba88, #e1bc83, #dabf7f, #c5d189, #a9e1a1, #87f0c5, #5ffbf1);*/
+  background: rgb(241,230,178);
+background: linear-gradient(137deg, rgba(241,230,178,1) 30%, rgba(255,225,238,1) 100%);
 }
 
 
@@ -29,7 +39,7 @@ html{
 }
 
 .App-header {
-  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
+ /* background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -43,9 +53,11 @@ html{
   color: #61dafb;
 }
 
+/*
 .navbarRS{
   background: #F1E6B2;
 }
+*/
 
 .navbarBrandPS{
   color:white;
@@ -63,8 +75,8 @@ html{
 
 /* New part */
 .playlistsThumbnails{
-  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
-  min-height: 100vh;
+/*  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
+   min-height: 100vh;
   display: flex;
  /*flex-direction: column;*/
   flex-wrap: wrap;
@@ -74,6 +86,10 @@ html{
   font-size: 2rem;
   color: white;
   max-width: 80%;
+/*
+  background: rgb(253,29,29);
+  background: linear-gradient(286deg, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%); 
+*/
 }
 
 .playlistThumbnail{
@@ -118,11 +134,46 @@ html{
   align-items: center;
   align-content: flex-start;
   justify-content: space-evenly;
-  height: 50px;
+  position: relative; 
+  height:30vh; 
+  width: 900px;
+  /*background: linear-gradient(to right, #dc2e2e, #e74d49, #f16764, #f9807e, #ff9898);*/
 }
+
+.chart{
+  margin: 1vh 0.5vw;
+  padding: 1vh 0.5vw;
+  display: flex;
+  font-size: 2rem;
+  width: 400px;
+}
+
+.chartLabel{
+  transform: rotate(-90deg) translateX(-6rem);
+  height: 3rem;
+  background: transparent;
+  margin: 0 0 -3rem 0;
+}
+
+.chart:nth-of-type(1) {
+  background-image: linear-gradient(to right, #6bdc2e, #78e54e, #85ee69, #93f781, #a1ff98);
+}
+
+.chart:nth-of-type(2) {
+  background-image: linear-gradient(to right, #2e72dc, #4e7ee5, #678aed, #7c96f6, #90a3ff);
+}
+
+.chart:nth-of-type(3) {
+  background-image: linear-gradient(to right, #e95c02, #ee7d22, #f49a40, #f9b55f, #ffce81);
+}
+
+
+
+
+
+
 
 /*
 .chart{
-  height: 100px;
 }
 */

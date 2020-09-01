@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
+import Chart from 'react-apexcharts';
+
 
 
 const Charts = ({tracksFeatures}) => {
@@ -20,23 +22,31 @@ const Charts = ({tracksFeatures}) => {
             {
                 label: label,
                 fill: false,
-                lineTension: 0.1,
-                backgroundColor: color,
-                borderColor: color,
+                lineTension: 0,
+                backgroundColor: '#eeeeee',
+                borderColor: '#eeeeee',
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
-                pointBorderColor: color,
-                pointBackgroundColor: '#fff',
+                borderJoinStyle: 'round',
+                borderWidth: 3,
+                //pointBorderColor: color,
+                //pointBackgroundColor: '#fff',
                 pointBorderWidth: 1,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: color,
-                pointHoverBorderColor: color,
-                pointHoverBorderWidth: 2,
+                pointHoverRadius: 3,
+                //pointHoverBackgroundColor: color,
+                //pointHoverBorderColor: color,
+                pointHoverBorderWidth: 3,
                 pointRadius: 1,
-                pointHitRadius: 10,
-                data: arr
+                pointHitRadius: 3,
+                data: arr,
+          /*      backgroundColor: [
+                    pattern.draw('square', '#ff6384'),
+                    pattern.draw('circle', '#36a2eb'),
+                    pattern.draw('diamond', '#cc65fe'),
+                    pattern.draw('triangle', '#ffce56')
+                ]
+            */
             }
             ]
         }
@@ -44,60 +54,118 @@ const Charts = ({tracksFeatures}) => {
 
     const options = {
         responsive: true,
-        title: {
-            display: true,
-            text: 'Danceability'
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-        },
-        hover: {
-            mode: 'nearest',
-            intersect: true
+        maintainAspectRatio: false,
+        legend: {
+            display: false
         },
         scales: {
             xAxes: [{
-                display: true,
+                display: false,
                 scaleLabel: {
-                    display: true,
-                    labelString: 'Value'
-                },
-                ticks: {
-                    min: 0,
-                    max: length
-                },
+                    display: false,
+                    
+                }
             }],
             yAxes: [{
-                display: true,
+                display: false,
                 scaleLabel: {
-                    display: true,
-                    labelString: 'Value'
-                },
-                ticks: {
-                    min: 0,
-                    max: 1
-                },
+                    display: false,
+                }
             }]
         }
     }
 
     return ( 
         <div className="charts">
-            <Line
-                className="chart" 
-                data={data(danceability, "Danceability", "green")}
-            />
-            <Line 
-                className="chart"
-                data={data(energy, "Energy", "blue")}
-            />
-            <Line 
-                className="chart"
-                data={data(valence, "Mood", "Yellow")}
-            />
+            <div className="chart">
+                <div className="chartLabel">Danceability</div> 
+                <Line
+                    data={data(danceability, "Danceability", "green")}
+                    options={options}
+                />
+            </div>
+            <div className="chart">
+                <div className="chartLabel">Energy</div> 
+                <Line 
+                    data={data(energy, "Energy", "blue")}
+                    options={options}
+                />
+            </div>
+            <div className="chart">
+                <div className="chartLabel">Mood</div> 
+                <Line 
+                    data={data(valence, "Mood", "Yellow")}
+                    options={options}
+                />
+            </div>
         </div>
      );
 }
  
 export default Charts;
+
+/* <Chart options={options2} series={series} type="line" width={"100%"} height={"100%"} /> */
+/*
+{
+                <>
+                    <Line
+                        className="chart" 
+                        data={data(danceability, "Danceability", "green")}
+                    />
+                    <Line 
+                        className="chart"
+                        data={data(energy, "Energy", "blue")}
+                    />
+                    <Line 
+                        className="chart"
+                        data={data(valence, "Mood", "Yellow")}
+                    />
+                </>
+            }
+*/
+
+/*
+    const options2 = {
+        options: {
+            chart: {
+              height: 350,
+              type: 'line',
+              zoom: {
+                enabled: false
+              }
+            },
+            colors: ['#EEEEEE'],
+            fill: {
+                type: 'gradient',
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'smooth'
+            },
+            markers: {
+                size: 0,
+            },
+            title: {
+              text: 'Product Trends by Month',
+              align: 'left'
+            },
+            grid: {
+              row: {
+                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                opacity: 0
+              },
+            },
+            xaxis: {
+              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            }
+          },
+    };
+    
+    const series = [{
+        name: 'series-1',
+        data: [30, 40, 45, 50, 49, 60, 70, 91],
+        type: 'line',
+    }];
+*/

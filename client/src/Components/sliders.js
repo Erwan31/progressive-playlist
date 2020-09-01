@@ -6,64 +6,89 @@ class HorizontalCustomLabels extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      horizontal: 10,
-      vertical: 50
+      danceability: 0,
+      energy: 0,
+      mood: 50,
+      crises: 0,
     }
   }
 
-  handleChangeHorizontal = value => {
-    this.setState({
-      horizontal: value
-    })
-  };
+  handleChangeVertical = (value, parameter) => {
+    const values = this.state;
+    values[parameter] = value;
 
-  handleChangeVertical = value => {
+    console.log('values', value, values[parameter]);
+
     this.setState({
-      vertical: value
-    })
+        danceability:  values.danceability,
+        energy:  values.energy,
+        mood:  values.mood,
+        crises: values.crises});
   };
 
   render () {
-    const { horizontal, vertical } = this.state
-    const horizontalLabels = {
-      0: 'Low',
-      50: 'Medium',
-      100: 'High'
-    }
+    const { danceability, energy, mood, crises } = this.state
+    const dLabels = { 0: '', 100: 'Booty Shake'};
+    const eLabels = { 0: 'Sloth', 100: 'A lot'};
+    const mLabels = { 0: 'Sad', 50: 'Neutral', 100: 'Happy'};
+    const cLabels = { 0: 'None', 100: 'Many'};
 
-    const verticalLabels = {
-      10: 'Getting started',
-      50: 'Half way',
-      90: 'Almost done',
-      100: 'Complete!'
-    }
-
-    const formatkg = value => value + ' kg'
-    const formatPc = p => p + '%'
+    const formatPc = p => p + '%';
 
     return (
-      <div className='slider custom-labels'>
-        <Slider
-          min={0}
-          max={100}
-          value={horizontal}
-          labels={horizontalLabels}
-          format={formatkg}
-          handleLabel={horizontal}
-          onChange={this.handleChangeHorizontal}
-        />
-        <div className='value'>{formatkg(horizontal)}</div>
-        <hr />
-        <Slider
-          value={vertical}
-          orientation='vertical'
-          labels={verticalLabels}
-          handleLabel={vertical}
-          format={formatPc}
+        <div className="sliders">
+            <div className='slider custom-labels sliderPerso'>
+            Danceability
+            <Slider
+                value={danceability}
+                orientation='vertical'
+                labels={dLabels}
+                handleLabel={danceability}
+                format={formatPc}
 
-          onChange={this.handleChangeVertical}
-        />
-        <div className='value'>{formatPc(vertical)}</div>
+                onChange={(danceability) => this.handleChangeVertical( danceability, "danceability")}
+            />
+            <div className='value'>{formatPc(danceability)}</div>
+        </div>
+        <div className='slider custom-labels sliderPerso'>
+            Energy
+            <Slider
+                value={energy}
+                orientation='vertical'
+                labels={eLabels}
+                handleLabel={energy}
+                format={formatPc}
+
+                onChange={(energy) => this.handleChangeVertical( energy, "energy")}
+            />
+            <div className='value'>{formatPc(energy)}</div>
+        </div>
+        <div className='slider custom-labels sliderPerso'>
+            Mood
+            <Slider
+                value={mood}
+                orientation='vertical'
+                labels={mLabels}
+                handleLabel={mood}
+                format={formatPc}
+
+                onChange={(mood) => this.handleChangeVertical( mood, "mood")}
+            />
+            <div className='value'>{formatPc(mood)}</div>
+        </div>
+        <div className='slider custom-labels sliderPerso'>
+            Crises Rate
+            <Slider
+                value={crises}
+                orientation='vertical'
+                labels={cLabels}
+                handleLabel={crises}
+                format={formatPc}
+
+                onChange={(crises) => this.handleChangeVertical( crises, "crises")}
+            />
+            <div className='value'>{formatPc(crises)}</div>
+        </div>
       </div>
     )
   }

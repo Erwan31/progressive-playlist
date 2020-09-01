@@ -175,12 +175,17 @@ body{
 }
 
 
-
-
-
-
-
-/*
-.chart{
+/* Sliders */
+.sliders{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: space-evenly;
+  max-width: 1000px;
 }
-*/
+
+.sliderPerso{
+  margin: 2rem;
+  width: 20vw;
+}

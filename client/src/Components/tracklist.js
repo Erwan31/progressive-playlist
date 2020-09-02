@@ -169,14 +169,29 @@ class TrackList extends Component {
 
       //  this.setState({ sliders }); // infinite loop
       const average = this.state.average;
-        const nonFilteredTracksFeatures = this.state.filteredTracksFeatures.map( (track) => {
+        const nonFilteredTracksFeatures = this.state.tracksFeatures.map( (track) => {
+            // Rename better those array values as object, it's confusing
             track[2] = computeTrackFeatureCoefficient( track[1], average, sliders );
             return track;
         });
 
         console.log(nonFilteredTracksFeatures);
 
-        const filteredTracksFeatures = this.sortByAscCoef( nonFilteredTracksFeatures );
+        let filteredTracksFeatures = this.sortByAscCoef( nonFilteredTracksFeatures );
+        const ratio = Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum);
+        console.log('ratio', ratio);
+        
+        // Get into account the number of tracks chosen to make the playlist
+        if( sliders.tracksNum < filteredTracksFeatures.length){
+            filteredTracksFeatures = filteredTracksFeatures.filter( (track, i) => {
+                if(i%(Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum)) === 0){
+                    console.log('yo',i%Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum), track);
+                    return track;
+                }
+            });
+            console.log('reduced', filteredTracksFeatures)
+        }
+
         this.setState({ filteredTracksFeatures });
 /*
         let  filteredTracksFeatures = this.state.filteredTracksFeatures;
@@ -189,7 +204,7 @@ class TrackList extends Component {
         const rSelected = this.state.rSelected;
         const rDirection = this.state.rDirection;
 
-        console.log('filteredTracksFeatures', filteredTracksFeatures);
+        console.log('filteredTracksFeatures', filteredTracksFeatures, filteredTracksFeatures.length);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
@@ -197,12 +212,12 @@ class TrackList extends Component {
                 <div className="filterPanel">
                     {filteredTracksFeatures[0] &&
                         <div className="filtersKnobs">
-                            <HorizontalCustomLabels onChangeSliders={(sliders) => this.handleSliderChange(sliders)} />
+                            <HorizontalCustomLabels tracksNum={filteredTracksFeatures.length} onChangeSliders={(sliders) => this.handleSliderChange(sliders)} />
                         </div>
                     }
                     { filteredTracksFeatures[0] && <Charts tracksFeatures={filteredTracksFeatures}/>}
-                    <div className="mainFilterCriteria">Canvas</div>
                 </div>
+                {/*
                 <ButtonGroup className="criteriaButtons">
                     <Button 
                         color="success" 
@@ -224,6 +239,7 @@ class TrackList extends Component {
                         Mood {rSelected === 2 ? rDirection[rSelected] : ""}
                     </Button>
                 </ButtonGroup>
+                */}
                 <div className="tableTracks">
                     <Table  hover>
                         <thead>

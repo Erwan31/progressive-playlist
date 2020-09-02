@@ -6,6 +6,8 @@ class HorizontalCustomLabels extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
+      tracksNumMax: this.props.tracksNum,
+      tracksNum: this.props.tracksNum,
       danceability: 0,
       energy: 0,
       mood: 0,
@@ -32,69 +34,69 @@ class HorizontalCustomLabels extends Component {
   }
 
   render () {
-    const { danceability, energy, mood, crises } = this.state;
-    const state = this.state;
+    const { tracksNum, tracksNumMax,danceability, energy, mood, crises } = this.state;
+    const tLabels = { 0: '10', 100: 'All'};
     const dLabels = { 0: '', 100: 'Booty Shake'};
     const eLabels = { 0: 'Sloth', 100: 'A lot'};
     const mLabels = { 0: 'Sad', 50: 'Neutral', 100: 'Happy'};
     const cLabels = { 0: 'None', 100: 'Many'};
 
-    const formatPc = p => p + '%';
+    console.log('tracksNum', tracksNum);
 
     return (
         <div className="sliders">
             <div className='slider custom-labels sliderPerso'>
-            Danceability
-            <Slider
-                value={danceability}
-                orientation='vertical'
-                labels={dLabels}
-                handleLabel={danceability}
-                format={formatPc}
-                onChange={(danceability) => this.handleChangeVertical( danceability, "danceability")}
-                onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-            />
-            <div className='value'>{formatPc(danceability)}</div>
-        </div>
-        <div className='slider custom-labels sliderPerso'>
-            Energy
-            <Slider
-                value={energy}
-                orientation='vertical'
-                labels={eLabels}
-                handleLabel={energy}
-                format={formatPc}
-                onChange={(energy) => this.handleChangeVertical( energy, "energy")}
-                onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-            />
-            <div className='value'>{formatPc(energy)}</div>
-        </div>
-        <div className='slider custom-labels sliderPerso'>
-            Mood
-            <Slider
-                value={mood}
-                orientation='vertical'
-                labels={mLabels}
-                handleLabel={mood}
-                format={formatPc}
-                onChange={(mood) => this.handleChangeVertical( mood, "mood")}
-                onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-            />
-            <div className='value'>{formatPc(mood)}</div>
-        </div>
-        <div className='slider custom-labels sliderPerso'>
-            Crises Rate
-            <Slider
-                value={crises}
-                orientation='vertical'
-                labels={cLabels}
-                handleLabel={crises}
-                format={formatPc}
-                onChange={(crises) => this.handleChangeVertical( crises, "crises")}
-                onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-            />
-            <div className='value'>{formatPc(crises)}</div>
-        </div>
+                Tracks
+                <Slider
+                    min={10}
+                    max={tracksNumMax}
+                    value={tracksNum}
+                    orientation='vertical'
+                    labels={tLabels}
+                    onChange={(tracks) => this.handleChangeVertical( tracks, "tracksNum")}
+                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
+                />
+            </div>
+            <div className='slider custom-labels sliderPerso'>
+                Danceability
+                <Slider
+                    value={danceability}
+                    orientation='vertical'
+                    labels={dLabels}
+                    onChange={(danceability) => this.handleChangeVertical( danceability, "danceability")}
+                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
+                />
+            </div>
+            <div className='slider custom-labels sliderPerso'>
+                Energy
+                <Slider
+                    value={energy}
+                    orientation='vertical'
+                    labels={eLabels}
+                    onChange={(energy) => this.handleChangeVertical( energy, "energy")}
+                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
+                />
+            </div>
+            <div className='slider custom-labels sliderPerso'>
+                Mood
+                <Slider
+                    value={mood}
+                    orientation='vertical'
+                    labels={mLabels}
+                    onChange={(mood) => this.handleChangeVertical( mood, "mood")}
+                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
+                />
+            </div>
+            <div className='slider custom-labels sliderPerso'>
+                Crises Rate
+                <Slider
+                    value={crises}
+                    orientation='vertical'
+                    labels={cLabels}
+                    onChange={(crises) => this.handleChangeVertical( crises, "crises")}
+                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
+                />
+            </div>
       </div>
     )
   }

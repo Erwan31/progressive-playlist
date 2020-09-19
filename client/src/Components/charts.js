@@ -12,7 +12,7 @@ const Charts = ({tracksFeatures}) => {
     const valence = features.map( track => track.valence);
     const length = features.length;
     const labels = features.map( () => "");
-    console.log(length, danceability);
+    //console.log(length, danceability);
 
 
     const data = (arr, label, color) =>{

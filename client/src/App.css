@@ -118,6 +118,8 @@ body{
 /* Table with Tracks */
 .tableTracks{
   width: 80vw;
+  font-size: 2.5rem;
+  margin: 3rem;
 }
 
 .albumThumbnail{
@@ -126,18 +128,14 @@ body{
 
 .filterPanel{
   display: flex;
+  flex-direction: column;
   align-items: center;
   align-content: flex-start;
-  justify-content: space-between;
+  justify-content: space-evenly;
   width: 95vw;
   border-radius: 5rem;
   
   background: #2C3049;
-}
-
-.filterPanel{
-  display: flex;
-  flex-direction: column;
 }
 
 /* Charts */
@@ -190,12 +188,21 @@ body{
   align-items: center;
   align-content: flex-start;
   justify-content: space-evenly;
-  max-width: 1000px;
+  /*max-width: 1000px;*/
 }
 
 .sliderPerso{
-  margin: 2rem;
-  width: 20vw;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  margin: 30px 2vw;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 12rem;
+}
+
+.sliderName{
+  font-size: 2rem;
 }
 
 /**

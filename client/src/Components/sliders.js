@@ -31,9 +31,10 @@ class HorizontalCustomLabels extends Component {
     const values = this.state;
     values[parameter] = value;
 
-    //console.log('values', value, parameter);
+    console.log('values', value, parameter);
 
     this.setState({
+        tracksNum: values.tracksNum,
         danceability:  values.danceability,
         energy:  values.energy,
         mood:  values.mood,
@@ -45,22 +46,63 @@ class HorizontalCustomLabels extends Component {
     const state = this.state;
 
     console.log(state);
-    
+
     this.props.onChangeSliders(state);
   }
 
   render() {
+    const { tracksNum, tracksNumMax,danceability, energy, mood, crises } = this.state;
+
+    //console.log("max tracks", tracksNumMax);
+
     return (
-      <>
+      <div className="sliders">
         <SliderRR 
+          name={"Tracks"}
+          max={tracksNumMax} 
+          min={10} 
+          current={tracksNumMax} 
+          colors={'#A850FE'} 
+          onChange={(value) => this.handleChangeVertical( value, "tracksNum")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
+        />
+        <SliderRR
+          name={"Danceability"} 
           max={100} 
           min={0} 
-          current={40} 
+          current={0} 
+          colors={'#6EDF36'} 
+          onChange={(value) => this.handleChangeVertical( value, "danceability")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
+        />
+        <SliderRR
+          name={"Energy"} 
+          max={100} 
+          min={0} 
+          current={0} 
           colors={'#3A77E0'} 
           onChange={(value) => this.handleChangeVertical( value, "energy")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
         />
-      </>
+        <SliderRR 
+          name={"Mood"}
+          max={100} 
+          min={0} 
+          current={0} 
+          colors={'#EB690F'} 
+          onChange={(value) => this.handleChangeVertical( value, "mood")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
+        />
+        <SliderRR
+          name={"Crises"} 
+          max={5} 
+          min={0} 
+          current={0} 
+          colors={'#1F2436'} 
+          onChange={(value) => this.handleChangeVertical( value, "crises")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
+        />
+      </div>
     )
   }
 

@@ -32,7 +32,7 @@ class TrackList extends Component {
     }
 
     async componentDidMount() {
-        console.log('compo did it');
+        //console.log('compo did it');
 
         // Get up to 100 tracks from playlist 
         const token = this.props.playlistInfo.token;
@@ -95,7 +95,7 @@ class TrackList extends Component {
                 }
             });
 
-            console.log('filteredTracks', filteredTracksFeatures);
+            //console.log('filteredTracks', filteredTracksFeatures);
             this.setState( { filteredTracksFeatures, tracksFeatures: filteredTracksFeatures });
         }
     }
@@ -165,32 +165,61 @@ class TrackList extends Component {
 
     // Sliders
     handleSliderChange = (sliders) => {
-        console.log("slidervalue change", sliders);
+        //console.log("slidervalue change", sliders);
 
       //  this.setState({ sliders }); // infinite loop
-      const average = this.state.average;
+        const average = this.state.average;
         const nonFilteredTracksFeatures = this.state.tracksFeatures.map( (track) => {
             // Rename better those array values as object, it's confusing
             track[2] = computeTrackFeatureCoefficient( track[1], average, sliders );
             return track;
         });
 
-        console.log(nonFilteredTracksFeatures);
+        //console.log(nonFilteredTracksFeatures);
 
         let filteredTracksFeatures = this.sortByAscCoef( nonFilteredTracksFeatures );
         const ratio = Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum);
-        console.log('ratio', ratio);
+        //console.log('ratio', ratio);
         
         // Get into account the number of tracks chosen to make the playlist
         if( sliders.tracksNum < filteredTracksFeatures.length){
             filteredTracksFeatures = filteredTracksFeatures.filter( (track, i) => {
                 if(i%(Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum)) === 0){
-                    console.log('yo',i%Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum), track);
+                    //console.log('yo',i%Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum), track);
                     return track;
                 }
             });
-            console.log('reduced', filteredTracksFeatures);
+           // console.log('reduced', filteredTracksFeatures);
         }
+
+        // Crises swaping for a better storytelling
+        if( sliders.crises !== 0 && sliders.tracksNum > 11){
+            let temp = [];
+
+            console.log(filteredTracksFeatures);
+
+            // Pass through all songs
+            // See at what frequency swapping should happen
+            // Swap in between 4 songs around the target track
+            // Could it be a propotional function to smooth it out?
+            for( let i = 1; i < sliders.tracksNum-2; i++){
+                console.log("track floor", i%(Math.floor(sliders.tracksNum/sliders.crises)));
+
+                if( i>5 && i%(Math.floor(sliders.tracksNum/sliders.crises)) === 0 ){
+                    temp[0] = filteredTracksFeatures[i-2];
+                    temp[1] = filteredTracksFeatures[i-1];
+                    temp[2] = filteredTracksFeatures[i+1];
+                    temp[3] = filteredTracksFeatures[i+2];
+
+                    filteredTracksFeatures[i+2] = temp[0];
+                    filteredTracksFeatures[i+1] = temp[1];
+                    filteredTracksFeatures[i-1] = temp[2];
+                    filteredTracksFeatures[i-2] = temp[3];
+                }
+            }
+        }
+
+        console.log(filteredTracksFeatures);
 
         this.setState({ filteredTracksFeatures });
 /*
@@ -204,7 +233,7 @@ class TrackList extends Component {
         const rSelected = this.state.rSelected;
         const rDirection = this.state.rDirection;
 
-        console.log('filteredTracksFeatures', filteredTracksFeatures, filteredTracksFeatures.length);
+        //console.log('filteredTracksFeatures', filteredTracksFeatures, filteredTracksFeatures.length);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (

@@ -132,7 +132,7 @@ body{
   width: 95vw;
   border-radius: 5rem;
   
-  background-image: radial-gradient(circle, #f1e6b2, #eadda2, #e3d593, #dccc83, #d5c474);
+  background: #2C3049;
 }
 
 .filterPanel{

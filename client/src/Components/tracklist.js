@@ -190,7 +190,6 @@ class TrackList extends Component {
                 }
             });
             console.log('reduced', filteredTracksFeatures);
-            console.log("hello");
         }
 
         this.setState({ filteredTracksFeatures });

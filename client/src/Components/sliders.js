@@ -1,11 +1,16 @@
 import React, { Component } from 'react'
-import Slider from 'react-rangeslider'
-import 'react-rangeslider/lib/index.css'
-
-import { Range, getTrackBackground } from 'react-range';
+//import Slider from 'react-rangeslider'
+//import 'react-rangeslider/lib/index.css'
+/*
+import { Range, getTrackBackground, Direction } from 'react-range';
+import Slider from './slider';
 const STEP = 1;
 const MIN = 0;
 const MAX = 100;
+*/
+
+import SliderRR from './slider'
+
 
 class HorizontalCustomLabels extends Component {
   constructor (props, context) {
@@ -26,7 +31,7 @@ class HorizontalCustomLabels extends Component {
     const values = this.state;
     values[parameter] = value;
 
-    console.log('values', value, values[parameter]);
+    //console.log('values', value, parameter);
 
     this.setState({
         danceability:  values.danceability,
@@ -38,84 +43,24 @@ class HorizontalCustomLabels extends Component {
 
   handleAndDelayChangeComplete = () => {
     const state = this.state;
+
+    console.log(state);
+    
     this.props.onChangeSliders(state);
   }
 
   render() {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          margin: "2em"
-        }}
-      >
-        <Range
-          values={this.state.values}
-          step={STEP}
-          min={MIN}
-          max={MAX}
-          onChange={values => this.setState({ values })}
-          renderTrack={({ props, children }) => (
-            <div
-              onMouseDown={props.onMouseDown}
-              onTouchStart={props.onTouchStart}
-              style={{
-                ...props.style,
-                height: "36px",
-                display: "flex",
-                width: "100%"
-              }}
-            >
-              <div
-                ref={props.ref}
-                style={{
-                  height: "5px",
-                  width: "100%",
-                  borderRadius: "4px",
-                  background: getTrackBackground({
-                    values: this.state.values,
-                    colors: ["#548BF4", "#ccc"],
-                    min: MIN,
-                    max: MAX
-                  }),
-                  alignSelf: "center"
-                }}
-              >
-                {children}
-              </div>
-            </div>
-          )}
-          renderThumb={({ props, isDragged }) => (
-            <div
-              {...props}
-              style={{
-                ...props.style,
-                height: "42px",
-                width: "42px",
-                borderRadius: "4px",
-                backgroundColor: "#FFF",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                boxShadow: "0px 2px 6px #AAA"
-              }}
-            >
-              <div
-                style={{
-                  height: "16px",
-                  width: "5px",
-                  backgroundColor: isDragged ? "#548BF4" : "#CCC"
-                }}
-              />
-            </div>
-          )}
+      <>
+        <SliderRR 
+          max={100} 
+          min={0} 
+          current={40} 
+          colors={'#3A77E0'} 
+          onChange={(value) => this.handleChangeVertical( value, "energy")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
         />
-        <output style={{ marginTop: "30px" }} id="output">
-          {this.state.values[0].toFixed(1)}
-        </output>
-      </div>
+      </>
     )
   }
 

@@ -180,6 +180,9 @@ class TrackList extends Component {
         let filteredTracksFeatures = this.sortByAscCoef( nonFilteredTracksFeatures );
         const ratio = Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum);
         //console.log('ratio', ratio);
+
+
+        // Music types to take out -> necessarly applied on the original playlist
         
         // Get into account the number of tracks chosen to make the playlist
         if( sliders.tracksNum < filteredTracksFeatures.length){
@@ -219,7 +222,9 @@ class TrackList extends Component {
             }
         }
 
-        console.log(filteredTracksFeatures);
+        // Asc or Desc -> reverse button
+
+        // Track enable or disabled -> hover from reactstrap to see
 
         this.setState({ filteredTracksFeatures });
 /*

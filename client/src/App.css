@@ -119,7 +119,7 @@ body{
 .tableTracks{
   width: 80vw;
   font-size: 2.5rem;
-  margin: 3rem;
+  margin: 2rem;
 }
 
 .albumThumbnail{
@@ -188,6 +188,7 @@ body{
   align-items: center;
   align-content: flex-start;
   justify-content: space-evenly;
+  font-size: 2rem;
   /*max-width: 1000px;*/
 }
 
@@ -198,12 +199,40 @@ body{
   margin: 30px 2vw;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.sliderSideButtons{
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 30px 2vw;
   width: 12rem;
 }
 
+.genreButtons{
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonToggle{
+  margin: 1rem 0;
+  border-radius: 2.5rem;
+}
+
+.reverse{
+  height: 5rem; 
+}
+
+.reverse+.active{
+  background-color: #272822;
+}
+
+/*
 .sliderName{
   font-size: 2rem;
 }
+*/
 
 /**
 * Rangeslider

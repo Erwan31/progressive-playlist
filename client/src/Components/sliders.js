@@ -10,6 +10,7 @@ const MAX = 100;
 */
 
 import SliderRR from './slider'
+import { ButtonToggle, ButtonGroup } from "reactstrap";
 
 
 class HorizontalCustomLabels extends Component {
@@ -22,8 +23,8 @@ class HorizontalCustomLabels extends Component {
       energy: 0,
       mood: 0,
       crises: 0,
-
-      values: [50]
+      reverse: false,
+      genre: [true, true, true, true, true]
     }
   }
 
@@ -50,6 +51,15 @@ class HorizontalCustomLabels extends Component {
     this.props.onChangeSliders(state);
   }
 
+  genreToggle = (num) => {
+    const genre = [...this.state.genre];
+
+    genre[num] = !genre[num];
+
+    //console.log("genre", genre);
+    this.setState({genre});
+  }
+
   render() {
     const { tracksNum, tracksNumMax,danceability, energy, mood, crises } = this.state;
 
@@ -57,6 +67,38 @@ class HorizontalCustomLabels extends Component {
 
     return (
       <div className="sliders">
+        <div className="sliderSideButtons">
+          <div className="genreButtons">
+            Genre
+            <ButtonGroup vertical>
+              <ButtonToggle 
+                className="buttonToggle" 
+                onClick={() => this.genreToggle(0)} active={this.state.genre[0]}>
+                  1
+              </ButtonToggle>
+              <ButtonToggle 
+                className="buttonToggle" 
+                onClick={() => this.genreToggle(1)} 
+                active={this.state.genre[1]}>
+                  2
+              </ButtonToggle>
+              <ButtonToggle 
+                className="buttonToggle" 
+                onClick={() => this.genreToggle(2)} 
+                active={this.state.genre[2]}>
+                  3
+              </ButtonToggle>
+            </ButtonGroup>
+          </div>
+          <ButtonToggle 
+            className="buttonToggle reverse" 
+            color="info"  
+            onClick={() => this.genreToggle(0)} 
+            active={this.state.reverse}>
+              Reverse
+          </ButtonToggle>
+        </div>
+
         <SliderRR 
           name={"Tracks"}
           max={tracksNumMax} 
@@ -95,9 +137,9 @@ class HorizontalCustomLabels extends Component {
         />
         <SliderRR
           name={"Crises"} 
-          max={5} 
-          min={0} 
-          current={0} 
+          max={6} 
+          min={1} 
+          current={1} 
           colors={'#1F2436'} 
           onChange={(value) => this.handleChangeVertical( value, "crises")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }

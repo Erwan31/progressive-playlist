@@ -15,6 +15,8 @@ class TrackList extends Component {
 
         this.state = {
             tracks: [],
+            tracksIDs: [],
+            tracksIDsSorted: [],
             audio_features: [],
             tracksFeatures: [],
             artists: [],
@@ -281,6 +283,18 @@ class TrackList extends Component {
             filteredTracksFeatures = this.reverseOrder(filteredTracksFeatures);
         }
 
+        let idsSorted = [];
+        console.log("ffff", filteredTracksFeatures);
+        //Get Ids sorted for playlist export to spotify
+        for(let i = 0; i < filteredTracksFeatures.length; i++){
+            //console.log('id', this.state.tracks[i].track.id)
+            idsSorted.push(filteredTracksFeatures[i][0].id);
+        }
+
+        this.setState({tracksIDsSorted: idsSorted});
+
+        console.log("tracksIDSSorted", this.state.tracksIDsSorted);
+
         // Track enable or disabled -> hover from reactstrap to see
 
         this.setState({ filteredTracksFeatures });
@@ -315,7 +329,10 @@ class TrackList extends Component {
                         }
                         {<Charts tracksFeatures={filteredTracksFeatures}/>}
                     </div>
-                    <CreatePlaylits auth={{Authorization: "Bearer " + token}}/>
+                    <CreatePlaylits 
+                        auth={{Authorization: "Bearer " + token}}
+                        tracksIDs={this.state.tracksIDsSorted}
+                    />
                     <div className="tableTracks">
                         <Table  hover>
                             <thead>

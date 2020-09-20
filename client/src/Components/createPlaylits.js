@@ -21,8 +21,15 @@ class CreatePlaylits extends Component {
 
 
         const CREATEPLAYLITSURL = `https://api.spotify.com/v1/users/${dataID.id}/playlists`;
-        
-        console.log("auth", this.props.auth);
+        let newPlaylistID = 0;
+        const tracksIDs = this.props.tracksIDs;
+
+        let URIs= Array.from( tracksIDs, element =>
+                "spotify%3Atrack%3A" + element
+                );
+        URIs = URIs.join(",");
+
+        console.log("URIs", URIs);
 
         const data = {
             name: "A New Playlist",
@@ -38,16 +45,19 @@ class CreatePlaylits extends Component {
                                         'content-type': 'application/json',
                                     });
             console.log(response);
+
+            newPlaylistID = response.data.id;
+            console.log(newPlaylistID);
         }
         catch(error){
             console.log("create playlist", error);
         };
 
-        /*
         try{
+            const ADDTRACKSURL = `https://api.spotify.com/v1/playlists/${newPlaylistID}/tracks?uris=${URIs}`;
             const response = await axios.post(
-                CREATEPLAYLITSURL, 
-                data,
+                ADDTRACKSURL,
+                {},
                 {
                     headers: this.props.auth,
                     'content-type': 'application/json',
@@ -57,7 +67,6 @@ class CreatePlaylits extends Component {
         catch(error){
             console.log("add tracks to playlist", error);
         };
-        */
     }
 
     render() { 

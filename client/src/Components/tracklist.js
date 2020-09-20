@@ -27,7 +27,8 @@ class TrackList extends Component {
                 energy: 0,
                 mood: 0,
                 crises: 0,
-            }
+            },
+            reverse: false,
         };
     }
 
@@ -118,6 +119,14 @@ class TrackList extends Component {
     sortByDescCriteria = (arr, parameter) => {
         const sorted = arr.sort( ( a, b) =>
         b[parameter] - a[parameter]);
+        return sorted;
+    }
+
+    reverseOrderButton = (arr) => {
+        const sorted = arr.sort( ( a, b) => -1);
+        let reverse = this.state.reverse;
+        reverse = !reverse;
+        this.setState({reverse})
         return sorted;
     }
 
@@ -224,6 +233,9 @@ class TrackList extends Component {
         }
 
         // Asc or Desc -> reverse button
+        if( this.state.reverse ){
+            filteredTracksFeatures = this.reverseOrder(filteredTracksFeatures);
+        }
 
         // Track enable or disabled -> hover from reactstrap to see
 
@@ -251,7 +263,7 @@ class TrackList extends Component {
                                 tracksNum={filteredTracksFeatures.length} 
                                 onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
                                 onGenreButtons={ (buttons) => console.log("genre change")}
-                                onReverse={ () => this.setState( {filteredTracksFeatures: this.reverseOrder(filteredTracksFeatures)})}
+                                onReverse={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})}
                             />
                         </div>
                     }

@@ -105,7 +105,14 @@ class HorizontalCustomLabels extends Component {
             className="buttonToggle reverse" 
             color="info"  
             onClick={this.reverseOrder} 
-            active={this.state.reverse}>
+            active={this.state.reverse}
+            style={{
+              fontSize: "12px",
+              height: "50px",
+              width: "75px",
+              borderRadius: "25px",
+              margin: "15px"
+            }}>
               Reverse
           </ButtonToggle>
         </div>

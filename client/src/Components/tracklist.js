@@ -5,6 +5,7 @@ import { redirectUri } from './../config';
 import Charts from './charts';
 import HorizontalCustomLabels from './sliders';
 import { computeTrackFeatureCoefficient } from './scripts/sliderCoef';
+import CreatePlaylits from './createPlaylits';
 
 const CRITERIA = ["danceability", "energy", "valence"];
 
@@ -43,7 +44,8 @@ class TrackList extends Component {
             Authorization: "Bearer " + token
         };
 
-        const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {headers: headerContent});
+        const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
+                                 {headers: headerContent});
         const data = await response.data;
         
         this.setState( { tracks: data.items });
@@ -292,76 +294,57 @@ class TrackList extends Component {
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
         const rSelected = this.state.rSelected;
         const rDirection = this.state.rDirection;
+        const token = this.props.playlistInfo.token;
 
         //console.log('filteredTracksFeatures', filteredTracksFeatures, filteredTracksFeatures.length);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
-            <>
-                <div className="filterPanel">
-                    {filteredTracksFeatures[0] &&
-                        <div className="filtersKnobs">
-                            <HorizontalCustomLabels 
-                                tracksNum={filteredTracksFeatures.length} 
-                                onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
-                                onGenreButtons={ (buttons) => console.log("genre change")}
-                                onReverse={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})}
-                            />
-                        </div>
-                    }
-                    { filteredTracksFeatures[0] && <Charts tracksFeatures={filteredTracksFeatures}/>}
-                </div>
-                {/*
-                <ButtonGroup className="criteriaButtons">
-                    <Button 
-                        color="success" 
-                        onClick={() => this.onCheckboxBtnClick(0)}
-                        active={rSelected === 0}>
-                        Danceability {rSelected === 0 ? rDirection[rSelected] : ""}
-                    </Button>
+            <main className="tracklist">
+                {filteredTracksFeatures[0] &&
+                <>
+                    <div className="filterPanel">
+                        {<div className="filtersKnobs">
+                                <HorizontalCustomLabels 
+                                    tracksNum={filteredTracksFeatures.length} 
+                                    onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
+                                    onGenreButtons={ (buttons) => console.log("genre change")}
+                                    onReverse={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})}
+                                />
+                            </div>
+                        }
+                        {<Charts tracksFeatures={filteredTracksFeatures}/>}
+                    </div>
+                    <CreatePlaylits auth={{Authorization: "Bearer " + token}}/>
+                    <div className="tableTracks">
+                        <Table  hover>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th>Album</th>
+                            </tr>
+                            </thead>
 
-                    <Button 
-                        color="info" 
-                        onClick={() => this.onCheckboxBtnClick(1)} 
-                        active={rSelected === 1}>
-                        Energy {rSelected === 1 ? rDirection[rSelected] : ""}
-                    </Button>
-                    <Button 
-                        color="warning" 
-                        onClick={() => this.onCheckboxBtnClick(2)} 
-                        active={rSelected === 2}>
-                        Mood {rSelected === 2 ? rDirection[rSelected] : ""}
-                    </Button>
-                </ButtonGroup>
-                */}
-                <div className="tableTracks">
-                    <Table  hover>
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>Title</th>
-                            <th>Artist</th>
-                            <th>Album</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                            {
-                            filteredTracksFeatures[0] && filteredTracksFeatures.map( (track, i) => 
-                                <tr key={i}>
-                                    <th scope="row">
-                                        <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
-                                    </th>
-                                    <td>{track[0].name}</td>
-                                    <td>{track[0].artists[0].name}</td>
-                                    <td>{track[0].album.name}</td>
-                                </tr>
-                                )
-                            }
-                        </tbody>
-                    </Table>
-                </div>
-            </>
+                            <tbody>
+                                {filteredTracksFeatures.map( (track, i) => 
+                                    <tr key={i}>
+                                        <th scope="row">
+                                            <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
+                                        </th>
+                                        <td>{track[0].name}</td>
+                                        <td>{track[0].artists[0].name}</td>
+                                        <td>{track[0].album.name}</td>
+                                    </tr>
+                                    )
+                                }
+                            </tbody>
+                        </Table>
+                    </div>
+                </>
+            }
+            </main>
          );
     }
 }

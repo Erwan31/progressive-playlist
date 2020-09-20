@@ -115,11 +115,16 @@ body{
   overflow: hidden;
 }
 
+/* Tracklist */
+.tracklist{
+  max-width: 1200px;
+}
+
 /* Table with Tracks */
 .tableTracks{
-  width: 80vw;
+  width: 100%;
   font-size: 2.5rem;
-  margin: 2rem;
+  margin: 2rem 0;
 }
 
 .albumThumbnail{
@@ -130,11 +135,11 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-content: flex-start;
+  align-content: center;
   justify-content: space-evenly;
-  width: 95vw;
+  width: 97%;
   border-radius: 5rem;
-  
+  margin: auto;
   background: #2C3049;
 }
 
@@ -146,14 +151,14 @@ body{
   justify-content: space-evenly;
   position: relative; 
   height:30vh; 
-  width: 100vw;
+  width: 100%;
   /*background: linear-gradient(to right, #dc2e2e, #e74d49, #f16764, #f9807e, #ff9898);*/
 }
 
 .chart{
   margin: 1vh 0.5vw;
   padding: 1vh 2vw 1vh 1vw;
-  width: 27vw;
+  width: 27%;
   height: 20vh; 
 
   border-radius: 2.5rem;
@@ -222,10 +227,16 @@ body{
 
 .reverse{
   height: 5rem; 
+  font-size: 2rem;
 }
 
 .reverse+.active{
   background-color: #272822;
+}
+
+.buttonPlaylits{
+  height: 5rem; 
+  font-size: 10rem;
 }
 
 /*

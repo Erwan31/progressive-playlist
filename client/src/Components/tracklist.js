@@ -16,6 +16,7 @@ class TrackList extends Component {
             tracks: [],
             audio_features: [],
             tracksFeatures: [],
+            artists: [],
             coefFeatures: [],
             average: {avD: 0, avE: 0, avM: 0},
             filteredTracksFeatures: [],
@@ -47,19 +48,60 @@ class TrackList extends Component {
         
         this.setState( { tracks: data.items });
 
-        let ids = [];
+        let idsAF = [];
 
         //Get tracks ids and request audio features
         for(let i = 0; i < this.state.tracks.length; i++){
             //console.log('id', this.state.tracks[i].track.id)
-            ids.push(this.state.tracks[i].track.id);
+            idsAF.push(this.state.tracks[i].track.id);
         }
 
-        const idsString = ids.join(",");
-        const response1 = await axios.get(`https://api.spotify.com/v1/audio-features/?ids=${idsString}`, {headers: headerContent});
+        const idsStringAF = idsAF.join(",");
+        const response1 = await axios.get(`https://api.spotify.com/v1/audio-features/?ids=${idsStringAF}`, {headers: headerContent});
         const data1 = await response1.data;
            
         this.setState({ audio_features:  data1.audio_features});
+
+
+        let idsArtists = [];
+
+        //Get artists ids and request them
+        for(let i = 0; i < this.state.tracks.length; i++){
+            //console.log('id', this.state.tracks[i].track.id)
+            idsArtists.push(this.state.tracks[i].track.artists[0].id);
+        }
+
+        const idsStringArtists = idsArtists.join(",");
+        const response2 = await axios.get(`https://api.spotify.com/v1/artists/?ids=${idsStringArtists}`, {headers: headerContent});
+        const data2 = await response2.data;
+           
+        console.log("artists", data2);
+        this.setState({ artists:  data2.artists});
+
+        /*
+        // Get 3 first genre per artists, store them inside an array with a counter
+        // Display the 5 main genres on the buttons
+        // Init object with genre and counting its occurence
+        let genres = [{genre: "", count: 0}];
+        // Go through artists
+        for( let i = 0; i < this.state.tracks.length; i++){
+            // Store artists genres array
+            const genresArtist = this.state.artists[i].genres;
+            console.log("genreA", genresArtist);
+
+            genres.forEach( genreCount => {
+                genresArtist.forEach( genre =>{
+                    if(genreCount.genre === genre){
+                        genreCount.count++;
+                    }
+                    else genres.push({genre: genre, count: 1});
+                })
+                console.log(genreCount, genres);
+            })
+
+            // For each genre, store it if it never occured, increment count if it is already there
+        }
+        */
 
 
         if( this.state.audio_features.length > 0 ){

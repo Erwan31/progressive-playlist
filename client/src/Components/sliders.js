@@ -60,6 +60,17 @@ class HorizontalCustomLabels extends Component {
     this.setState({genre});
   }
 
+  reverseOrder = () => {
+    let reverse = this.state.reverse;
+
+    this.props.onReverse();
+
+    reverse = !reverse;
+
+    this.setState({reverse});
+
+  }
+
   render() {
     const { tracksNum, tracksNumMax,danceability, energy, mood, crises } = this.state;
 
@@ -93,7 +104,7 @@ class HorizontalCustomLabels extends Component {
           <ButtonToggle 
             className="buttonToggle reverse" 
             color="info"  
-            onClick={() => this.genreToggle(0)} 
+            onClick={this.reverseOrder} 
             active={this.state.reverse}>
               Reverse
           </ButtonToggle>

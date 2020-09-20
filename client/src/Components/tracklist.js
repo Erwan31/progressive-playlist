@@ -123,6 +123,7 @@ class TrackList extends Component {
 
     reverseOrder = (arr) => {
         const sorted = arr.sort( ( a, b) => -1);
+        return sorted;
     }
 
     // Radio Buttons & filtering
@@ -246,7 +247,12 @@ class TrackList extends Component {
                 <div className="filterPanel">
                     {filteredTracksFeatures[0] &&
                         <div className="filtersKnobs">
-                            <HorizontalCustomLabels tracksNum={filteredTracksFeatures.length} onChangeSliders={(sliders) => this.handleSliderChange(sliders)} />
+                            <HorizontalCustomLabels 
+                                tracksNum={filteredTracksFeatures.length} 
+                                onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
+                                onGenreButtons={ (buttons) => console.log("genre change")}
+                                onReverse={ () => this.setState( {filteredTracksFeatures: this.reverseOrder(filteredTracksFeatures)})}
+                            />
                         </div>
                     }
                     { filteredTracksFeatures[0] && <Charts tracksFeatures={filteredTracksFeatures}/>}

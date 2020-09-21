@@ -117,20 +117,36 @@ class HorizontalCustomLabels extends Component {
           </ButtonToggle>
         </div>
 
-        <SliderRR 
-          name={"Tracks"}
-          max={tracksNumMax} 
-          min={10} 
-          current={tracksNumMax} 
-          colors={'#A850FE'} 
-          onChange={(value) => this.handleChangeVertical( value, "tracksNum")}
-          onFinalChange = { () => this.handleAndDelayChangeComplete() }
-        />
+        {
+          tracksNumMax > 10 ? 
+          <SliderRR 
+            name={"Tracks"}
+            max={tracksNumMax} 
+            min={10} 
+            current={tracksNumMax}
+            disabled={false} 
+            colors={'#A850FE'} 
+            onChange={(value) => this.handleChangeVertical( value, "tracksNum")}
+            onFinalChange = { () => this.handleAndDelayChangeComplete() }
+          />
+          :<SliderRR 
+            name={"Tracks"}
+            max={10} 
+            min={0} 
+            current={0} 
+            disabled={true}
+            colors={'grey'} 
+            onChange={() => null}
+            onFinalChange = { () => null }
+          />
+        }
+        
         <SliderRR
           name={"Danceability"} 
           max={100} 
           min={0} 
           current={0} 
+          disabled={false} 
           colors={'#6EDF36'} 
           onChange={(value) => this.handleChangeVertical( value, "danceability")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
@@ -139,7 +155,8 @@ class HorizontalCustomLabels extends Component {
           name={"Energy"} 
           max={100} 
           min={0} 
-          current={0} 
+          current={0}
+          disabled={false}  
           colors={'#3A77E0'} 
           onChange={(value) => this.handleChangeVertical( value, "energy")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
@@ -148,7 +165,8 @@ class HorizontalCustomLabels extends Component {
           name={"Mood"}
           max={100} 
           min={0} 
-          current={0} 
+          current={0}
+          disabled={false}  
           colors={'#EB690F'} 
           onChange={(value) => this.handleChangeVertical( value, "mood")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
@@ -157,7 +175,8 @@ class HorizontalCustomLabels extends Component {
           name={"Crises"} 
           max={6} 
           min={1} 
-          current={1} 
+          current={1}
+          disabled={false}  
           colors={'#1F2436'} 
           onChange={(value) => this.handleChangeVertical( value, "crises")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }

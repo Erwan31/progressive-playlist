@@ -1,17 +1,5 @@
 import React, { Component } from 'react'
-//import Slider from 'react-rangeslider'
-//import 'react-rangeslider/lib/index.css'
-/*
-import { Range, getTrackBackground, Direction } from 'react-range';
-import Slider from './slider';
-const STEP = 1;
-const MIN = 0;
-const MAX = 100;
-*/
-
 import SliderRR from './slider'
-import { ButtonToggle, ButtonGroup } from "reactstrap";
-
 
 class HorizontalCustomLabels extends Component {
   constructor (props, context) {
@@ -78,45 +66,6 @@ class HorizontalCustomLabels extends Component {
 
     return (
       <div className="sliders">
-        <div className="sliderSideButtons">
-          <div className="genreButtons">
-            Genre
-            <ButtonGroup vertical>
-              <ButtonToggle 
-                className="buttonToggle" 
-                onClick={() => this.genreToggle(0)} active={this.state.genre[0]}>
-                  1
-              </ButtonToggle>
-              <ButtonToggle 
-                className="buttonToggle" 
-                onClick={() => this.genreToggle(1)} 
-                active={this.state.genre[1]}>
-                  2
-              </ButtonToggle>
-              <ButtonToggle 
-                className="buttonToggle" 
-                onClick={() => this.genreToggle(2)} 
-                active={this.state.genre[2]}>
-                  3
-              </ButtonToggle>
-            </ButtonGroup>
-          </div>
-          <ButtonToggle 
-            className="buttonToggle reverse" 
-            color="info"  
-            onClick={this.reverseOrder} 
-            active={this.state.reverse}
-            style={{
-              fontSize: "12px",
-              height: "50px",
-              width: "75px",
-              borderRadius: "25px",
-              margin: "15px"
-            }}>
-              Reverse
-          </ButtonToggle>
-        </div>
-
         {
           tracksNumMax > 10 ? 
           <SliderRR 
@@ -184,6 +133,31 @@ class HorizontalCustomLabels extends Component {
       </div>
     )
   }
+
+  /*
+<div className="genreButtons">
+            Genre
+            <ButtonGroup vertical>
+              <ButtonToggle 
+                className="buttonToggle" 
+                onClick={() => this.genreToggle(0)} active={this.state.genre[0]}>
+                  1
+              </ButtonToggle>
+              <ButtonToggle 
+                className="buttonToggle" 
+                onClick={() => this.genreToggle(1)} 
+                active={this.state.genre[1]}>
+                  2
+              </ButtonToggle>
+              <ButtonToggle 
+                className="buttonToggle" 
+                onClick={() => this.genreToggle(2)} 
+                active={this.state.genre[2]}>
+                  3
+              </ButtonToggle>
+            </ButtonGroup>
+          </div>
+  */
 
   /*
   render () {

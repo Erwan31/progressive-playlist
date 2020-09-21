@@ -93,14 +93,18 @@ class SliderRR extends Component {
             </div>
           )}
         />
-        {
-          <output style={{ marginTop: '10px', width: '56px' }} id="output">
-            {this.state.values[0].toFixed(0)}
-          </output>
-        }
       </div>
     );
   }
 }
 
 export default SliderRR;
+
+
+/*
+        {
+          <output style={{ marginTop: '10px', width: '56px' }} id="output">
+            {this.state.values[0].toFixed(0)}
+          </output>
+        }
+*/

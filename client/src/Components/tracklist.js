@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Table, Button, ButtonGroup } from 'reactstrap';
+import { Table, Button, ButtonGroup, ButtonToggle } from 'reactstrap';
 import { redirectUri } from './../config';
 import Charts from './charts';
 import HorizontalCustomLabels from './sliders';
@@ -321,11 +321,29 @@ class TrackList extends Component {
                                     tracksNum={filteredTracksFeatures.length} 
                                     onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
                                     onGenreButtons={ (buttons) => console.log("genre change")}
-                                    onReverse={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})}
                                 />
                             </div>
                         }
                         {<Charts tracksFeatures={filteredTracksFeatures}/>}
+                        {
+                            <div className="sliderSideButtons">
+                                <ButtonToggle 
+                                className="buttonToggle reverse" 
+                                color="info"  
+                                onClick={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})} 
+                                active={this.state.reverse}
+                                style={{
+                                    fontSize: "12px",
+                                    height: "3rem",
+                                    width: "fit-content",
+                                    borderRadius: "10px",
+                                    margin: "15px",
+                                    margin: 'auto'
+                                }}>
+                                    Reverse
+                                </ButtonToggle>
+                            </div>
+                        }
                     </div>
                     <CreatePlaylits 
                         auth={{Authorization: "Bearer " + token}}

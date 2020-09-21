@@ -232,17 +232,19 @@ body{
   display: flex;
   height: 100%;
   flex-direction: column;
-  margin: 30px 2vw;
+  margin: 2rem 2vw;
   align-items: center;
   justify-content: space-evenly;
+  font-size: 1.75rem;
 }
 
 .sliderSideButtons{
-  height: 250px;
+  /*height: 250px;*/
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 30px 2vw;
+  justify-content: center;
+  margin-bottom: 3rem;
   width: 12rem;
 }
 

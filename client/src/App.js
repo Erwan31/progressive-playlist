@@ -25,7 +25,7 @@ class App extends Component {
     this.state = {
       user_id: null,
       token: null,
-      selectedPlaylist: null,
+      selectedPlaylist: {},
       item: {
         album: {
           images: [{ url: "" }]
@@ -190,16 +190,16 @@ class App extends Component {
     return items;
   }
 
-  handlePlaylistSelection = (id) => {
+  handlePlaylistSelection = (id, name) => {
     // Update state by passing the id of the selected playlist
     // Possibly just pass the necessary info to the component then
-    this.setState({selectedPlaylist: id});
+    this.setState({selectedPlaylist: {id, name}});
   }
 
 
   render() {
     if(this.state.playlists[0].images[0].url) console.log(' render print', this.state.playlists[0].images[0].url);
-
+    console.log(this.state.playlists);
     return (
       <Router>
         <Navbar className="navbarRS">
@@ -215,8 +215,11 @@ class App extends Component {
           <header className="App-header">
             <Switch>
               <Route path="/redirect" 
-              render={() => <Playlists playlists={this.state.playlists} 
-              onSelectPlaylist={this.handlePlaylistSelection} />} />
+              render={() => <Playlists 
+                              playlists={this.state.playlists} 
+                              onSelectPlaylist={this.handlePlaylistSelection} 
+                      />} 
+              />
               <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>
               <Route path="/" exact component={Login} />
             </Switch>

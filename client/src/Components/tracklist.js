@@ -14,6 +14,7 @@ class TrackList extends Component {
         super(props);
 
         this.state = {
+            playlistName: "",
             tracks: [],
             tracksIDs: [],
             tracksIDsSorted: [],
@@ -41,7 +42,7 @@ class TrackList extends Component {
 
         // Get up to 100 tracks from playlist 
         const token = this.props.playlistInfo.token;
-        const playlistID = this.props.playlistInfo.selectedPlaylist;
+        const playlistID = this.props.playlistInfo.selectedPlaylist.id;
         const headerContent = {
             Authorization: "Bearer " + token
         };
@@ -49,7 +50,6 @@ class TrackList extends Component {
         const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
                                  {headers: headerContent});
         const data = await response.data;
-        
         this.setState( { tracks: data.items });
 
         let idsAF = [];
@@ -348,6 +348,7 @@ class TrackList extends Component {
                     <CreatePlaylits 
                         auth={{Authorization: "Bearer " + token}}
                         tracksIDs={this.state.tracksIDsSorted}
+                        name={this.props.playlistInfo.selectedPlaylist.name}
                     />
                     <div className="tableTracks">
                         <Table  hover>

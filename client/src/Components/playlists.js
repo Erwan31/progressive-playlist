@@ -30,7 +30,7 @@ class Playlists extends Component {
                                     textDecoration: 'none',
                                 }}
                                 className="wrapPlaylist"
-                                onClick={ () => this.props.onSelectPlaylist(playlist.id)} 
+                                onClick={ () => this.props.onSelectPlaylist(playlist.id, playlist.name)} 
                                 to={`/playlist/${playlist.id}`} 
                                 key={i}
                             >

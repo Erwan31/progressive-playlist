@@ -19,7 +19,6 @@ class CreatePlaylits extends Component {
 
         console.log(dataID);
 
-
         const CREATEPLAYLITSURL = `https://api.spotify.com/v1/users/${dataID.id}/playlists`;
         let newPlaylistID = 0;
         const tracksIDs = this.props.tracksIDs;
@@ -29,10 +28,10 @@ class CreatePlaylits extends Component {
                 );
         URIs = URIs.join(",");
 
-        console.log("URIs", URIs);
+        //console.log("URIs", URIs);
 
         const data = {
-            name: "A New Playlist",
+            name: "Playlits - " + this.props.name,
             public: false
         };
 

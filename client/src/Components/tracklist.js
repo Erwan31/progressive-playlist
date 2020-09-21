@@ -306,8 +306,6 @@ class TrackList extends Component {
 
     render() { 
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
-        const rSelected = this.state.rSelected;
-        const rDirection = this.state.rDirection;
         const token = this.props.playlistInfo.token;
 
         //console.log('filteredTracksFeatures', filteredTracksFeatures, filteredTracksFeatures.length);

@@ -20,24 +20,30 @@ class Playlists extends Component {
         //console.log('playlists', this.props);
 
         return ( 
-            <>
+            <main className="redirectPlaylists">
                 <h2>Pick a playlist you want to reorder</h2>
                 <div className="playlistsThumbnails">
                     {
                         playlists.map( (playlist, i) =>
                             <Link 
+                                style={{ 
+                                    textDecoration: 'none',
+                                }}
+                                className="wrapPlaylist"
                                 onClick={ () => this.props.onSelectPlaylist(playlist.id)} 
                                 to={`/playlist/${playlist.id}`} 
-                                className="playlistThumbnail" 
-                                key={i}>
-                                <img src={playlist.images[0].url} />
-                                <p>{playlist.name}</p>
+                                key={i}
+                            >
+                                <div className="playlistThumbnail">
+                                    <img src={playlist.images[0].url} />
+                                    <p>{playlist.name}</p>
+                                </div>
                             </Link>
                         )
                     }
                 </div>
-            </>
-         );
+            </main>
+         ); 
     }
 }
  

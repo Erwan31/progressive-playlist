@@ -79,7 +79,8 @@ class SliderRR extends Component {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                boxShadow: '0px 2px 6px #2C3049'
+                boxShadow: '0px 2px 6px #2C3049',
+                outline: 'none'
                 }}
             >
               <div

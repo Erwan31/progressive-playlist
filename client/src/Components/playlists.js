@@ -7,38 +7,50 @@ import {
     useRouteMatch,
     useParams
 } from "react-router-dom";
+import { TimelineLite } from "gsap/all";
 import TrackList from './tracklist';
-
 
 class Playlists extends Component {
     constructor(props) {
         super(props);
         this.state = {  }
+        this.tl = new TimelineLite({ paused: true });
+        this.cards = [];
     }
+
+	componentDidMount(){
+        console.log("playlists mounted");
+		this.tl.staggerTo( this.cards , 3, { autoAlpha: 1, y: -20 }, 0.1);
+	}
+
     render() { 
         const playlists = this.props.playlists;
         //console.log('playlists', this.props);
 
+        //this.myTween.kill().clear().pause(0);
+
         return ( 
             <main className="redirectPlaylists">
-                <h2>Pick a playlist you want to reorder</h2>
+                <h2>Select one of your playlist to playlits it!</h2>
                 <div className="playlistsThumbnails">
                     {
                         playlists.map( (playlist, i) =>
-                            <Link 
-                                style={{ 
-                                    textDecoration: 'none',
-                                }}
-                                className="wrapPlaylist"
-                                onClick={ () => this.props.onSelectPlaylist(playlist.id, playlist.name)} 
-                                to={`/playlist/${playlist.id}`} 
-                                key={i}
-                            >
-                                <div className="playlistThumbnail">
-                                    <img src={playlist.images[0].url} />
-                                    <p>{playlist.name}</p>
-                                </div>
-                            </Link>
+                            <div ref={div => this.cards[i] = div}>
+                                <Link 
+                                    style={{ 
+                                        textDecoration: 'none',
+                                    }}
+                                    className="wrapPlaylist"
+                                    onClick={ () => this.props.onSelectPlaylist(playlist.id, playlist.name)} 
+                                    to={`/playlist/${playlist.id}`} 
+                                    key={i}
+                                >
+                                    <div className="playlistThumbnail">
+                                        <img src={playlist.images[0].url} />
+                                        <p>{playlist.name}</p>
+                                    </div>
+                                </Link>
+                            </div>
                         )
                     }
                 </div>

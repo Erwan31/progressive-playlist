@@ -41,7 +41,7 @@ class SliderRR extends Component {
                         width: '36px',
                         display: 'flex',
                         alignSelf: 'center',
-                        height: '150px',
+                        height: '120px',
                         margin: '15px 15px'
                 }}
             >

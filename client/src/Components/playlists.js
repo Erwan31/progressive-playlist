@@ -8,7 +8,7 @@ import {
     useParams
 } from "react-router-dom";
 import TrackList from './tracklist';
-import { CSSTransition } from 'react-transition-group'
+import { CSSTransition } from 'react-transition-group';
 
 import '../App.css'
 
@@ -37,9 +37,10 @@ class Playlists extends Component {
                 <h2>Select one of your playlist to playlits it!</h2>
                     <CSSTransition 
                                 in={this.state.inProp}
-                                timeout={1500}
+                                timeout={1250}
                                 classNames="playlistAppear"
-                            >
+                                unmountOnExit
+                    >
                         <div className="playlistsThumbnails">
                         {
                             playlists.map( (playlist, i) =>
@@ -50,7 +51,7 @@ class Playlists extends Component {
                                         }}
                                         className="wrapPlaylist"
                                         onClick={ () => {
-                                            /*this.setState({inProp: false});*/
+                                            this.setState({inProp: false});
                                             this.props.onSelectPlaylist(playlist.id, playlist.name)
                                         }} 
                                         to={`/playlist/${playlist.id}`} 
@@ -61,7 +62,6 @@ class Playlists extends Component {
                                             <p>{playlist.name}</p>
                                         </div>
                                     </Link>
-
                                 </div>
                             )
                         }

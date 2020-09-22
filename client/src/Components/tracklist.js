@@ -6,6 +6,7 @@ import Charts from './charts';
 import HorizontalCustomLabels from './sliders';
 import { computeTrackFeatureCoefficient } from './scripts/sliderCoef';
 import CreatePlaylits from './createPlaylits';
+import { CSSTransition } from 'react-transition-group';
 
 const CRITERIA = ["danceability", "energy", "valence"];
 
@@ -66,7 +67,7 @@ class TrackList extends Component {
            
         this.setState({ audio_features:  data1.audio_features});
 
-
+/*
         let idsArtists = [];
 
         //Get artists ids and request them
@@ -81,6 +82,7 @@ class TrackList extends Component {
            
         console.log("artists", data2);
         this.setState({ artists:  data2.artists});
+*/
 
         /*
         // Get 3 first genre per artists, store them inside an array with a counter

@@ -7,6 +7,7 @@ const Login = () => {
 
     return ( 
         <>
+        < main className="content">
             <h1></h1>
             <p>
                 Explaination of the app and so on
@@ -29,6 +30,7 @@ const Login = () => {
             >
                 Login to Spotify
             </Button>
+        </main>
         </>
      );
 }

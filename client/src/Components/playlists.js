@@ -7,21 +7,22 @@ import {
     useRouteMatch,
     useParams
 } from "react-router-dom";
-import { TimelineLite } from "gsap/all";
 import TrackList from './tracklist';
+import { CSSTransition } from 'react-transition-group'
+
+import '../App.css'
 
 class Playlists extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
-        this.tl = new TimelineLite({ paused: true });
-        this.cards = [];
+        this.state = { 
+            inProp: false,
+         }
     }
 
-	componentDidMount(){
-        console.log("playlists mounted");
-		this.tl.staggerTo( this.cards , 3, { autoAlpha: 1, y: -20 }, 0.1);
-	}
+    componentDidMount() {
+        this.setState({inProp: true})
+    }
 
     render() { 
         const playlists = this.props.playlists;
@@ -32,10 +33,15 @@ class Playlists extends Component {
         return ( 
             <main className="redirectPlaylists">
                 <h2>Select one of your playlist to playlits it!</h2>
-                <div className="playlistsThumbnails">
+                <CSSTransition 
+                            in={this.state.inProp}
+                            timeout={5000}
+                            classNames="playlistAppear"
+                        >
+                    <div className="playlistsThumbnails">
                     {
                         playlists.map( (playlist, i) =>
-                            <div ref={div => this.cards[i] = div}>
+                            <div>
                                 <Link 
                                     style={{ 
                                         textDecoration: 'none',
@@ -50,10 +56,12 @@ class Playlists extends Component {
                                         <p>{playlist.name}</p>
                                     </div>
                                 </Link>
+
                             </div>
                         )
                     }
-                </div>
+                    </div>
+                </CSSTransition>
             </main>
          ); 
     }

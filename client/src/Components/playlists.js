@@ -26,6 +26,8 @@ class Playlists extends Component {
 
     render() { 
         const playlists = this.props.playlists;
+
+        console.log("pl", playlists.length);
         //console.log('playlists', this.props);
 
         //this.myTween.kill().clear().pause(0);
@@ -33,35 +35,38 @@ class Playlists extends Component {
         return ( 
             <main className="redirectPlaylists">
                 <h2>Select one of your playlist to playlits it!</h2>
-                <CSSTransition 
-                            in={this.state.inProp}
-                            timeout={5000}
-                            classNames="playlistAppear"
-                        >
-                    <div className="playlistsThumbnails">
-                    {
-                        playlists.map( (playlist, i) =>
-                            <div>
-                                <Link 
-                                    style={{ 
-                                        textDecoration: 'none',
-                                    }}
-                                    className="wrapPlaylist"
-                                    onClick={ () => this.props.onSelectPlaylist(playlist.id, playlist.name)} 
-                                    to={`/playlist/${playlist.id}`} 
-                                    key={i}
-                                >
-                                    <div className="playlistThumbnail">
-                                        <img src={playlist.images[0].url} />
-                                        <p>{playlist.name}</p>
-                                    </div>
-                                </Link>
+                    <CSSTransition 
+                                in={this.state.inProp}
+                                timeout={1500}
+                                classNames="playlistAppear"
+                            >
+                        <div className="playlistsThumbnails">
+                        {
+                            playlists.map( (playlist, i) =>
+                                <div>
+                                    <Link 
+                                        style={{ 
+                                            textDecoration: 'none',
+                                        }}
+                                        className="wrapPlaylist"
+                                        onClick={ () => {
+                                            /*this.setState({inProp: false});*/
+                                            this.props.onSelectPlaylist(playlist.id, playlist.name)
+                                        }} 
+                                        to={`/playlist/${playlist.id}`} 
+                                        key={i}
+                                    >
+                                        <div className="playlistThumbnail">
+                                            <img src={playlist.images[0].url} />
+                                            <p>{playlist.name}</p>
+                                        </div>
+                                    </Link>
 
-                            </div>
-                        )
-                    }
-                    </div>
-                </CSSTransition>
+                                </div>
+                            )
+                        }
+                        </div>
+                    </CSSTransition>
             </main>
          ); 
     }

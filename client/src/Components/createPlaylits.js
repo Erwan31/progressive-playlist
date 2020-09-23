@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import axios from "axios";
+import { Spinner } from 'reactstrap';
 
 class CreatePlaylits extends Component {
     constructor(props) {
         super(props);
-        this.state = {  }
+        this.state = { 
+            buttonContent: "Create Playlits",
+            buttonDisable: false,
+         }
     }
 
     createPlaylits = async () => {
+
+        this.setState({ buttonContent: null});
 
         const responseID = await axios.get(
                                 "https://api.spotify.com/v1/me",
@@ -66,6 +72,8 @@ class CreatePlaylits extends Component {
         catch(error){
             console.log("add tracks to playlist", error);
         };
+
+        setTimeout(this.setState({ buttonContent: "Playlits created!", buttonDisable: true}), 1000);
     }
 
     render() { 
@@ -76,12 +84,13 @@ class CreatePlaylits extends Component {
                         fontStyle: "bold",
                         fontSize: "20px",
                         height: "50px",
-                        width: "250px",
+                        width: "300px",
                         borderRadius: "25px",
                         }} 
                     color="success" size="large"
+                    disabled={this.state.buttonDisable}
                     onClick={() => this.createPlaylits()}>
-                        Create Playlits
+                        {this.state.buttonContent || <Spinner animation="grow" variant="light" />}
                 </Button>
             </>
          );

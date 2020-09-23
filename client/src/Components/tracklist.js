@@ -372,25 +372,31 @@ class TrackList extends Component {
                                 unmountOnExit
                     >
                         <div className="tableTracks">
-                            <Table  hover>
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Title</th>
-                                    <th>Artist</th>
-                                    <th>Album</th>
-                                </tr>
-                                </thead>
-
+                            <p>Playlist Tracks</p>
+                            <Table  
+                            hover
+                            style={{
+                                width: '90vw',
+                                minWidth: '400px',
+                                maxWidth: '800px'
+                            }}
+                            >
                                 <tbody>
                                     {filteredTracksFeatures.map( (track, i) => 
                                         <tr key={i}>
                                             <th scope="row">
                                                 <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
                                             </th>
-                                            <td>{track[0].name}</td>
-                                            <td>{track[0].artists[0].name}</td>
-                                            <td>{track[0].album.name}</td>
+                                            <td>
+                                                <div className="track">
+                                                    <div className="trackName">
+                                                        {track[0].name}
+                                                    </div>
+                                                    <div className="trackArtist">
+                                                        {track[0].artists[0].name}
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         )
                                     }

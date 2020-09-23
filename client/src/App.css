@@ -38,8 +38,11 @@ body{
 }
 
 .App-logo {
-  height: 10vh;
+  height: 10vw;
+  max-height: 6.5rem;
+  min-height: 4rem;
   pointer-events: none;
+  margin: 1rem;
 }
 
 .App-header {
@@ -139,6 +142,7 @@ body{
 .playlistThumbnail img{
   width: 100%;
   object-fit: fill;
+  border-radius: 0.3rem;
 }
 
 .playlistThumbnail p{
@@ -161,14 +165,32 @@ body{
 
 /* Table with Tracks */
 .tableTracks{
-  width: 95%;
+  width: 95vw;
+  min-width: 600px;
+  max-width: 1200px;
   font-size: 2.5rem;
   margin: auto;
   margin-top: 2rem;
+  color: #EEEEEE;
+}
+
+.track{
+  display: flex;
+  flex-direction: column;
+}
+
+.trackName{
+  font-size: 1.8rem;
+}
+
+.trackArtist{
+  font-size: 1.5rem;
 }
 
 .albumThumbnail{
-  height: 10rem;
+  height: 8rem;
+  border-radius: 1rem;
+  margin: 0.5rem;
 }
 
 .filterPanel{

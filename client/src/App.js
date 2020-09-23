@@ -206,6 +206,10 @@ class App extends Component {
           <NavbarBrand 
             href="/"
             className="navbarBrandRS"
+            style={{
+              color: 'white',
+              fontSize: '2rem',
+            }}
           >
             <img src={logoCustom} className="App-logo" alt="logo" ></img>
             Playlits

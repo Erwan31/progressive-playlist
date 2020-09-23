@@ -319,91 +319,92 @@ class TrackList extends Component {
         return (
             <main className="tracklist">
                     <>
-                    <CSSTransition
-                                in={this.state.inProp}
-                                timeout={500}
-                                classNames="panel-appear"
-                                unmountOnExit
-                    >
-                        <div className="filterPanel">
-                            <div className="filtersKnobs">
-                                <HorizontalCustomLabels 
-                                    tracksNum={filteredTracksFeatures.length} 
-                                    onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
-                                    onGenreButtons={ (buttons) => console.log("genre change")}
-                                />
-                            </div>
-                            <Charts tracksFeatures={filteredTracksFeatures}/>
-                            <div className="sliderSideButtons">
-                                <ButtonToggle 
-                                className="buttonToggle reverse" 
-                                color="info"  
-                                onClick={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})} 
-                                active={this.state.reverse}
-                                style={{
-                                    fontSize: "12px",
-                                    height: "3rem",
-                                    width: "fit-content",
-                                    borderRadius: "10px",
-                                    margin: "15px",
-                                    margin: 'auto'
-                                }}>
-                                    Reverse
-                                </ButtonToggle>
-                            </div>
-                        </div>
-                    </CSSTransition>
-                    <CSSTransition
-                                in={this.state.inProp}
-                                timeout={1000}
-                                classNames="create-appear"
-                                unmountOnExit
-                    >
-                        <CreatePlaylits 
-                            auth={{Authorization: "Bearer " + token}}
-                            tracksIDs={this.state.tracksIDsSorted}
-                            name={this.props.playlistInfo.selectedPlaylist.name}
-                        />
-                    </CSSTransition>
-                    <CSSTransition
-                                in={this.state.inProp}
-                                timeout={1250}
-                                classNames="list-appear"
-                                unmountOnExit
-                    >
-                        <div className="tableTracks">
-                            <p>Playlist Tracks</p>
-                            <Table  
-                            hover
-                            style={{
-                                width: '90vw',
-                                minWidth: '400px',
-                                maxWidth: '800px'
-                            }}
+                    <div className="playlistPage">
+                        <div>
+                            <CSSTransition
+                                        in={this.state.inProp}
+                                        timeout={500}
+                                        classNames="panel-appear"
+                                        unmountOnExit
                             >
-                                <tbody>
-                                    {filteredTracksFeatures.map( (track, i) => 
-                                        <tr key={i}>
-                                            <th scope="row">
-                                                <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
-                                            </th>
-                                            <td>
-                                                <div className="track">
-                                                    <div className="trackName">
-                                                        {track[0].name}
-                                                    </div>
-                                                    <div className="trackArtist">
-                                                        {track[0].artists[0].name}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </Table>
+                                <div className="filterPanel">
+                                    <div className="filtersKnobs">
+                                        <p>Playlits Panel</p>
+                                        <HorizontalCustomLabels 
+                                            tracksNum={filteredTracksFeatures.length} 
+                                            onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
+                                            onGenreButtons={ (buttons) => console.log("genre change")}
+                                        />
+                                    </div>
+                                    <Charts tracksFeatures={filteredTracksFeatures}/>
+                                    <div className="sliderSideButtons">
+                                        <ButtonToggle 
+                                        className="buttonToggle reverse" 
+                                        color="info"  
+                                        onClick={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})} 
+                                        active={this.state.reverse}
+                                        style={{
+                                            fontSize: "12px",
+                                            height: "3rem",
+                                            width: "fit-content",
+                                            borderRadius: "10px",
+                                            margin: "15px",
+                                            margin: 'auto'
+                                        }}>
+                                            Reverse
+                                        </ButtonToggle>
+                                    </div>
+                                </div>
+                            </CSSTransition>
+                            <CSSTransition
+                                        in={this.state.inProp}
+                                        timeout={1000}
+                                        classNames="create-appear"
+                                        unmountOnExit
+                            >
+                                <CreatePlaylits 
+                                    auth={{Authorization: "Bearer " + token}}
+                                    tracksIDs={this.state.tracksIDsSorted}
+                                    name={this.props.playlistInfo.selectedPlaylist.name}
+                                />
+                            </CSSTransition>
                         </div>
-                    </CSSTransition>
+                        <CSSTransition
+                                    in={this.state.inProp}
+                                    timeout={1250}
+                                    classNames="list-appear"
+                                    unmountOnExit
+                        >
+                            <div className="tableTracks">
+                                <p>Playlist Tracks</p>
+                                <Table
+                                className = "tableTrack"  
+                                hover
+                                >
+                                    <tbody>
+                                        {filteredTracksFeatures.map( (track, i) => 
+                                            <tr key={i}>
+                                                <th scope="row">
+                                                    <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
+                                                </th>
+                                                <td>
+                                                    <div className="track">
+                                                        <div className="trackName">
+                                                            {track[0].name}
+                                                        </div>
+                                                        <div className="trackArtist">
+                                                            {track[0].artists[0].name}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </Table>
+                            </div>
+                        </CSSTransition>
+                    </div>
             </>
             </main>
          );

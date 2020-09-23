@@ -27,7 +27,7 @@ body{
   /*background: rgb(30,35,52);
   background: linear-gradient(90deg, rgba(30,35,52,1) 0%, rgba(86,108,244,1) 100%);*/
   background: rgb(30,35,52);
-  background: linear-gradient(90deg, rgba(30,35,52,1) 0%, rgba(85,107,242,1) 50%, rgba(169,80,254,1) 100%);  
+  background: linear-gradient(135deg, rgba(30,35,52,1) 0%, rgba(85,107,242,1) 50%, rgba(169,80,254,1) 100%);  
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -47,7 +47,7 @@ body{
 
 .App-header {
  /* background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
-  min-height: 100vh;
+  min-height: 87vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,7 +80,7 @@ body{
 }
 
 .redirectPlaylists{
-  min-height: 100vh;
+  min-height: 95vh;
   min-width: 600px;
   max-width: 1200px;
 }
@@ -88,7 +88,7 @@ body{
 /* New part */
 .playlistsThumbnails{
   /*  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
-  min-height: 100vh;
+  min-height: 95vh;
   min-width: 600px;
   max-width: 90%;
   display: flex;
@@ -165,14 +165,33 @@ body{
 
 /* Table with Tracks */
 .tableTracks{
-  width: 95vw;
-  min-width: 600px;
-  max-width: 1200px;
+  min-width: 300px;
+  max-width: 800px;
   font-size: 2.5rem;
   margin: auto;
   margin-top: 2rem;
+  margin-left: 1rem;
   color: #EEEEEE;
 }
+
+.tableTrack{
+  width: 40vw;
+  min-width: 250px;
+  max-width: 600px;
+}
+
+.playlistPage{
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 1050px) {
+  .playlistPage{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 
 .track{
   display: flex;

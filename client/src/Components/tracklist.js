@@ -39,6 +39,7 @@ class TrackList extends Component {
                 crises: 0,
             },
             reverse: false,
+            playlistCreateEnable: true,
         };
     }
 
@@ -227,7 +228,7 @@ class TrackList extends Component {
 
     // Sliders
     handleSliderChange = (sliders) => {
-        //console.log("slidervalue change", sliders);
+        console.log("slidervalue change", sliders);
 
       //  this.setState({ sliders }); // infinite loop
         const average = this.state.average;
@@ -261,14 +262,14 @@ class TrackList extends Component {
         if( sliders.crises !== 0 && sliders.tracksNum > 11){
             let temp = [];
 
-            console.log(filteredTracksFeatures);
+            //console.log(filteredTracksFeatures);
 
             // Pass through all songs
             // See at what frequency swapping should happen
             // Swap in between 4 songs around the target track
             // Could it be a propotional function to smooth it out?
             for( let i = 1; i < sliders.tracksNum-2; i++){
-                console.log("track floor", i%(Math.floor(sliders.tracksNum/sliders.crises)));
+                //console.log("track floor", i%(Math.floor(sliders.tracksNum/sliders.crises)));
 
                 if( i>5 && i%(Math.floor(sliders.tracksNum/sliders.crises)) === 0 ){
                     temp[0] = filteredTracksFeatures[i-2];
@@ -290,7 +291,6 @@ class TrackList extends Component {
         }
 
         let idsSorted = [];
-        console.log("ffff", filteredTracksFeatures);
         //Get Ids sorted for playlist export to spotify
         for(let i = 0; i < filteredTracksFeatures.length; i++){
             //console.log('id', this.state.tracks[i].track.id)
@@ -299,7 +299,7 @@ class TrackList extends Component {
 
         this.setState({tracksIDsSorted: idsSorted});
 
-        console.log("tracksIDSSorted", this.state.tracksIDsSorted);
+        //console.log("tracksIDSSorted", this.state.tracksIDsSorted);
 
         // Track enable or disabled -> hover from reactstrap to see
 
@@ -307,6 +307,13 @@ class TrackList extends Component {
 /*
         let  filteredTracksFeatures = this.state.filteredTracksFeatures;
         const tracksFeatures = this.state.tracksFeatures;*/
+
+        /* If tracklist is the same as at the beginning, impossible to create a playlist -> also creating bug without! */
+        if( sliders.danceability!== 0 || sliders.energy!== 0 || sliders.mood!== 0 || sliders.crises !== 0 || sliders.tracksNum !== sliders.tracksNumMax){
+            console.log("movement on knobs");
+            this.setState({ playlistCreateEnable: false });
+        }
+
     }
 
 
@@ -345,7 +352,8 @@ class TrackList extends Component {
                                         onClick={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})} 
                                         active={this.state.reverse}
                                         style={{
-                                            borderRadius: '25px'
+                                            borderRadius: '25px',
+                                            boxShadow: '0px 2px 4px 0px rgba(166,82,254,0.5)'
                                         }}
                                         >
                                             <img src={reverseArrows}/>
@@ -354,6 +362,7 @@ class TrackList extends Component {
                                             auth={{Authorization: "Bearer " + token}}
                                             tracksIDs={this.state.tracksIDsSorted}
                                             name={this.props.playlistInfo.selectedPlaylist.name}
+                                            playlistCreateEnable={this.state.playlistCreateEnable}
                                         />
                                     </div>
                                 </div>

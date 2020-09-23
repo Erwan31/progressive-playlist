@@ -8,7 +8,7 @@ class CreatePlaylits extends Component {
         super(props);
         this.state = { 
             buttonContent: "Create Playlits",
-            buttonDisable: false,
+            buttonDisable: this.props.playlistCreateEnable,
          }
     }
 
@@ -86,6 +86,7 @@ class CreatePlaylits extends Component {
                         height: "50px",
                         width: "300px",
                         borderRadius: "25px",
+                        boxShadow: '0px 2px 4px 0px rgba(166,82,254,0.5)'
                         }} 
                     color="success" size="large"
                     disabled={this.state.buttonDisable}

@@ -6,12 +6,12 @@ import "./App.css";
 import { Navbar,  NavbarBrand, Button, Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle} from 'reactstrap';
 import logo from "./logo.svg";
+import logoCustom from "./logoCustom.svg"
 import TrackList from './Components/tracklist';
 import Playlists from "./Components/playlists";
 import Login from './Components/login';
-import {
-
-  BrowserRouter as Router,
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import{ BrowserRouter as Router,
   Switch,
   Route,
   Link,
@@ -207,22 +207,35 @@ class App extends Component {
             href="/"
             className="navbarBrandRS"
           >
-            <img src={logo} className="App-logo" alt="logo" ></img>
+            <img src={logoCustom} className="App-logo" alt="logo" ></img>
             Playlits
           </NavbarBrand>
         </Navbar>
         <div className="App">
           <header className="App-header">
-            <Switch>
-              <Route path="/redirect" 
-              render={() => <Playlists 
-                              playlists={this.state.playlists} 
-                              onSelectPlaylist={this.handlePlaylistSelection} 
-                      />} 
-              />
-              <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>
-              <Route path="/" exact component={Login} />
-            </Switch>
+            <Route render={({location}) => (
+                <TransitionGroup>
+                  <CSSTransition
+                    key={location.pathname}
+                    in={this.state.inProp}
+                    timeout={1250}
+                    classNames="playlistAppear"
+                    unmountOnExit
+                  >
+                    <Switch location={location}>
+                      <Route path="/redirect" 
+                      render={() => <Playlists 
+                                      playlists={this.state.playlists} 
+                                      onSelectPlaylist={this.handlePlaylistSelection} 
+                              />} 
+                      />
+                      <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>
+                      <Route path="/" exact component={Login} />
+                    </Switch>
+                  </CSSTransition>
+                </TransitionGroup>
+              )}
+            />
           </header>
         </div>
       </Router>

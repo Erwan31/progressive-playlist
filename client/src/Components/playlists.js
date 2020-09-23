@@ -10,7 +10,7 @@ import {
 import TrackList from './tracklist';
 import { CSSTransition } from 'react-transition-group';
 
-import '../App.css'
+import '../cssTransition.css'
 
 class Playlists extends Component {
     constructor(props) {
@@ -51,7 +51,7 @@ class Playlists extends Component {
                                         }}
                                         className="wrapPlaylist"
                                         onClick={ () => {
-                                            this.setState({inProp: false});
+                                            this.setState({inProp: false}); // not working
                                             this.props.onSelectPlaylist(playlist.id, playlist.name)
                                         }} 
                                         to={`/playlist/${playlist.id}`} 

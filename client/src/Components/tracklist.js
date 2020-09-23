@@ -8,6 +8,8 @@ import { computeTrackFeatureCoefficient } from './scripts/sliderCoef';
 import CreatePlaylits from './createPlaylits';
 import { CSSTransition } from 'react-transition-group';
 
+import '../cssTransition.css'
+
 const CRITERIA = ["danceability", "energy", "valence"];
 
 class TrackList extends Component {
@@ -15,6 +17,7 @@ class TrackList extends Component {
         super(props);
 
         this.state = {
+            inProp: false,
             playlistName: "",
             tracks: [],
             tracksIDs: [],
@@ -145,7 +148,7 @@ class TrackList extends Component {
             });
 
             //console.log('filteredTracks', filteredTracksFeatures);
-            this.setState( { filteredTracksFeatures, tracksFeatures: filteredTracksFeatures });
+            this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures });
         }
     }
 
@@ -315,19 +318,22 @@ class TrackList extends Component {
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
             <main className="tracklist">
-                {filteredTracksFeatures[0] &&
-                <>
-                    <div className="filterPanel">
-                        {<div className="filtersKnobs">
+                    <>
+                    <CSSTransition
+                                in={this.state.inProp}
+                                timeout={500}
+                                classNames="panel-appear"
+                                unmountOnExit
+                    >
+                        <div className="filterPanel">
+                            <div className="filtersKnobs">
                                 <HorizontalCustomLabels 
                                     tracksNum={filteredTracksFeatures.length} 
                                     onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
                                     onGenreButtons={ (buttons) => console.log("genre change")}
                                 />
                             </div>
-                        }
-                        {<Charts tracksFeatures={filteredTracksFeatures}/>}
-                        {
+                            <Charts tracksFeatures={filteredTracksFeatures}/>
                             <div className="sliderSideButtons">
                                 <ButtonToggle 
                                 className="buttonToggle reverse" 
@@ -345,41 +351,54 @@ class TrackList extends Component {
                                     Reverse
                                 </ButtonToggle>
                             </div>
-                        }
-                    </div>
-                    <CreatePlaylits 
-                        auth={{Authorization: "Bearer " + token}}
-                        tracksIDs={this.state.tracksIDsSorted}
-                        name={this.props.playlistInfo.selectedPlaylist.name}
-                    />
-                    <div className="tableTracks">
-                        <Table  hover>
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Title</th>
-                                <th>Artist</th>
-                                <th>Album</th>
-                            </tr>
-                            </thead>
+                        </div>
+                    </CSSTransition>
+                    <CSSTransition
+                                in={this.state.inProp}
+                                timeout={1000}
+                                classNames="create-appear"
+                                unmountOnExit
+                    >
+                        <CreatePlaylits 
+                            auth={{Authorization: "Bearer " + token}}
+                            tracksIDs={this.state.tracksIDsSorted}
+                            name={this.props.playlistInfo.selectedPlaylist.name}
+                        />
+                    </CSSTransition>
+                    <CSSTransition
+                                in={this.state.inProp}
+                                timeout={1250}
+                                classNames="list-appear"
+                                unmountOnExit
+                    >
+                        <div className="tableTracks">
+                            <Table  hover>
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Title</th>
+                                    <th>Artist</th>
+                                    <th>Album</th>
+                                </tr>
+                                </thead>
 
-                            <tbody>
-                                {filteredTracksFeatures.map( (track, i) => 
-                                    <tr key={i}>
-                                        <th scope="row">
-                                            <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
-                                        </th>
-                                        <td>{track[0].name}</td>
-                                        <td>{track[0].artists[0].name}</td>
-                                        <td>{track[0].album.name}</td>
-                                    </tr>
-                                    )
-                                }
-                            </tbody>
-                        </Table>
-                    </div>
-                </>
-            }
+                                <tbody>
+                                    {filteredTracksFeatures.map( (track, i) => 
+                                        <tr key={i}>
+                                            <th scope="row">
+                                                <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
+                                            </th>
+                                            <td>{track[0].name}</td>
+                                            <td>{track[0].artists[0].name}</td>
+                                            <td>{track[0].album.name}</td>
+                                        </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </Table>
+                        </div>
+                    </CSSTransition>
+            </>
             </main>
          );
     }

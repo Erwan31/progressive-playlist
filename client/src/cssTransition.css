@@ -1,0 +1,76 @@
+/* Transition Group Animations */
+.playlistAppear-enter {
+  opacity: 0;
+  transform: scale(0.98) translateY(10px);
+}
+.playlistAppear-enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 1250ms ease-out 300ms;
+}
+.playlistAppear-exit {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.playlistAppear-exit-active {
+  opacity: 0;
+  transition: opacity 1250ms;
+}
+
+/* Range Panel*/
+.panel-appear-enter {
+  opacity: 0;
+  transform: scale(0.98) translateY(10px);
+}
+.panel-appear--enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 1000ms ease-out 100ms;
+}
+.panel-appear--exit {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.panel-appear--exit-active {
+  opacity: 0;
+  transition: opacity 1000ms;
+}
+
+/* Create playlist button Panel*/
+.create-appear-enter {
+  opacity: 0;
+  transform: scale(0.98) translateY(10px);
+}
+.create-appear--enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 1250ms ease-out 200ms;
+}
+.create-appear--exit {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.create-appear--exit-active {
+  opacity: 0;
+  transition: opacity 1250ms;
+}
+
+/* Range Panel*/
+.list-appear-enter {
+  opacity: 0;
+  transform: scale(0.98) translateY(10px);
+}
+.list-appear--enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 1500ms ease-out 300ms;
+}
+.list-appear--exit {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.list-appear--exit-active {
+  opacity: 0;
+  transition: opacity 1500ms;
+}
+

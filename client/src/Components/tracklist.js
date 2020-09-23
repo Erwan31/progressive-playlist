@@ -9,6 +9,7 @@ import CreatePlaylits from './createPlaylits';
 import { CSSTransition } from 'react-transition-group';
 
 import '../cssTransition.css'
+import reverseArrows from '.././reverse_arrows.svg'
 
 const CRITERIA = ["danceability", "energy", "valence"];
 
@@ -344,29 +345,18 @@ class TrackList extends Component {
                                         onClick={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})} 
                                         active={this.state.reverse}
                                         style={{
-                                            fontSize: "12px",
-                                            height: "3rem",
-                                            width: "fit-content",
-                                            borderRadius: "10px",
-                                            margin: "15px",
-                                            margin: 'auto'
-                                        }}>
-                                            Reverse
+                                            borderRadius: '25px'
+                                        }}
+                                        >
+                                            <img src={reverseArrows}/>
                                         </ButtonToggle>
+                                        <CreatePlaylits 
+                                            auth={{Authorization: "Bearer " + token}}
+                                            tracksIDs={this.state.tracksIDsSorted}
+                                            name={this.props.playlistInfo.selectedPlaylist.name}
+                                        />
                                     </div>
                                 </div>
-                            </CSSTransition>
-                            <CSSTransition
-                                        in={this.state.inProp}
-                                        timeout={1000}
-                                        classNames="create-appear"
-                                        unmountOnExit
-                            >
-                                <CreatePlaylits 
-                                    auth={{Authorization: "Bearer " + token}}
-                                    tracksIDs={this.state.tracksIDsSorted}
-                                    name={this.props.playlistInfo.selectedPlaylist.name}
-                                />
                             </CSSTransition>
                         </div>
                         <CSSTransition

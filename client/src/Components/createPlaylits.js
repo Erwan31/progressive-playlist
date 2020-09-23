@@ -78,7 +78,6 @@ class CreatePlaylits extends Component {
                         height: "50px",
                         width: "250px",
                         borderRadius: "25px",
-                        margin: "15px"
                         }} 
                     color="success" size="large"
                     onClick={() => this.createPlaylits()}>

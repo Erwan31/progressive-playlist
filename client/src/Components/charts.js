@@ -74,7 +74,7 @@ const Charts = ({tracksFeatures}) => {
                         labelString: yLabel,
                         fontFamily: 'Helvetica',
                         fontStyle: 'bold',
-                        fontSize: 20,
+                        fontSize: 17,
                         fontColor: '#eeeeee'
                     },
                     gridLines: {

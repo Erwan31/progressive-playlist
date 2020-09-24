@@ -75,6 +75,7 @@ class HorizontalCustomLabels extends Component {
             current={tracksNumMax}
             disabled={false} 
             colors={'#A850FE'} 
+            label={true}
             onChange={(value) => this.handleChangeVertical( value, "tracksNum")}
             onFinalChange = { () => this.handleAndDelayChangeComplete() }
           />
@@ -84,7 +85,8 @@ class HorizontalCustomLabels extends Component {
             min={0} 
             current={0} 
             disabled={true}
-            colors={'grey'} 
+            colors={'grey'}
+            label={false} 
             onChange={() => null}
             onFinalChange = { () => null }
           />
@@ -96,7 +98,8 @@ class HorizontalCustomLabels extends Component {
           min={0} 
           current={0} 
           disabled={false} 
-          colors={'#6EDF36'} 
+          colors={'#6EDF36'}
+          label={false}  
           onChange={(value) => this.handleChangeVertical( value, "danceability")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
         />
@@ -106,7 +109,8 @@ class HorizontalCustomLabels extends Component {
           min={0} 
           current={0}
           disabled={false}  
-          colors={'#3A77E0'} 
+          colors={'#3A77E0'}
+          label={false}  
           onChange={(value) => this.handleChangeVertical( value, "energy")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
         />
@@ -116,7 +120,8 @@ class HorizontalCustomLabels extends Component {
           min={0} 
           current={0}
           disabled={false}  
-          colors={'#EB690F'} 
+          colors={'#EB690F'}
+          label={false}  
           onChange={(value) => this.handleChangeVertical( value, "mood")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
         />
@@ -126,7 +131,8 @@ class HorizontalCustomLabels extends Component {
           min={1} 
           current={1}
           disabled={false}  
-          colors={'#1F2436'} 
+          colors={'#1F2436'}
+          label={false}  
           onChange={(value) => this.handleChangeVertical( value, "crises")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
         />

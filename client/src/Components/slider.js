@@ -83,6 +83,24 @@ class SliderRR extends Component {
                 outline: 'none'
                 }}
             >
+              { this.props.label &&
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '3px',
+                    left: '-20px',
+                    color: '#fff',
+                    fontWeight: 'bold',
+                    fontSize: '11px',
+                    fontFamily: 'Arial,Helvetica Neue,Helvetica,sans-serif',
+                    padding: '4px',
+                    borderRadius: '4px',
+                    backgroundColor: this.props.colors
+                  }}
+                  >               
+                    {this.state.values[0].toFixed(0)}
+                  </div>
+               }
               <div
                 style={{
                   width: '16px',

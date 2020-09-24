@@ -37,7 +37,7 @@ class Playlists extends Component {
                 <h2>Select one of your playlist to playlits it!</h2>
                     <CSSTransition 
                                 in={this.state.inProp}
-                                timeout={1250}
+                                timeout={750}
                                 classNames="playlistAppear"
                                 unmountOnExit
                     >

@@ -226,7 +226,8 @@ body{
   align-items: center;
   align-content: center;
   justify-content: space-evenly;
-  width: 97%;
+  width: 95%;
+  min-width: 590px;
   border-radius: 5rem;
   margin: auto;
   background: #2C3049;

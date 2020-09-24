@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SliderRR from './slider'
 
-class HorizontalCustomLabels extends Component {
+class SlidersPanel extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -166,4 +166,4 @@ class HorizontalCustomLabels extends Component {
   */
 }
 
-export default HorizontalCustomLabels
+export default SlidersPanel;

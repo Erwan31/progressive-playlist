@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Table, Button, ButtonGroup, ButtonToggle } from 'reactstrap';
 import { redirectUri } from './../config';
 import Charts from './charts';
-import HorizontalCustomLabels from './sliders';
+import SlidersPanel from './sliders';
 import { computeTrackFeatureCoefficient } from './scripts/sliderCoef';
 import CreatePlaylits from './createPlaylits';
 import { CSSTransition } from 'react-transition-group';
@@ -32,6 +32,12 @@ class TrackList extends Component {
             rSelected: null,
             rDirectionInit: ["desc", "desc", "desc"],
             rDirection: ["desc", "desc", "desc"],
+            slidersInit: {
+                danceability: 0,
+                energy: 0,
+                mood: 0,
+                crises: 0,
+            },
             sliders: {
                 danceability: 0,
                 energy: 0,
@@ -309,7 +315,7 @@ class TrackList extends Component {
         const tracksFeatures = this.state.tracksFeatures;*/
 
         /* If tracklist is the same as at the beginning, impossible to create a playlist -> also creating bug without! */
-        if( sliders.danceability!== 0 || sliders.energy!== 0 || sliders.mood!== 0 || sliders.crises !== 0 || sliders.tracksNum !== sliders.tracksNumMax){
+        if( sliders !== this.state.slidersInit ){
             console.log("movement on knobs");
             this.setState({ playlistCreateEnable: false });
         }
@@ -326,19 +332,18 @@ class TrackList extends Component {
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
             <main className="tracklist">
-                    <>
+                <CSSTransition
+                                    in={this.state.inProp}
+                                    timeout={750}
+                                    classNames="panel-appear"
+                                    unmountOnExit
+                >
                     <div className="playlistPage">
                         <div>
-                            <CSSTransition
-                                        in={this.state.inProp}
-                                        timeout={500}
-                                        classNames="panel-appear"
-                                        unmountOnExit
-                            >
                                 <div className="filterPanel">
                                     <div className="filtersKnobs">
                                         <p>Playlits Panel</p>
-                                        <HorizontalCustomLabels 
+                                        <SlidersPanel
                                             tracksNum={filteredTracksFeatures.length} 
                                             onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
                                             onGenreButtons={ (buttons) => console.log("genre change")}
@@ -366,14 +371,7 @@ class TrackList extends Component {
                                         />
                                     </div>
                                 </div>
-                            </CSSTransition>
                         </div>
-                        <CSSTransition
-                                    in={this.state.inProp}
-                                    timeout={1250}
-                                    classNames="list-appear"
-                                    unmountOnExit
-                        >
                             <div className="tableTracks">
                                 <p>Playlist Tracks</p>
                                 <Table
@@ -402,9 +400,8 @@ class TrackList extends Component {
                                     </tbody>
                                 </Table>
                             </div>
-                        </CSSTransition>
                     </div>
-            </>
+                </CSSTransition>
             </main>
          );
     }

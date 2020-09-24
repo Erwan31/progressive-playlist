@@ -88,7 +88,7 @@ class SliderRR extends Component {
                   style={{
                     position: 'absolute',
                     top: '3px',
-                    left: '-20px',
+                    left: '35px',
                     color: '#fff',
                     fontWeight: 'bold',
                     fontSize: '11px',

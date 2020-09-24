@@ -20,7 +20,7 @@ class SlidersPanel extends Component {
     const values = this.state;
     values[parameter] = value;
 
-    console.log('values', value, parameter);
+    //console.log('values', value, parameter);
 
     this.setState({
         tracksNum: values.tracksNum,

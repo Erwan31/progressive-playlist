@@ -185,7 +185,8 @@ class TrackList extends Component {
         const sorted = arr.sort( ( a, b) => -1);
         let reverse = this.state.reverse;
         reverse = !reverse;
-        this.setState({reverse})
+        this.setState({reverse});
+        console.log("reverse state", this.state.reverse, arr, sorted);
         return sorted;
     }
 
@@ -255,13 +256,15 @@ class TrackList extends Component {
         
         // Get into account the number of tracks chosen to make the playlist
         if( sliders.tracksNum < filteredTracksFeatures.length){
-            filteredTracksFeatures = filteredTracksFeatures.filter( (track, i) => {
-                if(i%(Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum)) === 0){
-                    //console.log('yo',i%Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum), track);
-                    return track;
-                }
-            });
-           // console.log('reduced', filteredTracksFeatures);
+            let reducedArr = filteredTracksFeatures;
+            let length = filteredTracksFeatures.length;
+            const diff = filteredTracksFeatures.length - sliders.tracksNum;
+
+            for( let k = 0; k < diff; k++){
+                length--;
+                reducedArr.splice(Math.floor((length-1)*Math.random()), 1);
+            }
+            filteredTracksFeatures = reducedArr;
         }
 
         // Crises swaping for a better storytelling
@@ -292,6 +295,7 @@ class TrackList extends Component {
         }
 
         // Asc or Desc -> reverse button
+        console.log("reverse state filtering", this.state.reverse);
         if( this.state.reverse ){
             filteredTracksFeatures = this.reverseOrder(filteredTracksFeatures);
         }

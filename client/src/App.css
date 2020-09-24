@@ -160,7 +160,7 @@ body{
 /* Tracklist */
 .tracklist{
   width: 95%;
-  max-width: 1200px;
+  max-width: 1400px;
 }
 
 /* Table with Tracks */
@@ -180,6 +180,13 @@ body{
   max-width: 600px;
 }
 
+/*
+.row:hover > .albumThumbnail{ 
+  transform: scale(1.07); 
+  transition: transform 250ms ease-in-out 50ms;
+}
+*/
+
 .playlistPage{
   display: flex;
   flex-direction: row;
@@ -192,20 +199,39 @@ body{
   }
 
   .tableTracks{
-    margin-left: 0;
+    margin: auto;
     margin-top: 5rem;
   }
+}
+
+hr{
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid gainsboro;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.tableLine{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2rem;
 }
 
 .track{
   display: flex;
   flex-direction: column;
+  height: 5rem;
 }
 
 .trackName{
   font-size: 1.8rem;
   color: white;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .trackArtist{
@@ -217,7 +243,30 @@ body{
 .albumThumbnail{
   height: 8rem;
   border-radius: 1rem;
-  margin: 0.5rem;
+  margin: 1rem;
+  /*margin-right: 2rem;*/
+}
+
+.albumThumbnail:hover{ 
+  transform: scale(1.07); 
+  transition: transform 250ms ease-in-out 50ms;
+}
+
+.previewPlayer{
+  width: 60px;
+  height: 60px;
+}
+
+.pause{
+  background: url("pause.svg") no-repeat;
+  opacity: 0.9;
+  z-index: 10;
+}
+
+.play{
+  background: url("play.svg") no-repeat;
+  opacity: 0.9;
+  z-index: 10;
 }
 
 .filterPanel{

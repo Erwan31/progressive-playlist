@@ -46,6 +46,7 @@ class TrackList extends Component {
             },
             reverse: false,
             playlistCreateEnable: true,
+            play: { state: false, id: null},
         };
     }
 
@@ -326,6 +327,34 @@ class TrackList extends Component {
 
     }
 
+    playerClick = async (id) => {
+        const button = document.querySelector('.previewPlayer');
+        let playState = this.state.play.state;
+        let previous = this.state.play.id;
+    
+        console.log("click");
+
+        if( !playState && id !== previous ){
+            // get mp3 sample and play, also change icon to pause
+            button.classList.remove("play");
+            button.classList.add("pause");
+
+            let audioPlay = new Audio("https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86");
+            audioPlay.play();
+
+            this.setState({ play: {state : true} });
+
+        }
+        else{
+            // change icon to play and stop sample
+            button.classList.remove("pause");
+            button.classList.add("play");
+
+            this.setState({ play: {state :false} });
+        }
+
+    }
+
 
     render() { 
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
@@ -381,14 +410,16 @@ class TrackList extends Component {
                                 <Table
                                 className = "tableTrack"  
                                 hover
+                                borderless
+                                size="sm"
                                 >
                                     <tbody>
                                         {filteredTracksFeatures.map( (track, i) => 
-                                            <tr key={i}>
+                                            <tr className="rowTable" key={i}>
                                                 <th scope="row">
                                                     <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
                                                 </th>
-                                                <td>
+                                                <td className="tableLine">
                                                     <div className="track">
                                                         <div className="trackName">
                                                             {track[0].name}
@@ -397,7 +428,11 @@ class TrackList extends Component {
                                                             {track[0].artists[0].name}
                                                         </div>
                                                     </div>
+                                                    {track[0].preview_url !== null && 
+                                                        <div className="previewPlayer play" onClick={i => this.playerClick(i)}></div>
+                                                    }
                                                 </td>
+                                                <hr/>
                                             </tr>
                                             )
                                         }

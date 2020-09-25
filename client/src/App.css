@@ -255,6 +255,7 @@ hr{
 .previewPlayer{
   width: 60px;
   height: 60px;
+  margin: 0.5rem;
 }
 
 .pause{

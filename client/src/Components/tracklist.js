@@ -438,7 +438,7 @@ class TrackList extends Component {
                                 >
                                     <tbody>
                                         {filteredTracksFeatures.map( (track, i) => 
-                                            <tr className="rowTable" key={i}>
+                                            <tr className="rowTable" key={track[0].id}>
                                                 <th scope="row">
                                                     <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
                                                 </th>

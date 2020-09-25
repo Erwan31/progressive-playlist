@@ -327,7 +327,7 @@ class TrackList extends Component {
 
     }
 
-    playerClick = (id) => {
+    playerClick = (id, preview) => {
         const button = document.getElementsByClassName('previewPlayer');
         let playState = this.state.play.state;
         let previous = this.state.play.id;
@@ -350,7 +350,7 @@ class TrackList extends Component {
             button.item(id).classList.remove("play");
             button.item(id).classList.add("pause");
 
-            let audio = new Audio("https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86");
+            let audio = new Audio(preview);
             audio.play();
 
             // Maybe try to add ended eventlistener to the whole tracks
@@ -452,7 +452,7 @@ class TrackList extends Component {
                                                         </div>
                                                     </div>
                                                     {track[0].preview_url !== null && 
-                                                        <div className="previewPlayer play" onClick={() => this.playerClick(i)}></div>
+                                                        <div className="previewPlayer play" onClick={() => this.playerClick(i, track[0].preview_url)}></div>
                                                     }
                                                 </td>
                                                 <hr/>

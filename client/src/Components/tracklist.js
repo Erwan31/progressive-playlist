@@ -332,6 +332,8 @@ class TrackList extends Component {
         let playState = this.state.play.state;
         let previous = this.state.play.id;
 
+        console.log("click on", id, button, button.item(id));
+
         // If click on different preview button when already playing
         if( previous !== id && playState){
             // Change playstate to false
@@ -451,7 +453,7 @@ class TrackList extends Component {
                                                             {track[0].artists[0].name}
                                                         </div>
                                                     </div>
-                                                    {track[0].preview_url !== null &&
+                                                    {track[0].preview_url !== null ?
                                                         <div className="player"> 
                                                             <div className="previewPlayer play" onClick={() => this.playerClick(i, track[0].preview_url)}></div>
                                                             <div className="progressBar">
@@ -461,9 +463,12 @@ class TrackList extends Component {
                                                                 }
                                                             </div>
                                                         </div>
+                                                        :<div className="player"> 
+                                                            <div className="previewPlayer"></div>
+                                                         </div>
                                                     }
                                                 </td>
-                                                <hr/>
+                                                <span className="hr"/>
                                             </tr>
                                             )
                                         }

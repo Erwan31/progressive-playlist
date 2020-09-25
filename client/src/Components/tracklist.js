@@ -46,7 +46,7 @@ class TrackList extends Component {
             },
             reverse: false,
             playlistCreateEnable: true,
-            play: { state: false, id: null},
+            play: { state: false, id: null, audio: null},
         };
     }
 
@@ -327,30 +327,53 @@ class TrackList extends Component {
 
     }
 
-    playerClick = async (id) => {
-        const button = document.querySelector('.previewPlayer');
+    playerClick = (id) => {
+        const button = document.getElementsByClassName('previewPlayer');
         let playState = this.state.play.state;
         let previous = this.state.play.id;
-    
-        console.log("click");
 
-        if( !playState && id !== previous ){
+        // If click on different preview button when already playing
+        if( previous !== id && playState){
+            // Change playstate to false
+            playState = !playState;
+
+            // Remove playing class from the guy
+            button.item(previous).classList.remove("pause");
+            button.item(previous).classList.add("play");
+            // Stop it's audio
+            this.state.play.audio.pause();
+        }
+
+        // If not playing
+        if( !playState ){
             // get mp3 sample and play, also change icon to pause
-            button.classList.remove("play");
-            button.classList.add("pause");
+            button.item(id).classList.remove("play");
+            button.item(id).classList.add("pause");
 
-            let audioPlay = new Audio("https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86");
-            audioPlay.play();
+            let audio = new Audio("https://p.scdn.co/mp3-preview/3eb16018c2a700240e9dfb8817b6f2d041f15eb1?cid=774b29d4f13844c495f206cafdad9c86");
+            audio.play();
 
-            this.setState({ play: {state : true} });
+            // Maybe try to add ended eventlistener to the whole tracks
+            audio.addEventListener("ended", e => {
+                button.item(this.state.play.id).classList.remove("pause");
+                button.item(this.state.play.id).classList.add("play");
+                this.setState({ play: {state: false, id: null, audio: null} });
+            }, false);
+
+            this.setState({ play: {state: true, id, audio} });
 
         }
         else{
+            let audio = this.state.play.audio;
+            audio.pause();
+         /*   audio.removeEventListener("ended", function(id){
+                this.playerClick(id);
+            }, false); */
             // change icon to play and stop sample
-            button.classList.remove("pause");
-            button.classList.add("play");
+            button.item(id).classList.remove("pause");
+            button.item(id).classList.add("play");
 
-            this.setState({ play: {state :false} });
+            this.setState({ play: {state :false, id: null, audio: null} });
         }
 
     }
@@ -429,7 +452,7 @@ class TrackList extends Component {
                                                         </div>
                                                     </div>
                                                     {track[0].preview_url !== null && 
-                                                        <div className="previewPlayer play" onClick={i => this.playerClick(i)}></div>
+                                                        <div className="previewPlayer play" onClick={() => this.playerClick(i)}></div>
                                                     }
                                                 </td>
                                                 <hr/>

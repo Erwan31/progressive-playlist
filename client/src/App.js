@@ -1,22 +1,16 @@
 import React, { Component } from "react";
 import * as $ from "jquery";
 import hash from "./hash";
-import Player from "./Components/Player";
 import "./App.css";
-import { Navbar,  NavbarBrand, Button, Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle} from 'reactstrap';
-import logo from "./logo.svg";
+import { Navbar,  NavbarBrand} from 'reactstrap';
+import logoCustom from "./logoCustom.svg"
 import TrackList from './Components/tracklist';
 import Playlists from "./Components/playlists";
 import Login from './Components/login';
-import {
-
-  BrowserRouter as Router,
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import{ BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Route
 } from "react-router-dom";
 
 class App extends Component {
@@ -25,7 +19,7 @@ class App extends Component {
     this.state = {
       user_id: null,
       token: null,
-      selectedPlaylist: null,
+      selectedPlaylist: {},
       item: {
         album: {
           images: [{ url: "" }]
@@ -37,10 +31,8 @@ class App extends Component {
       is_playing: "Paused",
       progress_ms: 0,
       no_data: false,
-      playlists: {
-        ids : []
-      },
-      playlists: [{ 
+      playlists: [{
+          ids : [], 
           collaborative: false,
           description: "",
           external_urls: {
@@ -150,7 +142,6 @@ class App extends Component {
         else{
           const id = data.id;
           this.setState({user_id: id});
-          console.log('id', this.state.user_id);
           return;
         }
       }
@@ -162,8 +153,6 @@ class App extends Component {
   getUserPlaylists(id) {
 
     let items = null;
-
-    console.log('id before playlist',this.state.user_id);
 
     // Make a call using the token
     $.ajax({
@@ -190,15 +179,14 @@ class App extends Component {
     return items;
   }
 
-  handlePlaylistSelection = (id) => {
+  handlePlaylistSelection = (id, name) => {
     // Update state by passing the id of the selected playlist
     // Possibly just pass the necessary info to the component then
-    this.setState({selectedPlaylist: id});
+    this.setState({selectedPlaylist: {id, name}});
   }
 
 
   render() {
-    if(this.state.playlists[0].images[0].url) console.log(' render print', this.state.playlists[0].images[0].url);
 
     return (
       <Router>
@@ -206,20 +194,40 @@ class App extends Component {
           <NavbarBrand 
             href="/"
             className="navbarBrandRS"
+            style={{
+              color: 'white',
+              fontSize: '2rem',
+            }}
           >
-            <img src={logo} className="App-logo" alt="logo" ></img>
+            <img src={logoCustom} className="App-logo" alt="logo" ></img>
             Playlits
           </NavbarBrand>
         </Navbar>
         <div className="App">
           <header className="App-header">
-            <Switch>
-              <Route path="/redirect" 
-              render={() => <Playlists playlists={this.state.playlists} 
-              onSelectPlaylist={this.handlePlaylistSelection} />} />
-              <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>
-              <Route path="/" exact component={Login} />
-            </Switch>
+            <Route render={({location}) => (
+                <TransitionGroup>
+                  <CSSTransition
+                    key={location.pathname}
+                    in={this.state.inProp}
+                    timeout={1250}
+                    classNames="playlistAppear"
+                    unmountOnExit
+                  >
+                    <Switch location={location}>
+                      <Route path="/redirect" 
+                      render={() => <Playlists 
+                                      playlists={this.state.playlists} 
+                                      onSelectPlaylist={this.handlePlaylistSelection} 
+                              />} 
+                      />
+                      <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>
+                      <Route path="/" exact component={Login} />
+                    </Switch>
+                  </CSSTransition>
+                </TransitionGroup>
+              )}
+            />
           </header>
         </div>
       </Router>

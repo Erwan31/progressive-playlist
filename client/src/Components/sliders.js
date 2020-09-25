@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Slider from 'react-rangeslider'
-import 'react-rangeslider/lib/index.css'
+import SliderRR from './slider'
 
-class HorizontalCustomLabels extends Component {
+class SlidersPanel extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -12,6 +11,8 @@ class HorizontalCustomLabels extends Component {
       energy: 0,
       mood: 0,
       crises: 0,
+      reverse: false,
+      genre: [true, true, true, true, true]
     }
   }
 
@@ -19,13 +20,13 @@ class HorizontalCustomLabels extends Component {
     const values = this.state;
     values[parameter] = value;
 
-    console.log('values', value, values[parameter]);
-
     this.setState({
+        tracksNum: values.tracksNum,
         danceability:  values.danceability,
         energy:  values.energy,
         mood:  values.mood,
-        crises: values.crises});
+        crises: values.crises
+    });
   };
 
   handleAndDelayChangeComplete = () => {
@@ -33,73 +34,102 @@ class HorizontalCustomLabels extends Component {
     this.props.onChangeSliders(state);
   }
 
-  render () {
-    const { tracksNum, tracksNumMax,danceability, energy, mood, crises } = this.state;
-    const tLabels = { 0: '10', 100: 'All'};
-    const dLabels = { 0: '', 100: 'Booty Shake'};
-    const eLabels = { 0: 'Sloth', 100: 'A lot'};
-    const mLabels = { 0: 'Sad', 50: 'Neutral', 100: 'Happy'};
-    const cLabels = { 0: 'None', 100: 'Many'};
+  genreToggle = (num) => {
+    const genre = [...this.state.genre];
 
-    console.log('tracksNum', tracksNum);
+    genre[num] = !genre[num];
+    this.setState({genre});
+  }
+
+  reverseOrder = () => {
+    let reverse = this.state.reverse;
+
+    this.props.onReverse();
+
+    reverse = !reverse;
+
+    this.setState({reverse});
+
+  }
+
+  render() {
+    const { tracksNumMax } = this.state;
 
     return (
-        <div className="sliders">
-            <div className='slider custom-labels sliderPerso'>
-                Tracks
-                <Slider
-                    min={10}
-                    max={tracksNumMax}
-                    value={tracksNum}
-                    orientation='vertical'
-                    labels={tLabels}
-                    onChange={(tracks) => this.handleChangeVertical( tracks, "tracksNum")}
-                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-                />
-            </div>
-            <div className='slider custom-labels sliderPerso'>
-                Danceability
-                <Slider
-                    value={danceability}
-                    orientation='vertical'
-                    labels={dLabels}
-                    onChange={(danceability) => this.handleChangeVertical( danceability, "danceability")}
-                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-                />
-            </div>
-            <div className='slider custom-labels sliderPerso'>
-                Energy
-                <Slider
-                    value={energy}
-                    orientation='vertical'
-                    labels={eLabels}
-                    onChange={(energy) => this.handleChangeVertical( energy, "energy")}
-                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-                />
-            </div>
-            <div className='slider custom-labels sliderPerso'>
-                Mood
-                <Slider
-                    value={mood}
-                    orientation='vertical'
-                    labels={mLabels}
-                    onChange={(mood) => this.handleChangeVertical( mood, "mood")}
-                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-                />
-            </div>
-            <div className='slider custom-labels sliderPerso'>
-                Crises Rate
-                <Slider
-                    value={crises}
-                    orientation='vertical'
-                    labels={cLabels}
-                    onChange={(crises) => this.handleChangeVertical( crises, "crises")}
-                    onChangeComplete={ () => this.handleAndDelayChangeComplete()}
-                />
-            </div>
+      <div className="sliders">
+        {
+          tracksNumMax > 10 ? 
+          <SliderRR 
+            name={"Tracks"}
+            max={tracksNumMax} 
+            min={10} 
+            current={tracksNumMax}
+            disabled={false} 
+            colors={'#A850FE'} 
+            label={true}
+            onChange={(value) => this.handleChangeVertical( value, "tracksNum")}
+            onFinalChange = { () => this.handleAndDelayChangeComplete() }
+          />
+          :<SliderRR 
+            name={"Tracks"}
+            max={10} 
+            min={0} 
+            current={0} 
+            disabled={true}
+            colors={'grey'}
+            label={false} 
+            onChange={() => null}
+            onFinalChange = { () => null }
+          />
+        }
+        
+        <SliderRR
+          name={"Danceability"} 
+          max={100} 
+          min={0} 
+          current={0} 
+          disabled={false} 
+          colors={'#6EDF36'}
+          label={false}  
+          onChange={(value) => this.handleChangeVertical( value, "danceability")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
+        />
+        <SliderRR
+          name={"Energy"} 
+          max={100} 
+          min={0} 
+          current={0}
+          disabled={false}  
+          colors={'#3A77E0'}
+          label={false}  
+          onChange={(value) => this.handleChangeVertical( value, "energy")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
+        />
+        <SliderRR 
+          name={"Mood"}
+          max={100} 
+          min={0} 
+          current={0}
+          disabled={false}  
+          colors={'#EB690F'}
+          label={false}  
+          onChange={(value) => this.handleChangeVertical( value, "mood")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
+        />
+        <SliderRR
+          name={"Crises"} 
+          max={6} 
+          min={1} 
+          current={1}
+          disabled={false}  
+          colors={'#1F2436'}
+          label={false}  
+          onChange={(value) => this.handleChangeVertical( value, "crises")}
+          onFinalChange = { () => this.handleAndDelayChangeComplete() }
+        />
       </div>
     )
   }
 }
 
-export default HorizontalCustomLabels
+export default SlidersPanel;

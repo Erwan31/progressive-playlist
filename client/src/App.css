@@ -27,7 +27,7 @@ body{
   /*background: rgb(30,35,52);
   background: linear-gradient(90deg, rgba(30,35,52,1) 0%, rgba(86,108,244,1) 100%);*/
   background: rgb(30,35,52);
-  background: linear-gradient(90deg, rgba(30,35,52,1) 0%, rgba(85,107,242,1) 50%, rgba(169,80,254,1) 100%);  
+  background: linear-gradient(135deg, rgba(30,35,52,1) 0%, rgba(85,107,242,1) 50%, rgba(169,80,254,1) 100%);  
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -38,13 +38,16 @@ body{
 }
 
 .App-logo {
-  height: 35px;
+  height: 10vw;
+  max-height: 6.5rem;
+  min-height: 4rem;
   pointer-events: none;
+  margin: 1rem;
 }
 
 .App-header {
  /* background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
-  min-height: 100vh;
+  min-height: 87vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,11 +79,18 @@ body{
   }
 }
 
+.redirectPlaylists{
+  min-height: 95vh;
+  min-width: 600px;
+  max-width: 1200px;
+}
 
 /* New part */
 .playlistsThumbnails{
-/*  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
-   min-height: 100vh;
+  /*  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
+  min-height: 95vh;
+  min-width: 600px;
+  max-width: 90%;
   display: flex;
  /*flex-direction: column;*/
   flex-wrap: wrap;
@@ -89,55 +99,207 @@ body{
   justify-content: center;
   font-size: 2rem;
   color: white;
-  max-width: 80%;
+  margin: auto;
 /*
   background: rgb(253,29,29);
   background: linear-gradient(286deg, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%); 
 */
 }
 
+.wrapPlaylist{
+  background-color: #2C3049;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: center;
+  max-width: 15vw;
+  min-width: 17rem;
+  height: fit-content;
+  /*width: 50%;*/
+  flex: 1 0 33%;
+  margin: 2vw 2vh;
+
+  box-shadow:
+  0 1.4px 1.1px rgba(0, 0, 0, 0.034),
+  0 3.3px 2.6px rgba(0, 0, 0, 0.048),
+  0 6.2px 5px rgba(0, 0, 0, 0.06),
+  0 11.1px 9px rgba(0, 0, 0, 0.072),
+  0 20.9px 16.7px rgba(0, 0, 0, 0.086),
+  0 50px 40px rgba(0, 0, 0, 0.12);
+}
+
 .playlistThumbnail{
-  flex-grow: 1; 
+  /*width: 50rem;
   max-width: 15vw;
   height: 30vh;
-  margin: 5vw;
+  margin: 5vw;*/
+  width: 80%;
+  height: 90%;
+  margin: 10%;
 }
 
 .playlistThumbnail img{
-  height: 20vh;
-  width: 20vh;
+  width: 100%;
   object-fit: fill;
+  border-radius: 0.3rem;
 }
 
 .playlistThumbnail p{
-  max-width: 100%;
+  max-width: 95%;
   max-height: 50%;
+  text-overflow: ellipsis;
+  /* Required for text-overflow to do anything */
+  white-space: nowrap;
   overflow: hidden;
+  text-align: left;
+  font-size: 1.5rem;
+  margin: 2rem 0rem;
+}
+
+/* Tracklist */
+.tracklist{
+  width: 95%;
+  max-width: 1400px;
 }
 
 /* Table with Tracks */
 .tableTracks{
-  width: 80vw;
+  min-width: 300px;
+  max-width: 800px;
+  font-size: 2.5rem;
+  margin: auto;
+  margin-top: 2rem;
+  margin-left: 4rem;
+  color: #EEEEEE;
+}
+
+.tableTrack{
+  width: 40vw;
+  min-width: 250px;
+  max-width: 600px;
+}
+
+/*
+.row:hover > .albumThumbnail{ 
+  transform: scale(1.07); 
+  transition: transform 250ms ease-in-out 50ms;
+}
+*/
+
+.playlistPage{
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 1050px) {
+  .playlistPage{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tableTracks{
+    margin: auto;
+    margin-top: 5rem;
+  }
+}
+
+.hr{
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid gainsboro;
+  margin: 0 0;
+  margin-top: -3rem;
+  margin-bottom: 3rem;
+  padding: 0;
+  opacity: 0.8;
+}
+
+.tableLine{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2rem;
+}
+
+.track{
+  display: flex;
+  flex-direction: column;
+  height: 5rem;
+}
+
+.trackName{
+  font-size: 1.8rem;
+  color: white;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trackArtist{
+  font-size: 1.5rem;
+  color: #EEEEEE;
+  text-align: left;
 }
 
 .albumThumbnail{
-  height: 10rem;
+  height: 8rem;
+  border-radius: 1rem;
+  margin: 1rem;
+  /*margin-right: 2rem;*/
 }
 
-.filterPanel{
-  display: flex;
-  align-items: center;
-  align-content: flex-start;
-  justify-content: space-between;
-  width: 95vw;
-  border-radius: 5rem;
-  
-  background-image: radial-gradient(circle, #f1e6b2, #eadda2, #e3d593, #dccc83, #d5c474);
+.albumThumbnail:hover{ 
+  transform: scale(1.07); 
+  transition: transform 250ms ease-in-out 50ms;
+}
+
+.previewPlayer{
+  width: 60px;
+  height: 60px;
+  margin: 0.5rem;
+}
+
+.pause{
+  background: url("pause.svg") no-repeat;
+  opacity: 0.9;
+  z-index: 10;
+}
+
+.play{
+  background: url("play.svg") no-repeat;
+  opacity: 0.9;
+  z-index: 10;
 }
 
 .filterPanel{
   display: flex;
   flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-evenly;
+  width: 95%;
+  min-width: 590px;
+  border-radius: 5rem;
+  margin: auto;
+  background: #2C3049;
+
+  font-size: 2.5rem;
+
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);
+  
+}
+
+.filterPanel p{
+  margin: 1rem;
+  color: #EEEEEE;
 }
 
 /* Charts */
@@ -147,16 +309,16 @@ body{
   align-content: flex-start;
   justify-content: space-evenly;
   position: relative; 
-  height:30vh; 
-  width: 100vw;
+  height:25vh; 
+  width: 100%;
   /*background: linear-gradient(to right, #dc2e2e, #e74d49, #f16764, #f9807e, #ff9898);*/
 }
 
 .chart{
   margin: 1vh 0.5vw;
   padding: 1vh 2vw 1vh 1vw;
-  width: 27vw;
-  height: 20vh; 
+  width: 27%;
+  height: 17vh; 
 
   border-radius: 2.5rem;
 }
@@ -190,13 +352,66 @@ body{
   align-items: center;
   align-content: flex-start;
   justify-content: space-evenly;
-  max-width: 1000px;
+  font-size: 2rem;
+  /*max-width: 1000px;*/
 }
 
 .sliderPerso{
-  margin: 2rem;
-  width: 20vw;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  margin: 2rem 2vw;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 1.75rem;
 }
+
+.sliderSideButtons{
+  /*height: 250px;*/
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+  width: 95%;
+  height: 5rem;
+}
+
+.genreButtons{
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonToggle{
+  border-radius: 25px;
+  width: fit-content;
+  height: 5rem;
+}
+
+.buttonToggle img{
+  height: 80px;
+  margin-top: -2rem;
+}
+
+.reverse{
+  height: 5rem; 
+  font-size: 2rem;
+}
+
+.reverse+.active{
+  background-color: #272822;
+}
+
+.buttonPlaylits{
+  height: 5rem; 
+  font-size: 10rem;
+}
+
+/*
+.sliderName{
+  font-size: 2rem;
+}
+*/
 
 /**
 * Rangeslider

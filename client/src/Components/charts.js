@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { defaults, Line } from 'react-chartjs-2';
 
 // Deafult font for the charts
@@ -10,10 +10,7 @@ const Charts = ({tracksFeatures}) => {
     const danceability = features.map( track => track.danceability);
     const energy = features.map( track => track.energy);
     const valence = features.map( track => track.valence);
-    const length = features.length;
     const labels = features.map( () => "");
-    console.log(length, danceability);
-
 
     const data = (arr, label, color) =>{
         return {
@@ -74,7 +71,7 @@ const Charts = ({tracksFeatures}) => {
                         labelString: yLabel,
                         fontFamily: 'Helvetica',
                         fontStyle: 'bold',
-                        fontSize: 20,
+                        fontSize: 17,
                         fontColor: '#eeeeee'
                     },
                     gridLines: {

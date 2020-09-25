@@ -420,7 +420,7 @@ class TrackList extends Component {
                                     {filteredTracksFeatures.map( (track, i) => 
                                         <tr className="rowTable" key={track[0].id}>
                                             <th scope="row">
-                                                <a style={{display: "table-cell"}} href="https://www.erwanspilmont.dev" target="_blank">
+                                                <a style={{display: "table-cell"}} href={`https://open.spotify.com/track/${track[0].id}`} target="_blank">
                                                     <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url} alt="#"></img>
                                                 </a>
                                             </th>

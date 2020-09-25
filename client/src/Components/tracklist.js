@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Table, Button, ButtonGroup, ButtonToggle } from 'reactstrap';
+import { Table, ButtonToggle, Progress } from 'reactstrap';
 import { redirectUri } from './../config';
 import Charts from './charts';
 import SlidersPanel from './sliders';
@@ -451,8 +451,16 @@ class TrackList extends Component {
                                                             {track[0].artists[0].name}
                                                         </div>
                                                     </div>
-                                                    {track[0].preview_url !== null && 
-                                                        <div className="previewPlayer play" onClick={() => this.playerClick(i, track[0].preview_url)}></div>
+                                                    {track[0].preview_url !== null &&
+                                                        <div className="player"> 
+                                                            <div className="previewPlayer play" onClick={() => this.playerClick(i, track[0].preview_url)}></div>
+                                                            <div className="progressBar">
+                                                                {// Player timeline if playing 
+                                                                 /*   (i === this.state.play.id && this.state.play.state) &&
+                                                                    <Progress animated value={50} />*/
+                                                                }
+                                                            </div>
+                                                        </div>
                                                     }
                                                 </td>
                                                 <hr/>

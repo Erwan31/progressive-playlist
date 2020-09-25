@@ -121,7 +121,6 @@ class TrackList extends Component {
         }
         */
 
-
         if( this.state.audio_features.length > 0 ){
 
             const tracks = this.state.tracks;
@@ -238,6 +237,23 @@ class TrackList extends Component {
     handleSliderChange = (sliders) => {
         console.log("slidervalue change", sliders);
 
+        // In case tracks are filtered while playing, stop and reset play state
+        console.log("sliderNum change");
+        let play = this.state.play;
+        if( play !== { state: false }){
+            // Reset all player buttons with play icon
+            const buttons = document.getElementsByClassName('previewPlayer');
+            buttons.item(play.id).classList.remove("pause");
+            buttons.item(play.id).classList.add("play");
+            
+            // Stop current audio if playing
+            play.audio.pause();
+            play.audio.currentTime = 0;
+            play = { state: false, id: null, audio: null};
+
+            this.setState({play});
+        }
+
       //  this.setState({ sliders }); // infinite loop
         const average = this.state.average;
         const nonFilteredTracksFeatures = this.state.tracksFeatures.map( (track) => {
@@ -257,6 +273,7 @@ class TrackList extends Component {
         
         // Get into account the number of tracks chosen to make the playlist
         if( sliders.tracksNum < filteredTracksFeatures.length){
+
             let reducedArr = filteredTracksFeatures;
             let length = filteredTracksFeatures.length;
             const diff = filteredTracksFeatures.length - sliders.tracksNum;
@@ -328,20 +345,20 @@ class TrackList extends Component {
     }
 
     playerClick = (id, preview) => {
-        const button = document.getElementsByClassName('previewPlayer');
+        const buttons = document.getElementsByClassName('previewPlayer');
         let playState = this.state.play.state;
         let previous = this.state.play.id;
 
-        console.log("click on", id, button, button.item(id));
+        console.log("click on", id, buttons, buttons.item(id));
 
-        // If click on different preview button when already playing
+        // If click on different preview buttons when already playing
         if( previous !== id && playState){
             // Change playstate to false
             playState = !playState;
 
             // Remove playing class from the guy
-            button.item(previous).classList.remove("pause");
-            button.item(previous).classList.add("play");
+            buttons.item(previous).classList.remove("pause");
+            buttons.item(previous).classList.add("play");
             // Stop it's audio
             this.state.play.audio.pause();
         }
@@ -349,16 +366,16 @@ class TrackList extends Component {
         // If not playing
         if( !playState ){
             // get mp3 sample and play, also change icon to pause
-            button.item(id).classList.remove("play");
-            button.item(id).classList.add("pause");
+            buttons.item(id).classList.remove("play");
+            buttons.item(id).classList.add("pause");
 
             let audio = new Audio(preview);
             audio.play();
 
             // Maybe try to add ended eventlistener to the whole tracks
             audio.addEventListener("ended", e => {
-                button.item(this.state.play.id).classList.remove("pause");
-                button.item(this.state.play.id).classList.add("play");
+                buttons.item(this.state.play.id).classList.remove("pause");
+                buttons.item(this.state.play.id).classList.add("play");
                 this.setState({ play: {state: false, id: null, audio: null} });
             }, false);
 
@@ -372,8 +389,8 @@ class TrackList extends Component {
                 this.playerClick(id);
             }, false); */
             // change icon to play and stop sample
-            button.item(id).classList.remove("pause");
-            button.item(id).classList.add("play");
+            buttons.item(id).classList.remove("pause");
+            buttons.item(id).classList.add("play");
 
             this.setState({ play: {state :false, id: null, audio: null} });
         }

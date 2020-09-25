@@ -20,8 +20,6 @@ class SlidersPanel extends Component {
     const values = this.state;
     values[parameter] = value;
 
-    //console.log('values', value, parameter);
-
     this.setState({
         tracksNum: values.tracksNum,
         danceability:  values.danceability,
@@ -33,9 +31,6 @@ class SlidersPanel extends Component {
 
   handleAndDelayChangeComplete = () => {
     const state = this.state;
-
-    console.log(state);
-
     this.props.onChangeSliders(state);
   }
 
@@ -43,8 +38,6 @@ class SlidersPanel extends Component {
     const genre = [...this.state.genre];
 
     genre[num] = !genre[num];
-
-    //console.log("genre", genre);
     this.setState({genre});
   }
 
@@ -60,9 +53,7 @@ class SlidersPanel extends Component {
   }
 
   render() {
-    const { tracksNum, tracksNumMax,danceability, energy, mood, crises } = this.state;
-
-    //console.log("max tracks", tracksNumMax);
+    const { tracksNumMax } = this.state;
 
     return (
       <div className="sliders">
@@ -139,31 +130,6 @@ class SlidersPanel extends Component {
       </div>
     )
   }
-
-  /*
-<div className="genreButtons">
-            Genre
-            <ButtonGroup vertical>
-              <ButtonToggle 
-                className="buttonToggle" 
-                onClick={() => this.genreToggle(0)} active={this.state.genre[0]}>
-                  1
-              </ButtonToggle>
-              <ButtonToggle 
-                className="buttonToggle" 
-                onClick={() => this.genreToggle(1)} 
-                active={this.state.genre[1]}>
-                  2
-              </ButtonToggle>
-              <ButtonToggle 
-                className="buttonToggle" 
-                onClick={() => this.genreToggle(2)} 
-                active={this.state.genre[2]}>
-                  3
-              </ButtonToggle>
-            </ButtonGroup>
-          </div>
-  */
 }
 
 export default SlidersPanel;

@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import * as $ from "jquery";
 import hash from "./hash";
-import Player from "./Components/Player";
 import "./App.css";
-import { Navbar,  NavbarBrand, Button, Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle} from 'reactstrap';
-import logo from "./logo.svg";
+import { Navbar,  NavbarBrand} from 'reactstrap';
 import logoCustom from "./logoCustom.svg"
 import TrackList from './Components/tracklist';
 import Playlists from "./Components/playlists";
@@ -13,10 +10,7 @@ import Login from './Components/login';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import{ BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Route
 } from "react-router-dom";
 
 class App extends Component {
@@ -37,10 +31,8 @@ class App extends Component {
       is_playing: "Paused",
       progress_ms: 0,
       no_data: false,
-      playlists: {
-        ids : []
-      },
-      playlists: [{ 
+      playlists: [{
+          ids : [], 
           collaborative: false,
           description: "",
           external_urls: {
@@ -150,7 +142,6 @@ class App extends Component {
         else{
           const id = data.id;
           this.setState({user_id: id});
-          console.log('id', this.state.user_id);
           return;
         }
       }
@@ -162,8 +153,6 @@ class App extends Component {
   getUserPlaylists(id) {
 
     let items = null;
-
-    console.log('id before playlist',this.state.user_id);
 
     // Make a call using the token
     $.ajax({
@@ -198,8 +187,7 @@ class App extends Component {
 
 
   render() {
-    if(this.state.playlists[0].images[0].url) console.log(' render print', this.state.playlists[0].images[0].url);
-    console.log(this.state.playlists);
+
     return (
       <Router>
         <Navbar className="navbarRS">

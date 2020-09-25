@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Table, ButtonToggle, Progress } from 'reactstrap';
-import { redirectUri } from './../config';
+import { Table, ButtonToggle } from 'reactstrap';
 import Charts from './charts';
 import SlidersPanel from './sliders';
 import { computeTrackFeatureCoefficient } from './scripts/sliderCoef';
@@ -51,8 +50,6 @@ class TrackList extends Component {
     }
 
     async componentDidMount() {
-        //console.log('compo did it');
-
         // Get up to 100 tracks from playlist 
         const token = this.props.playlistInfo.token;
         const playlistID = this.props.playlistInfo.selectedPlaylist.id;
@@ -69,7 +66,6 @@ class TrackList extends Component {
 
         //Get tracks ids and request audio features
         for(let i = 0; i < this.state.tracks.length; i++){
-            //console.log('id', this.state.tracks[i].track.id)
             idsAF.push(this.state.tracks[i].track.id);
         }
 
@@ -80,6 +76,7 @@ class TrackList extends Component {
         this.setState({ audio_features:  data1.audio_features});
 
 /*
+        // Failure for genre sorting code...to be continued
         let idsArtists = [];
 
         //Get artists ids and request them
@@ -133,9 +130,6 @@ class TrackList extends Component {
             // No Filter tracks based on a parameter
             //const filtered_features = this.sortByAscCriteria(audio_features, "danceability");
             // useful still?????????????????????
-
-            console.log(audio_features);
-
             const filtered_ids = audio_features.map( (track) => {
                 average.avD += track.danceability/length;
                 average.avE += track.energy/length;
@@ -146,16 +140,13 @@ class TrackList extends Component {
             this.setState({average});
 
             const filteredTracksFeatures = filtered_ids.map( (id, j) => {
-
                 coefFeatures[j] = computeTrackFeatureCoefficient( audio_features[j], average, sliders );
-
                 for( let i = 0; i < length; i++ ){
-                    //console.log( id, tracks[i].track.id);
-                    if( id === tracks[i].track.id) return [tracks[i].track, audio_features[i], coefFeatures[i]];
+                    if( id === tracks[i].track.id){
+                        return [tracks[i].track, audio_features[i], coefFeatures[i]];
+                    };
                 }
             });
-
-            //console.log('filteredTracks', filteredTracksFeatures);
             this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures });
         }
     }
@@ -186,11 +177,12 @@ class TrackList extends Component {
         let reverse = this.state.reverse;
         reverse = !reverse;
         this.setState({reverse});
-        console.log("reverse state", this.state.reverse, arr, sorted);
+ 
         return sorted;
     }
 
     reverseOrder = (arr) => {
+        // Used with reverse state condition
         const sorted = arr.sort( ( a, b) => -1);
         return sorted;
     }
@@ -214,7 +206,6 @@ class TrackList extends Component {
 
         this.setState({ rSelected: selected, rDirection });
         
-        //console.log('rselected', rSelected);
         // If the selection is the same just reverse theA whole playlist order
         if( rSelected === selected){
             filteredTracksFeatures = this.reverseOrder( filteredTracksFeatures);
@@ -222,30 +213,25 @@ class TrackList extends Component {
         else{
             // Otherwise, change the playlist order based on the main criteria selected
             if( selected !== null ){
-                //console.log('features', filteredTracksFeatures);
                 filteredTracksFeatures = this.sortByAscCriteria( filteredTracksFeatures, CRITERIA[selected]);
                 this.setState({ filteredTracksFeatures });
             }
             else {
                 filteredTracksFeatures = tracksFeatures;
-                //console.log('no selection');
             }
         }
     }
 
     // Sliders
     handleSliderChange = (sliders) => {
-        console.log("slidervalue change", sliders);
-
         // In case tracks are filtered while playing, stop and reset play state
-        console.log("sliderNum change");
         let play = this.state.play;
-        if( play !== { state: false }){
+        if( play.state ){
             // Reset all player buttons with play icon
             const buttons = document.getElementsByClassName('previewPlayer');
             buttons.item(play.id).classList.remove("pause");
             buttons.item(play.id).classList.add("play");
-            
+
             // Stop current audio if playing
             play.audio.pause();
             play.audio.currentTime = 0;
@@ -254,7 +240,6 @@ class TrackList extends Component {
             this.setState({play});
         }
 
-      //  this.setState({ sliders }); // infinite loop
         const average = this.state.average;
         const nonFilteredTracksFeatures = this.state.tracksFeatures.map( (track) => {
             // Rename better those array values as object, it's confusing
@@ -262,12 +247,7 @@ class TrackList extends Component {
             return track;
         });
 
-        //console.log(nonFilteredTracksFeatures);
-
         let filteredTracksFeatures = this.sortByAscCoef( nonFilteredTracksFeatures );
-        const ratio = Math.floor(nonFilteredTracksFeatures.length/sliders.tracksNum);
-        //console.log('ratio', ratio);
-
 
         // Music types to take out -> necessarly applied on the original playlist
         
@@ -289,15 +269,11 @@ class TrackList extends Component {
         if( sliders.crises !== 0 && sliders.tracksNum > 11){
             let temp = [];
 
-            //console.log(filteredTracksFeatures);
-
             // Pass through all songs
             // See at what frequency swapping should happen
             // Swap in between 4 songs around the target track
             // Could it be a propotional function to smooth it out?
             for( let i = 1; i < sliders.tracksNum-2; i++){
-                //console.log("track floor", i%(Math.floor(sliders.tracksNum/sliders.crises)));
-
                 if( i>5 && i%(Math.floor(sliders.tracksNum/sliders.crises)) === 0 ){
                     temp[0] = filteredTracksFeatures[i-2];
                     temp[1] = filteredTracksFeatures[i-1];
@@ -313,7 +289,6 @@ class TrackList extends Component {
         }
 
         // Asc or Desc -> reverse button
-        console.log("reverse state filtering", this.state.reverse);
         if( this.state.reverse ){
             filteredTracksFeatures = this.reverseOrder(filteredTracksFeatures);
         }
@@ -321,35 +296,20 @@ class TrackList extends Component {
         let idsSorted = [];
         //Get Ids sorted for playlist export to spotify
         for(let i = 0; i < filteredTracksFeatures.length; i++){
-            //console.log('id', this.state.tracks[i].track.id)
             idsSorted.push(filteredTracksFeatures[i][0].id);
         }
-
-        this.setState({tracksIDsSorted: idsSorted});
-
-        //console.log("tracksIDSSorted", this.state.tracksIDsSorted);
-
-        // Track enable or disabled -> hover from reactstrap to see
-
-        this.setState({ filteredTracksFeatures });
-/*
-        let  filteredTracksFeatures = this.state.filteredTracksFeatures;
-        const tracksFeatures = this.state.tracksFeatures;*/
+        this.setState({tracksIDsSorted: idsSorted, filteredTracksFeatures});
 
         /* If tracklist is the same as at the beginning, impossible to create a playlist -> also creating bug without! */
         if( sliders !== this.state.slidersInit ){
-            console.log("movement on knobs");
             this.setState({ playlistCreateEnable: false });
         }
-
     }
 
     playerClick = (id, preview) => {
         const buttons = document.getElementsByClassName('previewPlayer');
         let playState = this.state.play.state;
         let previous = this.state.play.id;
-
-        console.log("click on", id, buttons, buttons.item(id));
 
         // If click on different preview buttons when already playing
         if( previous !== id && playState){
@@ -397,12 +357,13 @@ class TrackList extends Component {
 
     }
 
+    hrefToSpotify = (href) => {
+
+    }
 
     render() { 
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
         const token = this.props.playlistInfo.token;
-
-        //console.log('filteredTracksFeatures', filteredTracksFeatures, filteredTracksFeatures.length);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
@@ -421,7 +382,7 @@ class TrackList extends Component {
                                         <SlidersPanel
                                             tracksNum={filteredTracksFeatures.length} 
                                             onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
-                                            onGenreButtons={ (buttons) => console.log("genre change")}
+                                            //onGenreButtons={ (buttons) => console.log("genre change")}
                                         />
                                     </div>
                                     <Charts tracksFeatures={filteredTracksFeatures}/>
@@ -436,7 +397,7 @@ class TrackList extends Component {
                                             boxShadow: '0px 2px 4px 0px rgba(166,82,254,0.5)'
                                         }}
                                         >
-                                            <img src={reverseArrows}/>
+                                            <img src={reverseArrows} alt="#"/>
                                         </ButtonToggle>
                                         <CreatePlaylits 
                                             auth={{Authorization: "Bearer " + token}}
@@ -447,51 +408,53 @@ class TrackList extends Component {
                                     </div>
                                 </div>
                         </div>
-                            <div className="tableTracks">
-                                <p>Playlist Tracks</p>
-                                <Table
-                                className = "tableTrack"  
-                                hover
-                                borderless
-                                size="sm"
-                                >
-                                    <tbody>
-                                        {filteredTracksFeatures.map( (track, i) => 
-                                            <tr className="rowTable" key={track[0].id}>
-                                                <th scope="row">
-                                                    <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url}></img>
-                                                </th>
-                                                <td className="tableLine">
-                                                    <div className="track">
-                                                        <div className="trackName">
-                                                            {track[0].name}
-                                                        </div>
-                                                        <div className="trackArtist">
-                                                            {track[0].artists[0].name}
+                        <div className="tableTracks">
+                            <p>Playlist Tracks</p>
+                            <Table
+                            className = "tableTrack"  
+                            hover
+                            borderless
+                            size="sm"
+                            >
+                                <tbody>
+                                    {filteredTracksFeatures.map( (track, i) => 
+                                        <tr className="rowTable" key={track[0].id}>
+                                            <th scope="row">
+                                                <a style={{display: "table-cell"}} href="https://www.erwanspilmont.dev" target="_blank">
+                                                    <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url} alt="#"></img>
+                                                </a>
+                                            </th>
+                                            <td className="tableLine">
+                                                <div className="track">
+                                                    <div className="trackName">
+                                                        {track[0].name}
+                                                    </div>
+                                                    <div className="trackArtist">
+                                                        {track[0].artists[0].name}
+                                                    </div>
+                                                </div>
+                                                {track[0].preview_url !== null ?
+                                                    <div className="player"> 
+                                                        <div className="previewPlayer play" onClick={() => this.playerClick(i, track[0].preview_url)}></div>
+                                                        <div className="progressBar">
+                                                            {// Player timeline if playing 
+                                                                /*   (i === this.state.play.id && this.state.play.state) &&
+                                                                <Progress animated value={50} />*/
+                                                            }
                                                         </div>
                                                     </div>
-                                                    {track[0].preview_url !== null ?
-                                                        <div className="player"> 
-                                                            <div className="previewPlayer play" onClick={() => this.playerClick(i, track[0].preview_url)}></div>
-                                                            <div className="progressBar">
-                                                                {// Player timeline if playing 
-                                                                 /*   (i === this.state.play.id && this.state.play.state) &&
-                                                                    <Progress animated value={50} />*/
-                                                                }
-                                                            </div>
+                                                    :<div className="player"> 
+                                                        <div className="previewPlayer"></div>
                                                         </div>
-                                                        :<div className="player"> 
-                                                            <div className="previewPlayer"></div>
-                                                         </div>
-                                                    }
-                                                </td>
-                                                <span className="hr"/>
-                                            </tr>
-                                            )
-                                        }
-                                    </tbody>
-                                </Table>
-                            </div>
+                                                }
+                                            </td>
+                                            <span className="hr"/>
+                                        </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </Table>
+                        </div>
                     </div>
                 </CSSTransition>
             </main>

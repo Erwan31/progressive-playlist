@@ -12,6 +12,8 @@ import{ BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+import BackButton from './Components/backButton';
+
 
 class App extends Component {
   constructor() {
@@ -202,6 +204,19 @@ class App extends Component {
             <img src={logoCustom} className="App-logo" alt="logo" ></img>
             Playlits
           </NavbarBrand>
+            <NavbarBrand
+              className="backButton"
+              style={{
+                color: 'white',
+                fontSize: '2rem',
+              }}
+            >
+              <Route 
+                component={BackButton}
+              >
+              </Route>
+            </NavbarBrand>
+          
         </Navbar>
         <div className="App">
           <header className="App-header">

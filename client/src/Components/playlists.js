@@ -4,7 +4,8 @@ import {
 } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
 
-import '../cssTransition.css'
+import '../cssTransition.css';
+import noPlaylists from '../no_playlists.svg';
 
 class Playlists extends Component {
     constructor(props) {
@@ -23,7 +24,9 @@ class Playlists extends Component {
 
         return ( 
             <main className="redirectPlaylists">
-                <h2>Select one of your playlist to playlits it!</h2>
+                {playlists.length > 1 ?
+                <>
+                    <h2>Select one of your playlist to PlayLits it!</h2>
                     <CSSTransition 
                                 in={this.state.inProp}
                                 timeout={750}
@@ -56,6 +59,9 @@ class Playlists extends Component {
                         }
                         </div>
                     </CSSTransition>
+                </>
+                : <div className="nothingToShow"><img src={noPlaylists} alt="noPlaylists"/></div>
+                }
             </main>
          ); 
     }

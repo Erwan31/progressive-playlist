@@ -12,21 +12,6 @@ const Login = () => {
         <>
         <main className="content">
           <div>Shuffle and Reorder your Spotify playlists </div>
-            <section className="instruction1">
-              <img src={playlits1} alt="playlists"></img>
-              <div >Pick one of your playlists!</div>
-            </section>
-            <section className="instruction2">
-              <div>
-                <ul>Then just play around the knobs: 
-                  <li>Danceable (from static to booty shaking)</li>
-                  <li>Energy (from calm to intensity)</li>
-                  <li>Mood (from sad to happy)</li>
-                </ul>
-                After that simply export your new playlist to your account in one click and enjoy!
-              </div>
-              <img src={playlits2} alt="playlists"></img>
-            </section>
             <section className="connection">
               <Button
                   style={{

@@ -11,15 +11,16 @@ import playlits2 from '../playlits2.PNG'
 
 const items = [
   {
-    children: <section className="instruction1">
+    children: <section key={145666} className="instruction1">
                 <img src={playlits1} alt="playlists"></img>
                 <div >Pick one of your playlists!</div>
               </section>,
-    altText: 'Slide 1',
-    caption: 'Slide 1'
+    altText: '',
+    caption: ''
   },
+  
   {
-    children: <section className="instruction2">
+    children: <section key={24556} className="instruction2">
                 <div>
                 <ul>Then just play around the knobs: 
                     <li>Danceable (from static to booty shaking)</li>
@@ -30,8 +31,8 @@ const items = [
                 </div>
                 <img src={playlits2} alt="playlists"></img>
             </section>,
-    altText: 'Slide 2',
-    caption: 'Slide 2'
+    altText: '',
+    caption: ''
   },
 ];
 
@@ -61,7 +62,7 @@ const Slides = (props) => {
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={item.i}
+        key={i*2}
       >
         {item.children}
         <CarouselCaption captionText={item.caption} captionHeader={item.caption} />

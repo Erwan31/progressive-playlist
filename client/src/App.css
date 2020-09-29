@@ -74,7 +74,7 @@ body{
 .instruction1,
 .instruction2{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -100,10 +100,9 @@ body{
 
 .instruction1 img,
 .instruction2 img{
-  max-width: 600px;
-  width: 30%;
+  width: 100%;
   opacity: 0.85;
-  margin: 1.5rem;
+  margin: 3rem;
 }
 
 /*

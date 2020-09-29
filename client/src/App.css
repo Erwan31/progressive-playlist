@@ -60,9 +60,55 @@ body{
   color: #61dafb;
 }
 
+/* Login */
+.content{
+  background: #EEEEEE;
+  border-radius: 20px;
+  width: fit-content;
+  height: auto;
+  max-height: 87vh;
+  margin: 2rem;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+
+.instruction1,
+.instruction2{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.instruction1 div,
+.instruction2 div{
+  width: 300px;
+  height: fit-content;
+  font-size: 1.5rem;
+  background-color: #323D79;
+  margin: 1rem;
+  padding: 3rem;
+  border-radius: 30px;
+  box-shadow: 0px 3px 2px 1px#9E54FD;
+}
+
+.instruction2 div{
+  text-align: left;
+  width: 450px;
+  background-color: #9E54FD;
+  box-shadow: 0px 3px 2px 1px#323D79;
+}
+
+.instruction1 img,
+.instruction2 img{
+  max-width: 600px;
+  width: 30%;
+  opacity: 0.85;
+  margin: 1.5rem;
+}
+
 /*
 .navbarRS{
-  background: #F1E6B2;
+  backgropx;und: #F1E6B2;
 }
 */
 
@@ -211,7 +257,6 @@ body{
   width: 90vw;
   min-width: 600px;
   max-width: 1200px;
-  animation: objAppear 3s 3s;
 }
 
 .nothingToShow img{

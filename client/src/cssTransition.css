@@ -38,3 +38,22 @@
   transition: all 750ms ease-out 100ms;
 }
 
+.errorAppear-enter {
+  opacity: 0;
+  transform: scale(0.98) translateY(7px);
+}
+.errorAppear-enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 3000ms ease-out 3000ms;
+}
+.errorAppear-exit {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+.errorAppear-exit-active {
+  opacity: 0;
+  transform: scale(0.98) translateY(-7px);
+  transition: all 750ms ease-out 100ms;
+}
+

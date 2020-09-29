@@ -60,7 +60,14 @@ class Playlists extends Component {
                         </div>
                     </CSSTransition>
                 </>
-                : <div className="nothingToShow"><img src={noPlaylists} alt="noPlaylists"/></div>
+                : <CSSTransition 
+                    in={this.state.inProp}
+                    timeout={3000}
+                    classNames="errorAppear"
+                    unmountOnExit
+                    >
+                        <div className="nothingToShow"><img src={noPlaylists} alt="noPlaylists"/></div>
+                  </CSSTransition>
                 }
             </main>
          ); 

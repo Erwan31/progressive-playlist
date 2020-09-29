@@ -22,5 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#personal
+#personal -> always think about emptying the cache
 /src/config.js

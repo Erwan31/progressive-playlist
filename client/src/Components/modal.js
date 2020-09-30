@@ -8,7 +8,15 @@ const ModalExample = (props) => {
 
   const toggle = () => setModal(!modal);
 
-  const closeBtn = <button className="close" onClick={toggle}>&times;</button>;
+  const closeBtn = <button className="close" 
+                           onClick={toggle} 
+                           style={{
+                             color: 'darkgray', 
+                             fontStyle: 'bold', 
+                             fontSize: '3rem'}}
+                    >
+                      &times;
+                    </button>;
 
   return (
     <div>
@@ -17,9 +25,8 @@ const ModalExample = (props) => {
         <Modal isOpen={modal} toggle={toggle} style={{color: 'black'}}>
           <ModalHeader
           toggle={toggle} 
-          close={closeBtn}
-          style={{color: 'black'}}>
-            What's PlayLits?
+          close={closeBtn}>
+           <div style={{color: 'darkgray', fontStyle: 'bold', fontSize: '3rem'}}>What's PlayLits?</div>
           </ModalHeader>
           <ModalBody>
               <Slides/>

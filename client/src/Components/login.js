@@ -11,7 +11,10 @@ const Login = () => {
     return ( 
         <>
         <main className="content">
-          <div>Shuffle and Reorder your Spotify playlists </div>
+          <div className="titleInit">
+            Shuffle and Reorder your Spotify playlists with 
+            harmony and a better storytelling! <ModalExample/>
+            </div>
             <section className="connection">
               <Button
                   style={{
@@ -31,7 +34,6 @@ const Login = () => {
               >
                 <img src={spotify} alt="#"/> Login to Spotify
               </Button>
-              <ModalExample/>
             </section>
         </main>
         </>

@@ -2,8 +2,6 @@ import React from 'react';
 import { Button } from 'reactstrap';
 import { authEndpoint, clientId, redirectUri, scopes } from "../config";
 import spotify from '../spotify.svg'
-import playlits1 from '../playlits1.PNG'
-import playlits2 from '../playlits2.PNG'
 import ModalExample from './modal'
 
 const Login = () => {

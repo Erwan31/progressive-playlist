@@ -378,7 +378,7 @@ class TrackList extends Component {
                         <div>
                                 <div className="filterPanel">
                                     <div className="filtersKnobs">
-                                        <p>Playlits Panel</p>
+                                        <p className="titlePanel">PlayLits Panel</p>
                                         <SlidersPanel
                                             tracksNum={filteredTracksFeatures.length} 
                                             onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
@@ -409,7 +409,7 @@ class TrackList extends Component {
                                 </div>
                         </div>
                         <div className="tableTracks">
-                            <p>Playlist Tracks</p>
+                            <p>Tracks</p>
                             <Table
                             className = "tableTrack"  
                             hover

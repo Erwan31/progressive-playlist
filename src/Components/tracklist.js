@@ -8,7 +8,7 @@ import CreatePlaylits from './createPlaylits';
 import { CSSTransition } from 'react-transition-group';
 
 import '../cssTransition.css'
-import reverseArrows from '.././reverse_arrows.svg'
+import reverseArrows from '../reverse_arrows.svg'
 
 const CRITERIA = ["danceability", "energy", "valence"];
 

@@ -105,6 +105,18 @@ body{
   margin: 3rem;
 }
 
+.modal{
+  color: black;
+  font-size: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-inner a{
+  background-color: grey;
+}
+
 /*
 .navbarRS{
   backgropx;und: #F1E6B2;

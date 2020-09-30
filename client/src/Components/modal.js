@@ -3,26 +3,30 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Slides from './carousel';
 
 const ModalExample = (props) => {
-  const {
-    buttonLabel,
-    className
-  } = props;
 
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
 
+  const closeBtn = <button className="close" onClick={toggle}>&times;</button>;
+
   return (
     <div>
-      <Button color="danger" onClick={toggle}>{buttonLabel}</Button>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader
-         toggle={toggle}
-         >What's PlayLits?</ModalHeader>
-        <ModalBody>
-            <Slides/>
-        </ModalBody>
-      </Modal>
+      <Button color="info" onClick={toggle}>?</Button>
+      <div className="modal">
+        <Modal isOpen={modal} toggle={toggle} style={{color: 'black'}}>
+          <ModalHeader
+          toggle={toggle} 
+          close={closeBtn}
+          style={{color: 'black'}}>
+            What's PlayLits?
+          </ModalHeader>
+          <ModalBody>
+              <Slides/>
+          </ModalBody>
+        </Modal>
+      </div>
+      
     </div>
   );
 }

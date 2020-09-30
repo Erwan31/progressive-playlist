@@ -6,33 +6,22 @@ import {
   CarouselIndicators,
   CarouselCaption
 } from 'reactstrap';
-import playlits1 from '../playlits1.PNG'
-import playlits2 from '../playlits2.PNG'
+import instruction1 from '../instruction1.png'
+import instruction2 from '../instruction2.png'
 
 const items = [
   {
-    children: <section key={145666} className="instruction1">
-                <img src={playlits1} alt="playlists"></img>
-                <div >Pick one of your playlists!</div>
-              </section>,
+    children: <img src={instruction1} alt="instruction1" style={{width: '100%'}}></img>,
     altText: '',
-    caption: ''
+    caption: '',
+    key: '1'
   },
   
   {
-    children: <section key={24556} className="instruction2">
-                <div>
-                <ul>Then just play around the knobs: 
-                    <li>Danceable (from static to booty shaking)</li>
-                    <li>Energy (from calm to intensity)</li>
-                    <li>Mood (from sad to happy)</li>
-                </ul>
-                After that simply export your new playlist to your account in one click and enjoy!
-                </div>
-                <img src={playlits2} alt="playlists"></img>
-            </section>,
+    children: <img src={instruction2} alt="instruction2" style={{width: '100%'}}></img>,
     altText: '',
-    caption: ''
+    caption: '',
+    key: '2'
   },
 ];
 
@@ -62,7 +51,7 @@ const Slides = (props) => {
       <CarouselItem
         onExiting={() => setAnimating(true)}
         onExited={() => setAnimating(false)}
-        key={i*2}
+        key={item.key}
       >
         {item.children}
         <CarouselCaption captionText={item.caption} captionHeader={item.caption} />

@@ -11,7 +11,8 @@ const Login = () => {
         <main className="content">
           <div className="titleInit">
             Shuffle and Reorder your Spotify playlists with 
-            harmony and a better storytelling!<ModalExample/>
+            harmony and a better storytelling! 
+            <><ModalExample/></>
             <br/>
           </div>
           <section className="connection">

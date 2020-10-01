@@ -70,11 +70,9 @@ class App extends Component {
       this.setState({
         token: _token
       });
-
       
       const idInfo = await this.getUserInfo(_token);
-      const playlists = this.getUserPlaylists(idInfo.id);
-
+      const playlists = await this.getUserPlaylists(idInfo.id);
     }
 
     // set interval for polling every 5 seconds

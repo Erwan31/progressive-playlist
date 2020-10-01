@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import Slides from './carousel';
 
 const ModalExample = (props) => {
@@ -19,22 +19,24 @@ const ModalExample = (props) => {
                     </button>;
 
   return (
-    <div>
+    <>
       <Button color="info" onClick={toggle} size="lg">?</Button>
-      <div className="modal">
-        <Modal isOpen={modal} toggle={toggle} style={{color: 'black'}}>
-          <ModalHeader
-          toggle={toggle} 
-          close={closeBtn}>
-           <div style={{color: 'darkgray', fontStyle: 'bold', fontSize: '3rem'}}>What's PlayLits?</div>
-          </ModalHeader>
-          <ModalBody>
+      {/* Issue in here with the production build -> why???? */
+        modal && 
+        <div className="modal">
+          <Modal isOpen={modal} toggle={toggle} style={{color: 'black'}}>
+            <ModalHeader
+            toggle={toggle} 
+            close={closeBtn}>
+            <div style={{color: 'darkgray', fontStyle: 'bold', fontSize: '3rem'}}>What's PlayLits?</div>
+            </ModalHeader>
+            <ModalBody>
               <Slides/>
-          </ModalBody>
-        </Modal>
-      </div>
-      
-    </div>
+            </ModalBody>
+          </Modal>
+        </div>
+      } 
+    </>
   );
 }
 

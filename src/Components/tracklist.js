@@ -146,6 +146,7 @@ class TrackList extends Component {
                         return [tracks[i].track, audio_features[i], coefFeatures[i]];
                     };
                 }
+                return null;
             });
             this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures });
         }

@@ -5,7 +5,7 @@ const BackButton = ({history}) => {
 
     if(history.location.pathname !== "/" && history.location.pathname !== "/redirect" ){
       return (
-       <img src={backImage} onClick={() => history.goBack()}></img>
+       <img src={backImage} onClick={() => history.goBack()} alt=""></img>
      );
     }
     else return null;

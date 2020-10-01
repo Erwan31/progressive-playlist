@@ -32,7 +32,8 @@
     "react-scripts": "3.4.3",
     "react-transition-group": "^4.4.1",
     "reactstrap": "^8.5.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "serve": "^11.3.2"
   },
   "scripts": {
     "start": "serve -s build",

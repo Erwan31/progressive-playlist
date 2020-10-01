@@ -42,7 +42,6 @@
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
   },
-  "homepage": "www.playlits.herokuapp.com",
   "eslintConfig": {
     "extends": "react-app"
   },

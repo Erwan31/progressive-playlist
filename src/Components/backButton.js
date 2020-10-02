@@ -8,7 +8,7 @@ const BackButton = ({history}) => {
        <img src={backImage} onClick={() => history.goBack()} alt=""></img>
      );
     }
-    else return null;
+    else return <div style={{width: "120px", height: "42px", cursor: "none"}}></div>;
     
 }
  

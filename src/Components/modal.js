@@ -20,7 +20,18 @@ const ModalExample = (props) => {
 
   return (
     <>
-      <Button color="info" onClick={toggle} size="lg">?</Button>
+      <Button 
+        color="info" 
+        onClick={toggle} 
+        size="lg"
+        style={{
+          borderRadius: "50%",
+          border: "solid 1px",
+          padding: "-1rem"
+        }}
+      >
+        ?
+      </Button>
       {/* Issue in here with the production build -> why???? */
         modal && 
         <div className="modal">

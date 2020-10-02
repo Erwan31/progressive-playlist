@@ -153,9 +153,12 @@ class TrackList extends Component {
     }
 
     componentWillUnmount(){
+        // Shut down player altogether when changing page if playing
         const playState = this.state.play;
-        playState.audio.pause();
-        playState.audio = null;
+        if( playState.audio !== null){
+            playState.audio.pause();
+            playState.audio = null;
+        }
     }
 
     // Sorting functions

@@ -152,6 +152,12 @@ class TrackList extends Component {
         }
     }
 
+    componentWillUnmount(){
+        const playState = this.state.play;
+        playState.audio.pause();
+        playState.audio = null;
+    }
+
     // Sorting functions
     sortByAscCriteria = (arr, parameter) => {
         const sorted = arr.sort( ( a, b) =>{

@@ -21,16 +21,15 @@ const ModalDisplay = (props) => {
   return (
     <>
       <Button 
-        color="info" 
+        className="questionMark" 
         onClick={toggle} 
         size="lg"
         style={{
-          borderRadius: "50%",
-          border: "solid 1px",
-          padding: "-1rem"
+          border: "0",
+          background: "transparent"
         }}
       >
-        ?
+        <div className="questionMark">?</div>
       </Button>
       {/* Issue in here with the production build -> why???? */
         modal && 

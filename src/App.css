@@ -608,3 +608,15 @@ footer{
   margin: 0.5rem;
   transform: rotate(90deg);
 }
+
+.questionMark{
+  width: 2.4rem;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.questionMark:hover{
+  background:lightgrey;
+}
+

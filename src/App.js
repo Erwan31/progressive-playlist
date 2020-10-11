@@ -3,7 +3,6 @@ import * as $ from "jquery";
 import hash from "./hash";
 import "./App.css";
 import { Navbar,  NavbarBrand} from 'reactstrap';
-import logoCustom from "./logoCustom.svg"
 import TrackList from './Components/tracklist';
 import Playlists from "./Components/playlists";
 import Login from './Components/login';
@@ -14,6 +13,10 @@ import{ BrowserRouter as Router,
 } from "react-router-dom";
 import BackButton from './Components/backButton';
 
+// Images
+import logoCustom from "./logoCustom.svg"
+import github from "./github.svg"
+import link from "./link.svg"
 
 class App extends Component {
   constructor() {
@@ -189,51 +192,61 @@ class App extends Component {
   render() {
 
     return (
-      <Router>
-        <Navbar className="navbarRS">
-          <NavbarBrand 
-            href="/"
-            className="navbarBrandRS"
-            style={{
-              color: 'white',
-              fontSize: '2rem',
-            }}
-          >
-            <img src={logoCustom} className="App-logo" alt="logo" ></img>
-            PlayLits
-          </NavbarBrand>
-            <NavbarBrand className="backButton">
-              <Route component={BackButton} />
-            </NavbarBrand> 
-        </Navbar>
-        <div className="App">
-          <header className="App-header">
-            <Route render={({location}) => (
-                <TransitionGroup>
-                  <CSSTransition
-                    key={location.pathname}
-                    in={this.state.inProp}
-                    timeout={1250}
-                    classNames="playlistAppear"
-                    unmountOnExit
-                  >
-                    <Switch location={location}>
-                      <Route path="/redirect" 
-                      render={() => <Playlists 
-                                      playlists={this.state.playlists} 
-                                      onSelectPlaylist={this.handlePlaylistSelection} 
-                              />} 
-                      />
-                      <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>
-                      <Route path="/" exact component={Login} />
-                    </Switch>
-                  </CSSTransition>
-                </TransitionGroup>
-              )}
-            />
-          </header>
-        </div>
-      </Router>
+      <>
+        <Router>
+          <Navbar className="navbarRS">
+            <NavbarBrand 
+              href="/"
+              className="navbarBrandRS"
+              style={{
+                color: 'white',
+                fontSize: '2rem',
+              }}
+            >
+              <img src={logoCustom} className="App-logo" alt="logo" ></img>
+              PlayLits
+            </NavbarBrand>
+              <NavbarBrand className="backButton">
+                <Route component={BackButton} />
+              </NavbarBrand> 
+          </Navbar>
+          <div className="App">
+            <header className="App-header">
+              <Route render={({location}) => (
+                  <TransitionGroup>
+                    <CSSTransition
+                      key={location.pathname}
+                      in={this.state.inProp}
+                      timeout={1250}
+                      classNames="playlistAppear"
+                      unmountOnExit
+                    >
+                      <Switch location={location}>
+                        <Route path="/redirect" 
+                        render={() => <Playlists 
+                                        playlists={this.state.playlists} 
+                                        onSelectPlaylist={this.handlePlaylistSelection} 
+                                />} 
+                        />
+                        <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>
+                        <Route path="/" exact component={Login} />
+                      </Switch>
+                    </CSSTransition>
+                  </TransitionGroup>
+                )}
+              />
+            </header>
+          </div>
+        </Router>
+        <footer>
+          <div className="designedby">
+            <hr className="line"></hr> 
+            Designed by Erwan Spilmont-2020
+            <a href="https://www.erwanspilmont.dev"><img  src={link} alt="link" className="footLink"/></a>
+            <a href="https://github.com/Erwan31/progressive-playlist"><img src={github} alt="github" className="footLink"/></a>
+          </div>
+        </footer>
+      </>
     );
   }
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import Slides from './carousel';
 
-const ModalExample = (props) => {
+const ModalDisplay = (props) => {
 
   const [modal, setModal] = useState(false);
 
@@ -51,4 +51,4 @@ const ModalExample = (props) => {
   );
 }
 
-export default ModalExample;
+export default ModalDisplay;

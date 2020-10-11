@@ -581,3 +581,30 @@ body{
   height: 5rem; 
   font-size: 10rem;
 }
+
+.labelsRange{
+  font-size: 1.3rem;
+  color: #9E54FD;
+}
+
+footer{
+  display: inline-block;
+  position: fixed;
+  bottom: 120px;
+  right: -120px;
+  transform: rotate(-90deg);
+}
+
+.line{
+  display: inline-block;
+  width: 3rem;
+  height: 0.05rem;
+  background: white;
+  margin-bottom: 0.3rem;
+  margin-right: 0.4rem;
+}
+
+.footLink{
+  margin: 0.5rem;
+  transform: rotate(90deg);
+}

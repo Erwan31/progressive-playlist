@@ -69,6 +69,7 @@ class SlidersPanel extends Component {
             label={true}
             onChange={(value) => this.handleChangeVertical( value, "tracksNum")}
             onFinalChange = { () => this.handleAndDelayChangeComplete() }
+            labelRange={{max: `${tracksNumMax}`, min: "10"}}
           />
           :<SliderRR 
             name={"Tracks"}
@@ -80,6 +81,7 @@ class SlidersPanel extends Component {
             label={false} 
             onChange={() => null}
             onFinalChange = { () => null }
+            labelRange={{max: "-", min: "-"}}
           />
         }
         
@@ -93,6 +95,7 @@ class SlidersPanel extends Component {
           label={false}  
           onChange={(value) => this.handleChangeVertical( value, "danceability")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
+          labelRange={{max: "Booty Shake", min: "Static"}}
         />
         <SliderRR
           name={"Energy"} 
@@ -104,6 +107,7 @@ class SlidersPanel extends Component {
           label={false}  
           onChange={(value) => this.handleChangeVertical( value, "energy")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
+          labelRange={{max: "Intense", min: "Chill"}}
         />
         <SliderRR 
           name={"Mood"}
@@ -115,6 +119,7 @@ class SlidersPanel extends Component {
           label={false}  
           onChange={(value) => this.handleChangeVertical( value, "mood")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
+          labelRange={{max: "Happy", min: "Sad"}}
         />
         <SliderRR
           name={"Crises"} 
@@ -126,6 +131,7 @@ class SlidersPanel extends Component {
           label={false}  
           onChange={(value) => this.handleChangeVertical( value, "crises")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
+          labelRange={{max: "Some", min: "None"}}
         />
       </div>
     )

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'reactstrap';
 import { authEndpoint, clientId, redirectUri, scopes } from "../config";
 import spotify from '../spotify.svg'
-import ModalExample from './modal'
+import ModalDisplay from './modal'
 
 const Login = () => {
 
@@ -12,7 +12,7 @@ const Login = () => {
           <div className="titleInit">
             Shuffle and Reorder your Spotify playlists with 
             harmony and a better storytelling! 
-            <><ModalExample/></>
+            <><ModalDisplay/></>
             <br/>
           </div>
           <section className="connection">

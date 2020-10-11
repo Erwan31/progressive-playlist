@@ -9,6 +9,7 @@ class SliderRR extends Component {
     constructor (props, context) {
         super(props, context)
         this.state = {
+          // Tracks range
             values: [this.props.min === this.props.current ? this.props.min : this.props.current]
         }
     }
@@ -22,6 +23,7 @@ class SliderRR extends Component {
     return (
         <div className='sliderPerso'>
             <div className='sliderName'>{this.props.name}</div>
+            <span className='labelsRange'>{this.props.labelRange.max || ""}</span>
             <Range
                 className='sliderRange'
                 direction={Direction.Up}
@@ -111,6 +113,7 @@ class SliderRR extends Component {
             </div>
           )}
         />
+        <span className='labelsRange'>{this.props.labelRange.min || ""}</span>
       </div>
     );
   }

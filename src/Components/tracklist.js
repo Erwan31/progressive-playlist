@@ -340,6 +340,7 @@ class TrackList extends Component {
             buttons.item(id).classList.add("pause");
 
             let audio = new Audio(preview);
+            audio.volume = 0.4;
             audio.play();
 
             // Maybe try to add ended eventlistener to the whole tracks

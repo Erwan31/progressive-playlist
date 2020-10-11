@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import Slides from './carousel';
 
-const ModalDisplay = (props) => {
+const ModalDisplay = ({items, title}) => {
 
   const [modal, setModal] = useState(false);
 
@@ -38,10 +38,10 @@ const ModalDisplay = (props) => {
             <ModalHeader
             toggle={toggle} 
             close={closeBtn}>
-            <div style={{color: 'darkgray', fontStyle: 'bold', fontSize: '3rem'}}>What's PlayLits?</div>
+            <div style={{color: 'darkgray', fontStyle: 'bold', fontSize: '3rem'}}>{title}</div>
             </ModalHeader>
             <ModalBody>
-              <Slides/>
+              <Slides items={items}/>
             </ModalBody>
           </Modal>
         </div>

@@ -6,26 +6,8 @@ import {
   CarouselIndicators,
   CarouselCaption
 } from 'reactstrap';
-import instruction1 from '../instruction1.png'
-import instruction2 from '../instruction2.png'
 
-const items = [
-  {
-    children: <img src={instruction1} alt="instruction1" style={{width: '100%'}}></img>,
-    altText: '',
-    caption: '',
-    key: '1'
-  },
-  
-  {
-    children: <img src={instruction2} alt="instruction2" style={{width: '100%'}}></img>,
-    altText: '',
-    caption: '',
-    key: '2'
-  },
-];
-
-const Slides = (props) => {
+const Slides = ({items}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 

@@ -3,6 +3,25 @@ import { Button } from 'reactstrap';
 import { authEndpoint, clientId, redirectUri, scopes } from "../config";
 import spotify from '../spotify.svg'
 import ModalDisplay from './modal'
+import instruction1 from '../instruction1.png'
+import instruction2 from '../instruction2.png'
+
+// Has to be part of the props to make it a reusable element
+const items = [
+  {
+    children: <img src={instruction1} alt="instruction1" style={{width: '100%'}}></img>,
+    altText: '',
+    caption: '',
+    key: '1'
+  },
+  
+  {
+    children: <img src={instruction2} alt="instruction2" style={{width: '100%'}}></img>,
+    altText: '',
+    caption: '',
+    key: '2'
+  },
+];
 
 const Login = () => {
 
@@ -12,7 +31,7 @@ const Login = () => {
           <div className="titleInit">
             Shuffle and Reorder your Spotify playlists with 
             harmony and a better storytelling! 
-            <><ModalDisplay/></>
+            <><ModalDisplay items={items} title={"What's PlayLits?"}/></>
             <br/>
           </div>
           <section className="connection">

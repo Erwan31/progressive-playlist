@@ -68,6 +68,8 @@ class TrackList extends Component {
             Authorization: "Bearer " + token
         };
 
+        console.log("playlists info", this.props)
+
         const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
                                  {headers: headerContent});
         const data = await response.data;
@@ -386,6 +388,7 @@ class TrackList extends Component {
     render() { 
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
         const token = this.props.playlistInfo.token;
+        const playListName = this.props.playlistInfo.selectedPlaylist.name;
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
@@ -431,8 +434,8 @@ class TrackList extends Component {
                                 </div>
                         </div>
                         <div className="tableTracks">
-                            <p>Tracks</p>
-                            <Table
+                            <p>Tracks from</p>
+                                    <p className="playlistName">{playListName}</p>                            <Table
                             className = "tableTrack"  
                             hover
                             borderless

@@ -330,6 +330,11 @@ body{
   max-width: 600px;
 }
 
+.playlistName{
+  font-size: 1.5rem;
+  color: #323D79;
+}
+
 /*
 .row:hover > .albumThumbnail{ 
   transform: scale(1.07); 

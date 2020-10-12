@@ -68,7 +68,7 @@ body{
   max-height: 87vh;
   margin: 2rem;
   box-shadow: 0px 0px 12px 12px rgba(0, 0, 255, .2);
-  margin: 3rem;
+  margin: 4rem;
   padding: 3rem;
 }
 
@@ -589,7 +589,7 @@ body{
 
 .labelsRange{
   font-size: 1.3rem;
-  color: #9E54FD;
+  color: #d2afff;
 }
 
 footer{

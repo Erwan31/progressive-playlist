@@ -197,17 +197,17 @@ class TrackList extends Component {
     }
 
     reverseOrderButton = (arr) => {
-        const sorted = arr.sort( ( a, b) => -1);
+        const sorted = arr.reverse();
         let reverse = this.state.reverse;
         reverse = !reverse;
-        this.setState({reverse});
- 
-        return sorted;
+
+        console.log("click reverse", sorted === arr);
+        this.setState({reverse, filteredTracksFeatures: sorted});
     }
 
     reverseOrder = (arr) => {
         // Used with reverse state condition
-        const sorted = arr.sort( ( a, b) => -1);
+        const sorted = arr.reverse();
         return sorted;
     }
 
@@ -230,9 +230,9 @@ class TrackList extends Component {
 
         this.setState({ rSelected: selected, rDirection });
         
-        // If the selection is the same just reverse theA whole playlist order
+        // If the selection is the same just reverse the whole playlist order
         if( rSelected === selected){
-            filteredTracksFeatures = this.reverseOrder( filteredTracksFeatures);
+            filteredTracksFeatures = this.reverseOrder( filteredTracksFeatures );
         }
         else{
             // Otherwise, change the playlist order based on the main criteria selected
@@ -416,7 +416,7 @@ class TrackList extends Component {
                                         <ButtonToggle 
                                         className="buttonToggle reverse" 
                                         color="info"  
-                                        onClick={ () => this.setState( {filteredTracksFeatures: this.reverseOrderButton(filteredTracksFeatures)})} 
+                                        onClick={ () => this.reverseOrderButton(filteredTracksFeatures) } 
                                         active={this.state.reverse}
                                         style={{
                                             borderRadius: '25px',

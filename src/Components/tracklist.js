@@ -10,16 +10,17 @@ import { CSSTransition } from 'react-transition-group';
 import '../cssTransition.css'
 import reverseArrows from '../reverse_arrows.svg'
 import ModalDisplay from './modal';
+import parametersDescription from '../parameters-description.jpg'
 
 const CRITERIA = ["danceability", "energy", "valence"];
 // Has to be part of the props to make it a reusable element
 const items = [
     {
-      children: <div style={{width: '100%', fontSize: '3rem', color:'black'}}>Juste du texte pour test</div>,
-      altText: '',
-      caption: '',
-      key: '1'
-    },
+        children: <img src={parametersDescription} alt="parameters-description" style={{width: '100%'}}></img>,
+        altText: '',
+        caption: '',
+        key: '1'
+      },
   ];
 
 

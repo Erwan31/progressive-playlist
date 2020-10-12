@@ -198,10 +198,8 @@ class TrackList extends Component {
 
     reverseOrderButton = (arr) => {
         const sorted = arr.reverse();
-        let reverse = this.state.reverse;
-        reverse = !reverse;
+        const reverse = !this.state.reverse;
 
-        console.log("click reverse", sorted === arr);
         this.setState({reverse, filteredTracksFeatures: sorted});
     }
 
@@ -406,7 +404,8 @@ class TrackList extends Component {
                                     <div className="filtersKnobs">
                                         <p className="titlePanel">PlayLits Panel <ModalDisplay items={items} title={"Parameters Description"}/></p>
                                         <SlidersPanel
-                                            tracksNum={filteredTracksFeatures.length} 
+                                            tracksNum={filteredTracksFeatures.length}
+                                            reverse={this.state.reverse} 
                                             onChangeSliders={(sliders) => this.handleSliderChange(sliders)}
                                             //onGenreButtons={ (buttons) => console.log("genre change")}
                                         />

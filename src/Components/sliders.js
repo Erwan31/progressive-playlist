@@ -7,13 +7,21 @@ class SlidersPanel extends Component {
     this.state = {
       tracksNumMax: this.props.tracksNum,
       tracksNum: this.props.tracksNum,
+      reverse: this.props.reverse, // in the case the order is reverse, change labels 
       danceability: 0,
       energy: 0,
       mood: 0,
       crises: 0,
-      reverse: false,
       genre: [true, true, true, true, true]
     }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+
+    if( nextProps.reverse !== prevState.reverse){
+      return { reverse: nextProps.reverse };
+    }
+    else return null;
   }
 
   handleChangeVertical = (value, parameter) => {
@@ -41,17 +49,6 @@ class SlidersPanel extends Component {
     this.setState({genre});
   }
 
-  reverseOrder = () => {
-    let reverse = this.state.reverse;
-
-    this.props.onReverse();
-
-    reverse = !reverse;
-
-    this.setState({reverse});
-
-  }
-
   render() {
     const { tracksNumMax } = this.state;
 
@@ -69,7 +66,7 @@ class SlidersPanel extends Component {
             label={true}
             onChange={(value) => this.handleChangeVertical( value, "tracksNum")}
             onFinalChange = { () => this.handleAndDelayChangeComplete() }
-            labelRange={{max: `${tracksNumMax}`, min: "10"}}
+            labelRange={{max: `${tracksNumMax}`, min: ""}}
           />
           :<SliderRR 
             name={"Tracks"}
@@ -81,7 +78,7 @@ class SlidersPanel extends Component {
             label={false} 
             onChange={() => null}
             onFinalChange = { () => null }
-            labelRange={{max: "-", min: "-"}}
+            labelRange={{max: "-", min: ""}}
           />
         }
         
@@ -95,7 +92,7 @@ class SlidersPanel extends Component {
           label={false}  
           onChange={(value) => this.handleChangeVertical( value, "danceability")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
-          labelRange={{max: "Booty Shake", min: "Static"}}
+          labelRange={{max: !this.state.reverse ? "Booty Shake":"Static", min: ""}}
         />
         <SliderRR
           name={"Energy"} 
@@ -107,7 +104,7 @@ class SlidersPanel extends Component {
           label={false}  
           onChange={(value) => this.handleChangeVertical( value, "energy")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
-          labelRange={{max: "Intense", min: "Chill"}}
+          labelRange={{max: !this.state.reverse ? "Intense":"Chill", min: ""}}
         />
         <SliderRR 
           name={"Mood"}
@@ -119,7 +116,7 @@ class SlidersPanel extends Component {
           label={false}  
           onChange={(value) => this.handleChangeVertical( value, "mood")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
-          labelRange={{max: "Happy", min: "Sad"}}
+          labelRange={{max: !this.state.reverse ? "Happy":"Sad", min: ""}}
         />
         <SliderRR
           name={"Crises"} 
@@ -131,7 +128,7 @@ class SlidersPanel extends Component {
           label={false}  
           onChange={(value) => this.handleChangeVertical( value, "crises")}
           onFinalChange = { () => this.handleAndDelayChangeComplete() }
-          labelRange={{max: "Some", min: "None"}}
+          labelRange={{max: "Some", min: ""}}
         />
       </div>
     )

@@ -7,6 +7,7 @@ import { Button } from 'reactstrap';
 
 import '../cssTransition.css';
 import noPlaylists from '../no_playlists.svg';
+import noPlaylistThumbnail from '../no_playlist_thumbnail.svg'
 
 class Playlists extends Component {
     constructor(props) {
@@ -51,14 +52,14 @@ class Playlists extends Component {
                                         key={i}
                                     >
                                         {
-                                            playlist.images[0].url !== null || undefined ?
+                                            playlist.images[0] !== null && playlist.images[0] !== undefined ?
                                             <div className="playlistThumbnail">
                                                 <img src={playlist.images[0].url} alt="#"/>
                                                 <p>{playlist.name}</p>
                                             </div>
                                             :
                                             <div className="playlistThumbnail">
-                                                <img src={playlist.images[0].url} alt="#"/>
+                                                <img src={noPlaylistThumbnail} alt="#"/>
                                                 <p>{playlist.name}</p>
                                             </div>
                                         }

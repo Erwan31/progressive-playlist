@@ -625,3 +625,14 @@ footer{
   background:lightgrey;
 }
 
+.loadMore{
+  color: lightgrey;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 48px;
+  text-align: center;
+  opacity: 0.1;
+  text-shadow: 3px 3px 3px #000000;
+  margin: 2rem;
+}
+

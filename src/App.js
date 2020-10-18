@@ -54,7 +54,8 @@ class App extends Component {
             total: null,
           },
           uri: ""
-        }]
+        }],
+        offset: 0,
     };
 
     this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
@@ -221,8 +222,12 @@ class App extends Component {
   }
 
   handleMorePlaylists = () => {
+    // Get more playlist until reaching max of user
     const id = this.state.user_id;
-    this.getUserPlaylistsNew(id, 20);
+    const offset = this.state.offset;
+    this.getUserPlaylistsNew(id, offset + 20);
+
+    this.setState({offset});
   }
 
   handlePlaylistSelection = (id, name) => {

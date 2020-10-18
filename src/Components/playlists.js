@@ -63,7 +63,6 @@ class Playlists extends Component {
                                                 <p>{playlist.name}</p>
                                             </div>
                                         }
-                                        
                                     </Link>
                                 </div>
                             )
@@ -81,16 +80,15 @@ class Playlists extends Component {
                   </CSSTransition>
                 }
 
-                <Button
-                    color="info"  
-                    onClick={ () => this.props.loadMorePlaylists() } 
-                    style={{
-                        borderRadius: '25px',
-                        boxShadow: '0px 2px 4px 0px rgba(166,82,254,0.5)'
-                    }}
+                { playlists.length % 20 === 0 &&
+                    <div 
+                        className="loadMore"
+                        onClick={ () => this.props.loadMorePlaylists() } 
                     >
-                        Load More Playlists...
-                </Button>
+                            Click here to Load More Playlists
+                    </div>
+                }
+                
             </main>
          ); 
     }

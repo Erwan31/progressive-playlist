@@ -628,11 +628,13 @@ footer{
 .loadMore{
   color: lightgrey;
   font-weight: bold;
-  font-size: 48px;
-  line-height: 48px;
+  font-size: 4rem;
+  line-height: 4rem;
   text-align: center;
   opacity: 0.1;
   text-shadow: 3px 3px 3px #000000;
-  margin: 2rem;
+  margin: 2.5rem;
+  cursor: pointer;
+  
 }
 

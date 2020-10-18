@@ -85,7 +85,7 @@ class Playlists extends Component {
                         className="loadMore"
                         onClick={ () => this.props.loadMorePlaylists() } 
                     >
-                            Click here to Load More Playlists
+                            Click here to Load More...
                     </div>
                 }
                 

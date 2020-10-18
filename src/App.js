@@ -215,8 +215,10 @@ class App extends Component {
     let limit = data.limit;
     let playlists = this.state.playlists;
     items = data.items;
-    playlists.push(items);
-    this.setState({ limit, playlists: items });
+    console.log("playlists before push", playlists);
+    playlists.push(...items);
+    console.log("playlists after push", playlists);
+    this.setState({ limit, playlists });
 
     return items;
   }

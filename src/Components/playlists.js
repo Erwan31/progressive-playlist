@@ -3,6 +3,7 @@ import {
     Link
 } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
+import { Button } from 'reactstrap';
 
 import '../cssTransition.css';
 import noPlaylists from '../no_playlists.svg';
@@ -49,10 +50,19 @@ class Playlists extends Component {
                                         to={`/playlist/${playlist.id}`} 
                                         key={i}
                                     >
-                                        <div className="playlistThumbnail">
-                                            <img src={playlist.images[0].url} alt="#"/>
-                                            <p>{playlist.name}</p>
-                                        </div>
+                                        {
+                                            playlist.images[0].url !== null || undefined ?
+                                            <div className="playlistThumbnail">
+                                                <img src={playlist.images[0].url} alt="#"/>
+                                                <p>{playlist.name}</p>
+                                            </div>
+                                            :
+                                            <div className="playlistThumbnail">
+                                                <img src={playlist.images[0].url} alt="#"/>
+                                                <p>{playlist.name}</p>
+                                            </div>
+                                        }
+                                        
                                     </Link>
                                 </div>
                             )
@@ -69,6 +79,17 @@ class Playlists extends Component {
                         <div className="nothingToShow"><img src={noPlaylists} alt="noPlaylists"/></div>
                   </CSSTransition>
                 }
+
+                <Button
+                    color="info"  
+                    onClick={ () => this.props.loadMorePlaylists() } 
+                    style={{
+                        borderRadius: '25px',
+                        boxShadow: '0px 2px 4px 0px rgba(166,82,254,0.5)'
+                    }}
+                    >
+                        Load More Playlists...
+                </Button>
             </main>
          ); 
     }

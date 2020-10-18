@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as $ from "jquery";
 import hash from "./hash";
+import axios from 'axios';
 import "./App.css";
 import { Navbar,  NavbarBrand} from 'reactstrap';
 import TrackList from './Components/tracklist';
@@ -182,6 +183,48 @@ class App extends Component {
     return items;
   }
 
+  async getUserPlaylistsNew(id, offset) {
+
+    let items = null;
+    let data = null;
+
+    // Get up to 100 tracks from playlist 
+    const token = this.state.token;
+    const headerContent = {
+        Authorization: "Bearer " + token
+    };
+
+    try{
+      const response = await axios.get(`https://api.spotify.com/v1/users/${id}/playlists`,
+                                        {
+                                          headers: headerContent, 
+                                          params: {offset: offset }
+                                        });
+      data = await response.data;
+
+      console.log("more playlists??", data);
+    }
+    catch(error){
+      console.log("more playlists...", error);
+      this.setState({
+        no_data: true,
+      });
+    }
+  
+    let limit = data.limit;
+    let playlists = this.state.playlists;
+    items = data.items;
+    playlists.push(items);
+    this.setState({ limit, playlists: items });
+
+    return items;
+  }
+
+  handleMorePlaylists = () => {
+    const id = this.state.user_id;
+    this.getUserPlaylistsNew(id, 20);
+  }
+
   handlePlaylistSelection = (id, name) => {
     // Update state by passing the id of the selected playlist
     // Possibly just pass the necessary info to the component then
@@ -225,7 +268,8 @@ class App extends Component {
                         <Route path="/redirect" 
                         render={() => <Playlists 
                                         playlists={this.state.playlists} 
-                                        onSelectPlaylist={this.handlePlaylistSelection} 
+                                        onSelectPlaylist={this.handlePlaylistSelection}
+                                        loadMorePlaylists={this.handleMorePlaylists} 
                                 />} 
                         />
                         <Route path="/playlist/:id" render={() => <TrackList playlistInfo={this.state} />}/>

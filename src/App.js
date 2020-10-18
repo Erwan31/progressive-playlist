@@ -202,8 +202,6 @@ class App extends Component {
                                           params: {offset: offset }
                                         });
       data = await response.data;
-
-      console.log("more playlists??", data);
     }
     catch(error){
       console.log("more playlists...", error);
@@ -212,13 +210,14 @@ class App extends Component {
       });
     }
   
-    let limit = data.limit;
-    let playlists = this.state.playlists;
     items = data.items;
-    console.log("playlists before push", playlists);
-    playlists.push(...items);
-    console.log("playlists after push", playlists);
-    this.setState({ limit, playlists });
+
+    if(items !== null){
+      let limit = data.limit;
+      let playlists = this.state.playlists;
+      playlists.push(...items);
+      this.setState({ limit, playlists });
+    }
 
     return items;
   }

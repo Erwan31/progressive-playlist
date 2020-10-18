@@ -29,6 +29,7 @@ class TrackList extends Component {
         super(props);
 
         this.state = {
+            offset: 0,
             inProp: false,
             playlistName: "",
             tracks: [],
@@ -162,7 +163,7 @@ class TrackList extends Component {
                 }
                 return null;
             });
-            this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures });
+            this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures, offset: this.state.tracks.length });
         }
     }
 
@@ -173,6 +174,84 @@ class TrackList extends Component {
             playState.audio.pause();
             playState.audio = null;
         }
+    }
+
+    async loadMoreTracks(){
+                // Get up to 100 tracks from playlist 
+                const token = this.props.playlistInfo.token;
+                const playlistID = this.props.playlistInfo.selectedPlaylist.id;
+                const offset = this.state.offset;
+                let tracks = this.state.tracks;
+
+                const headerContent = {
+                    Authorization: "Bearer " + token
+                };
+        
+                console.log("playlists info", this.props)
+        
+                const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`,
+                                         {
+                                             headers: headerContent,
+                                            params: {offset: offset,
+                                                     limit: 50
+                                                    }
+                                         });
+                const data = await response.data;
+                console.log("data items", data.items);
+
+                if(data.items.length !== 0){
+                    tracks.push(...data.items)
+                    this.setState( { tracks });
+            
+                    let idsAF = [];
+            
+                    //Get tracks ids and request audio features
+                    for(let i = 0; i < data.items.length; i++){
+                        idsAF.push(data.items[i].track.id);
+                    }
+            
+                    const idsStringAF = idsAF.join(",");
+                    const response1 = await axios.get(`https://api.spotify.com/v1/audio-features/?ids=${idsStringAF}`, {headers: headerContent});
+                    const data1 = await response1.data;
+                    
+                    let audioFeatures = this.state.audio_features;
+                    audioFeatures.push(...data1.audio_features);
+                    this.setState({ audio_features:  data1.audio_features});
+
+                    if( this.state.audio_features.length > 0 ){
+
+                        const tracks = this.state.tracks;
+                        const audio_features = this.state.audio_features;
+                        const coefFeatures = this.state.coefFeatures;
+                        const sliders = this.state.sliders;
+                        const average = {avD: 0, avE: 0, avM: 0};
+                        const length = tracks.length;
+                        
+                        // No Filter tracks based on a parameter
+                        //const filtered_features = this.sortByAscCriteria(audio_features, "danceability");
+                        // useful still?????????????????????
+                        const filtered_ids = audio_features.map( (track) => {
+                            average.avD += track.danceability/length;
+                            average.avE += track.energy/length;
+                            average.avM += track.valence/length;
+                            return track.id;
+                        });
+            
+                        this.setState({average});
+            
+                        const filteredTracksFeatures = filtered_ids.map( (id, j) => {
+                            coefFeatures[j] = computeTrackFeatureCoefficient( audio_features[j], average, sliders );
+                            for( let i = 0; i < length; i++ ){
+                                if( id === tracks[i].track.id){
+                                    return [tracks[i].track, audio_features[i], coefFeatures[i]];
+                                };
+                            }
+                            return null;
+                        });
+                        this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures, offset: this.state.tracks.length });
+                    }
+
+                }
     }
 
     // Sorting functions
@@ -389,6 +468,8 @@ class TrackList extends Component {
         const token = this.props.playlistInfo.token;
         const playListName = this.props.playlistInfo.selectedPlaylist.name;
 
+        console.log("print offset", this.state.offset%50);
+
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
             <main className="tracklist">
@@ -442,6 +523,14 @@ class TrackList extends Component {
                             size="sm"
                             >
                                 <tbody>
+                                    { this.state.offset%50 === 0  &&
+                                        <div 
+                                            className="loadMore"
+                                            onClick={ () => this.loadMoreTracks() } 
+                                        >
+                                                Load More...
+                                        </div>
+                                    }
                                     {filteredTracksFeatures.map( (track, i) => 
                                         <tr className="rowTable" key={track[0].id}>
                                             <th scope="row">

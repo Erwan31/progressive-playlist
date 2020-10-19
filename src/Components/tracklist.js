@@ -201,7 +201,6 @@ class TrackList extends Component {
                                                     }
                                          });
                 const data = await response.data;
-                console.log("data items", data.items);
 
                 if(data.items.length !== 0){
                     tracks.push(...data.items)
@@ -217,15 +216,15 @@ class TrackList extends Component {
                     const idsStringAF = idsAF.join(",");
                     const response1 = await axios.get(`https://api.spotify.com/v1/audio-features/?ids=${idsStringAF}`, {headers: headerContent});
                     const data1 = await response1.data;
-                    
-                    let audioFeatures = this.state.audio_features;
-                    audioFeatures.push(...data1.audio_features);
-                    this.setState({ audio_features:  data1.audio_features});
 
-                    if( this.state.audio_features.length > 0 ){
+                    if( data1.audio_features.length > 0 ){
+
+                        let audioFeatures = this.state.audio_features;
+                        audioFeatures.push(...data1.audio_features);
+                        this.setState({ audio_features:  data1.audio_features});
 
                         const tracks = this.state.tracks;
-                        const audio_features = this.state.audio_features;
+                        const audio_features = audioFeatures;
                         const coefFeatures = this.state.coefFeatures;
                         const sliders = this.state.sliders;
                         const average = {avD: 0, avE: 0, avM: 0};
@@ -476,7 +475,7 @@ class TrackList extends Component {
         const token = this.props.playlistInfo.token;
         const playListName = this.props.playlistInfo.selectedPlaylist.name;
 
-        console.log("print offset", this.state.loadmore.offset%50);
+        console.log("ftf", filteredTracksFeatures);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (

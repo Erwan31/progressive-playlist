@@ -595,8 +595,8 @@ body{
 footer{
   display: inline-block;
   position: fixed;
-  bottom: 120px;
-  right: -120px;
+  bottom: 107px;
+  right: -113px;
   transform: rotate(-90deg);
 }
 

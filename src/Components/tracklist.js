@@ -471,6 +471,7 @@ class TrackList extends Component {
     }
 
     render() { 
+        const tracks = this.state.tracks;
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
         const token = this.props.playlistInfo.token;
         const playListName = this.props.playlistInfo.selectedPlaylist.name;
@@ -492,6 +493,7 @@ class TrackList extends Component {
                                     <div className="filtersKnobs">
                                         <p className="titlePanel">PlayLits Panel <ModalDisplay items={items} title={"Parameters Description"}/></p>
                                         <SlidersPanel
+                                            tracksNumMax={tracks.length}
                                             tracksNum={filteredTracksFeatures.length}
                                             reverse={this.state.reverse} 
                                             onChangeSliders={(sliders) => this.handleSliderChange(sliders)}

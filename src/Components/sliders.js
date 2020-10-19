@@ -5,7 +5,7 @@ class SlidersPanel extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      tracksNumMax: this.props.tracksNum,
+      tracksNumMax: this.props.tracksNumMax,
       tracksNum: this.props.tracksNum,
       reverse: this.props.reverse, // in the case the order is reverse, change labels 
       danceability: 0,
@@ -21,7 +21,11 @@ class SlidersPanel extends Component {
     if( nextProps.reverse !== prevState.reverse){
       return { reverse: nextProps.reverse };
     }
-    else return null;
+    if( nextProps.tracksNumMax !== prevState.tracksNumMax){
+      return { tracksNumMax: nextProps.tracksNumMax };
+    }
+    
+    return null;
   }
 
   handleChangeVertical = (value, parameter) => {

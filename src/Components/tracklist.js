@@ -29,6 +29,10 @@ class TrackList extends Component {
         super(props);
 
         this.state = {
+            loadmore: {
+                offset: 0,
+                nomore: false
+            },
             offset: 0,
             inProp: false,
             playlistName: "",
@@ -163,7 +167,7 @@ class TrackList extends Component {
                 }
                 return null;
             });
-            this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures, offset: this.state.tracks.length });
+            this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures, loadmore: {offset: this.state.tracks.length }});
         }
     }
 
@@ -180,7 +184,7 @@ class TrackList extends Component {
                 // Get up to 100 tracks from playlist 
                 const token = this.props.playlistInfo.token;
                 const playlistID = this.props.playlistInfo.selectedPlaylist.id;
-                const offset = this.state.offset;
+                const offset = this.state.loadmore.offset;
                 let tracks = this.state.tracks;
 
                 const headerContent = {
@@ -248,9 +252,13 @@ class TrackList extends Component {
                             }
                             return null;
                         });
-                        this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures, offset: this.state.tracks.length });
+                        this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures, loadmore: {offset: this.state.tracks.length } });
                     }
 
+                }
+                else{
+                    // In case the click on Load more was returning null
+                    this.setState({ loadmore: {nomore: true}});
                 }
     }
 
@@ -468,7 +476,7 @@ class TrackList extends Component {
         const token = this.props.playlistInfo.token;
         const playListName = this.props.playlistInfo.selectedPlaylist.name;
 
-        console.log("print offset", this.state.offset%50);
+        console.log("print offset", this.state.loadmore.offset%50);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (
@@ -516,21 +524,23 @@ class TrackList extends Component {
                         </div>
                         <div className="tableTracks">
                             <p>Tracks from</p>
-                                    <p className="playlistName">{playListName}</p>                            <Table
-                            className = "tableTrack"  
-                            hover
-                            borderless
-                            size="sm"
+                            <p className="playlistName">{playListName}</p>
+                            { this.state.loadmore.offset%50 === 0  &&
+                               !this.state.loadmore.nomore &&
+                                <div 
+                                    className="loadMore"
+                                    onClick={ () => this.loadMoreTracks() } 
+                                >
+                                        Load More...
+                                </div>
+                            }
+                            <Table
+                                className = "tableTrack"  
+                                hover
+                                borderless
+                                size="sm"
                             >
                                 <tbody>
-                                    { this.state.offset%50 === 0  &&
-                                        <div 
-                                            className="loadMore"
-                                            onClick={ () => this.loadMoreTracks() } 
-                                        >
-                                                Load More...
-                                        </div>
-                                    }
                                     {filteredTracksFeatures.map( (track, i) => 
                                         <tr className="rowTable" key={track[0].id}>
                                             <th scope="row">

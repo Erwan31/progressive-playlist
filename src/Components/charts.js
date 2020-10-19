@@ -2,7 +2,7 @@ import React from 'react';
 import { defaults, Line } from 'react-chartjs-2';
 
 // Deafult font for the charts
-defaults.global.defaultFontFamily = 'Anonymous Pro';
+defaults.global.defaultFontFamily = 'Nunito';
 
 const Charts = ({tracksFeatures}) => {
 

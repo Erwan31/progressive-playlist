@@ -23,7 +23,7 @@ class Playlists extends Component {
         this.setState({inProp: true})
     }
 
-    /* Meant to obtain a CSStransition after click on load more -> doesn't seem to work
+    /*
     static getDerivedStateFromProps(nextProps, prevState) {
         if(nextProps.playlists !== prevState.playlists){
             return { playlists: nextProps.playlists}
@@ -38,11 +38,11 @@ class Playlists extends Component {
    
         if(playlists.length < 2){
            // Try to parse previously stored playlists within the storage
-            store.each(function(value, key) {
-                localStorage  = value;
-            });
+            localStorage = store.get("playlists");
 
-            playlists = JSON.parse(localStorage); 
+            console.log(localStorage);
+
+            if(localStorage) playlists = JSON.parse(localStorage); 
         }
         else{
             // Otherwise store the loaded playlists

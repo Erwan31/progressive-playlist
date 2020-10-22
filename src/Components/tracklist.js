@@ -68,8 +68,6 @@ class TrackList extends Component {
 
     async componentDidMount() {
         // Get up to 100 tracks from playlist 
-
-        console.log("localStorage tracks", store.get("token"), store.get("selectedPlaylist").id, this.props.playlistInfo.selectedPlaylist.id);
         const token = this.props.playlistInfo.token !== null ? this.props.playlistInfo.token : store.get("token");
         const playlistID = this.props.playlistInfo.selectedPlaylist.id !== undefined ? this.props.playlistInfo.selectedPlaylist.id : store.get("selectedPlaylist").id;
         const headerContent = {
@@ -358,7 +356,7 @@ class TrackList extends Component {
         // Music types to take out -> necessarly applied on the original playlist
         
         // Get into account the number of tracks chosen to make the playlist
-        if( sliders.tracksNum < filteredTracksFeatures.length){
+        /*if( sliders.tracksNum < filteredTracksFeatures.length){
 
             let reducedArr = filteredTracksFeatures;
             let length = filteredTracksFeatures.length;
@@ -368,6 +366,17 @@ class TrackList extends Component {
                 length--;
                 reducedArr.splice(Math.floor((length-1)*Math.random()), 1);
             }
+            filteredTracksFeatures = reducedArr;
+        }*/
+
+        // New filtering based on the double thumb range of track change
+        if( (sliders.tracksMax - sliders.tracksMin) !== filteredTracksFeatures.length){
+            let reducedArr = filteredTracksFeatures;
+            let length = filteredTracksFeatures.length;
+            const diff = filteredTracksFeatures.length - sliders.tracksNum;
+
+            reducedArr = reducedArr.slice(sliders.tracksMin, sliders.tracksMax);
+            console.log("!!!!!", reducedArr, sliders.tracksMax, sliders.tracksMin);
             filteredTracksFeatures = reducedArr;
         }
 
@@ -473,8 +482,6 @@ class TrackList extends Component {
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
         const token = this.props.playlistInfo.token;
         const playListName = this.props.playlistInfo.selectedPlaylist.name;
-
-        console.log("ftf!!!!!!!!!!!!", filteredTracksFeatures);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (

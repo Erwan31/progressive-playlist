@@ -15,12 +15,22 @@ class Playlists extends Component {
         super(props);
         this.state = { 
             inProp: false,
+            playlists: this.props.playlists,
          }
     }
 
     componentDidMount() {
         this.setState({inProp: true})
     }
+
+    /* Meant to obtain a CSStransition after click on load more -> doesn't seem to work
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.playlists !== prevState.playlists){
+            return { playlists: nextProps.playlists}
+        }
+        else return null;
+    }
+    */
 
     render() { 
         let playlists = this.props.playlists;

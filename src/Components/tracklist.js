@@ -394,7 +394,6 @@ class TrackList extends Component {
             }
 
             reducedArr = reducedArr.slice(min, max);
-            console.log("!!!!!", reducedArr, max, min);
             filteredTracksFeatures = reducedArr;
         }
 

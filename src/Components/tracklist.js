@@ -372,11 +372,29 @@ class TrackList extends Component {
         // New filtering based on the double thumb range of track change
         if( (sliders.tracksMax - sliders.tracksMin) !== filteredTracksFeatures.length){
             let reducedArr = filteredTracksFeatures;
-            let length = filteredTracksFeatures.length;
-            const diff = filteredTracksFeatures.length - sliders.tracksNum;
+            let min = sliders.tracksMin;
+            let max = sliders.tracksMax;
+            
+            // To always have a minimum of 10 tracks inside the playlist
+            // Manage collisions of the thumbs
+            if(max - min < 10){
+                if(max + 5 < this.state.tracks.length){
+                    max = max + 5;
+                    min = min - 5;
+                }
+                else{
+                    max = this.state.tracks.length;
+                    min = this.state.tracks.length - 10;
+                }
 
-            reducedArr = reducedArr.slice(sliders.tracksMin, sliders.tracksMax);
-            console.log("!!!!!", reducedArr, sliders.tracksMax, sliders.tracksMin);
+                if(min - 5 < 0){
+                    max = 10;
+                    min = 0;
+                }
+            }
+
+            reducedArr = reducedArr.slice(min, max);
+            console.log("!!!!!", reducedArr, max, min);
             filteredTracksFeatures = reducedArr;
         }
 

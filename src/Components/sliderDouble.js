@@ -21,10 +21,12 @@ class SliderRRDouble extends Component {
 
   render() {
 
+    const diff = this.state.values[1] - this.state.values[0] > 10 ? this.state.values[1] - this.state.values[0] : 10;
+
     return (
         <div className='sliderPerso'>
             <div className='sliderName'>{this.props.name}</div>
-            <span className='labelsRange'>{this.state.values[1] - this.state.values[0] }</span>
+            <span className='labelsRange'>{ diff }</span>
             <Range
                 className='sliderRange'
                 direction={Direction.Up}

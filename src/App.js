@@ -56,15 +56,14 @@ class App extends Component {
           uri: ""
         }],
         offset: 0,
+        connected: false,
     };
 
-    this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
+    //this.getCurrentlyPlaying = this.getCurrentlyPlaying.bind(this);
     this.getUserPlaylists = this.getUserPlaylists.bind(this);
     this.getUserInfo = this.getUserInfo.bind(this);
-    this.tick = this.tick.bind(this);
+    //this.tick = this.tick.bind(this);
   }
-
-
 
   async componentDidMount() {
     // Set token
@@ -89,12 +88,12 @@ class App extends Component {
     clearInterval(this.interval);
   }
 
+  /*
   tick() {
     if(this.state.token) {
       this.getCurrentlyPlaying(this.state.token);
     }
   }
-
 
   getCurrentlyPlaying(token) {
     // Make a call using the token
@@ -119,12 +118,12 @@ class App extends Component {
           item: data.item,
           is_playing: data.is_playing,
           progress_ms: data.progress_ms,
-          no_data: false /* We need to "reset" the boolean, in case the
-                            user does not give F5 and has opened his Spotify. */
+          no_data: false // We need to "reset" the boolean, in case the user does not give F5 and has opened his Spotify.
         });
       }
     });
   }
+  */
 
   async getUserInfo(token) {
 
@@ -172,7 +171,7 @@ class App extends Component {
           this.setState({
             no_data: true,
           });
-          return;
+          return items;
         }
 
         let limit = data.limit;

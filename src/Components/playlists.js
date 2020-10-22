@@ -8,6 +8,7 @@ import { Button } from 'reactstrap';
 import '../cssTransition.css';
 import noPlaylists from '../no_playlists.svg';
 import noPlaylistThumbnail from '../no_playlist_thumbnail.svg'
+import store from "store";
 
 class Playlists extends Component {
     constructor(props) {
@@ -22,8 +23,22 @@ class Playlists extends Component {
     }
 
     render() { 
-        const playlists = this.props.playlists;
+        let playlists = this.props.playlists;
+        let localStorage = null;
+   
+        if(playlists.length < 2){
+           // Try to parse previously stored playlists within the storage
+            store.each(function(value, key) {
+                localStorage  = value;
+            });
 
+            playlists = JSON.parse(localStorage); 
+        }
+        else{
+            // Otherwise store the loaded playlists
+            store.set('playlists', JSON.stringify(playlists));
+        }
+        
         return ( 
             <main className="redirectPlaylists">
                 {playlists.length > 1 ?
@@ -80,7 +95,7 @@ class Playlists extends Component {
                   </CSSTransition>
                 }
 
-                { playlists.length % 20 === 0 &&
+                { playlists.length % 20 === 0 && localStorage === null &&
                     <div 
                         className="loadMore"
                         onClick={ () => this.props.loadMorePlaylists() } 

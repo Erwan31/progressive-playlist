@@ -33,7 +33,6 @@ class TrackList extends Component {
                 offset: 0,
                 nomore: false
             },
-            offset: 0,
             inProp: false,
             playlistName: "",
             tracks: [],
@@ -471,6 +470,8 @@ class TrackList extends Component {
         const  filteredTracksFeatures = this.state.filteredTracksFeatures;
         const token = this.props.playlistInfo.token;
         const playListName = this.props.playlistInfo.selectedPlaylist.name;
+
+        console.log("ftf!!!!!!!!!!!!", filteredTracksFeatures);
 
         // Reactstrap table with up to a 100 songs displaying the album+title+...
         return (

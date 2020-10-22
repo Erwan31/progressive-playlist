@@ -437,13 +437,13 @@ body{
 .pause{
   background: url("pause.svg") no-repeat;
   opacity: 0.9;
-  z-index: 10;
+  z-index: 1;
 }
 
 .play{
   background: url("play.svg") no-repeat;
   opacity: 0.9;
-  z-index: 10;
+  z-index: 1;
 }
 
 .filterPanel{
@@ -614,7 +614,7 @@ footer{
   transform: rotate(90deg);
 }
 
-.questionMark{
+.questionMark:not(focus){
   width: 2.4rem;
   font-size: 1.5rem;
   border-radius: 50%;

@@ -13,6 +13,7 @@ import{ BrowserRouter as Router,
   Route
 } from "react-router-dom";
 import BackButton from './Components/backButton';
+import store from "store"
 
 // Images
 import logoCustom from "./logoCustom.svg"
@@ -74,6 +75,9 @@ class App extends Component {
       this.setState({
         token: _token
       });
+
+      // Save in local storage for future page refresh/reload...
+      store.set("token", _token);
       
       const idInfo = await this.getUserInfo(_token);
       const playlists = await this.getUserPlaylists(idInfo.id);
@@ -234,6 +238,8 @@ class App extends Component {
     // Update state by passing the id of the selected playlist
     // Possibly just pass the necessary info to the component then
     this.setState({selectedPlaylist: {id, name}});
+    // Save in localstorage
+    store.set("selectedPlaylist", {id, name});
   }
 
 

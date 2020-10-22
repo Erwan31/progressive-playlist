@@ -11,6 +11,7 @@ import '../cssTransition.css'
 import reverseArrows from '../reverse_arrows.svg'
 import ModalDisplay from './modal';
 import parametersDescription from '../parameters-description.jpg'
+import store from "store"
 
 const CRITERIA = ["danceability", "energy", "valence"];
 // Has to be part of the props to make it a reusable element
@@ -67,8 +68,10 @@ class TrackList extends Component {
 
     async componentDidMount() {
         // Get up to 100 tracks from playlist 
-        const token = this.props.playlistInfo.token;
-        const playlistID = this.props.playlistInfo.selectedPlaylist.id;
+
+        console.log("localStorage tracks", store.get("token"), store.get("selectedPlaylist").id, this.props.playlistInfo.selectedPlaylist.id);
+        const token = this.props.playlistInfo.token !== null ? this.props.playlistInfo.token : store.get("token");
+        const playlistID = this.props.playlistInfo.selectedPlaylist.id !== undefined ? this.props.playlistInfo.selectedPlaylist.id : store.get("selectedPlaylist").id;
         const headerContent = {
             Authorization: "Bearer " + token
         };

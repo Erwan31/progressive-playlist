@@ -180,8 +180,8 @@ class TrackList extends Component {
 
     async loadMoreTracks(){
                 // Get up to 100 tracks from playlist 
-                const token = this.props.playlistInfo.token;
-                const playlistID = this.props.playlistInfo.selectedPlaylist.id;
+                const token = this.props.playlistInfo.token !== null ? this.props.playlistInfo.token : store.get("token");
+                const playlistID = this.props.playlistInfo.selectedPlaylist.id !== undefined ? this.props.playlistInfo.selectedPlaylist.id : store.get("selectedPlaylist").id;
                 const offset = this.state.loadmore.offset;
                 let tracks = this.state.tracks;
 
@@ -248,9 +248,7 @@ class TrackList extends Component {
                             return null;
                         });
 
-                        const currentFTF = this.state.filteredTracksFeatures.push(filteredTracksFeatures);
-
-                        this.setState( { inProp: true, filteredTracksFeatures: currentFTF, tracksFeatures: currentFTF, loadmore: {offset: this.state.tracks.length } });
+                        this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures, loadmore: {offset: this.state.tracks.length } });
                     }
 
                 }

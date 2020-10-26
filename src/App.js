@@ -19,6 +19,7 @@ import store from "store"
 import logoCustom from "./images/logoCustom.svg"
 import github from "./images/github.svg"
 import link from "./images/link.svg"
+import { Scrollbars } from 'react-custom-scrollbars';
 
 class App extends Component {
   constructor() {
@@ -247,6 +248,14 @@ class App extends Component {
 
     return (
       <>
+      <Scrollbars
+      autoHeight
+      autoHeightMin={450}
+      autoHeightMax={"100vh"}
+      autoHide
+      autoHideTimeout={500}
+      autoHideDuration={200}
+      >
         <Router>
           <Navbar className="navbarRS">
             <NavbarBrand 
@@ -293,6 +302,7 @@ class App extends Component {
             </header>
           </div>
         </Router>
+        </Scrollbars>
         <footer>
           <div className="designedby">
             <hr className="line"></hr> 

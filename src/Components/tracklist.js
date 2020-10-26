@@ -12,7 +12,7 @@ import reverseArrows from '../images/reverse_arrows.svg'
 import ModalDisplay from './modal';
 import parametersDescription from '../images/parameters-description.jpg'
 import store from "store"
-import CustomScroll from 'react-custom-scroll';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const CRITERIA = ["danceability", "energy", "valence"];
 // Has to be part of the props to make it a reusable element
@@ -559,57 +559,60 @@ class TrackList extends Component {
                                         Load More...
                                 </div>
                             }
-                            <CustomScroll allowOuterScroll={true}>
-                            <section className="tableTrackWrapper">
-                            <Table
-                                className = "tableTrack"  
-                                hover
-                                borderless
-                                size="sm"
-                                style={{
-                                    maxHeight: "100vh"
-                                }}
-                            >
-                                <tbody>
-                                    {filteredTracksFeatures.map( (track, i) => 
-                                        <tr className="rowTable" key={track[0].id}>
-                                            <th scope="row">
-                                                <a style={{display: "table-cell"}} href={`https://open.spotify.com/track/${track[0].id}`} target="_blank">
-                                                    <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url} alt="#"></img>
-                                                </a>
-                                            </th>
-                                            <td className="tableLine">
-                                                <div className="track">
-                                                    <div className="trackName">
-                                                        {track[0].name}
-                                                    </div>
-                                                    <div className="trackArtist">
-                                                        {track[0].artists[0].name}
-                                                    </div>
-                                                </div>
-                                                {track[0].preview_url !== null ?
-                                                    <div className="player"> 
-                                                        <div className="previewPlayer play" onClick={() => this.playerClick(i, track[0].preview_url)}></div>
-                                                        <div className="progressBar">
-                                                            {// Player timeline if playing 
-                                                                /*   (i === this.state.play.id && this.state.play.state) &&
-                                                                <Progress animated value={50} />*/
-                                                            }
+                            <div className="tableTrackWrapper">
+                            <Scrollbars
+                                autoHeight
+                                autoHeightMin={250}
+                                autoHeightMax={"70vh"}
+                                autoHide
+                                autoHideTimeout={500}
+                                autoHideDuration={200}>
+                                <Table
+                                    className = "tableTrack"  
+                                    hover
+                                    borderless
+                                    size="sm"
+                                >
+                                    <tbody>
+                                        {filteredTracksFeatures.map( (track, i) => 
+                                            <tr className="rowTable" key={track[0].id}>
+                                                <th scope="row">
+                                                    <a style={{display: "table-cell"}} href={`https://open.spotify.com/track/${track[0].id}`} target="_blank">
+                                                        <img className="albumThumbnail" src={track[0].album.images[1].url || track[0].album.images[0].url} alt="#"></img>
+                                                    </a>
+                                                </th>
+                                                <td className="tableLine">
+                                                    <div className="track">
+                                                        <div className="trackName">
+                                                            {track[0].name}
+                                                        </div>
+                                                        <div className="trackArtist">
+                                                            {track[0].artists[0].name}
                                                         </div>
                                                     </div>
-                                                    :<div className="player"> 
-                                                        <div className="previewPlayer"></div>
+                                                    {track[0].preview_url !== null ?
+                                                        <div className="player"> 
+                                                            <div className="previewPlayer play" onClick={() => this.playerClick(i, track[0].preview_url)}></div>
+                                                            <div className="progressBar">
+                                                                {// Player timeline if playing 
+                                                                    /*   (i === this.state.play.id && this.state.play.state) &&
+                                                                    <Progress animated value={50} />*/
+                                                                }
+                                                            </div>
                                                         </div>
-                                                }
-                                            </td>
-                                            <span className="hr"/>
-                                        </tr>
-                                        )
-                                    }
-                                </tbody>
-                            </Table>
-                            </section>
-                            </CustomScroll>
+                                                        :<div className="player"> 
+                                                            <div className="previewPlayer"></div>
+                                                            </div>
+                                                    }
+                                                </td>
+                                                <span className="hr"/>
+                                            </tr>
+                                            )
+                                        }
+                                    </tbody>
+                                </Table>
+                                </Scrollbars>
+                            </div>
                         </div>
                     </div>
                 </CSSTransition>

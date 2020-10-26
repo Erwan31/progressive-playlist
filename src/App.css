@@ -229,7 +229,7 @@ body{
 }
 
 .redirectPlaylists{
-  min-height: 95vh;
+  height: auto;
   min-width: 600px;
   max-width: 1200px;
 
@@ -348,7 +348,7 @@ tr:hover > th > a > img{
 }
 
 .tableTrackWrapper{
-  max-height: 65vh;
+  max-height: 70vh;
   min-height: 250px;
   overflow: scroll;
   scrollbar-width: none;
@@ -358,6 +358,10 @@ tr:hover > th > a > img{
   width: 40vw;
   min-width: 250px;
   max-width: 600px;
+}
+
+.rowTable{
+  margin-right: 0.5rem;
 }
 
 .playlistName{
@@ -407,6 +411,7 @@ tr:hover > th > a > img{
   margin: 0 0;
   margin-top: -3rem;
   margin-bottom: 3rem;
+  margin-right: 2rem;
   padding: 0;
   opacity: 0.8;
 }
@@ -621,7 +626,7 @@ footer{
   display: inline-block;
   position: fixed;
   bottom: 107px;
-  right: -113px;
+  left: -113px;
   transform: rotate(-90deg);
 }
 

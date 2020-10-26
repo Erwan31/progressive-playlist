@@ -24,7 +24,7 @@
     "querystring": "^0.2.0",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.10.0",
-    "react-custom-scroll": "^4.2.1",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.13.1",
     "react-gsap": "^2.2.1",
     "react-range": "^1.7.0",

@@ -12,6 +12,7 @@ import reverseArrows from '../images/reverse_arrows.svg'
 import ModalDisplay from './modal';
 import parametersDescription from '../images/parameters-description.jpg'
 import store from "store"
+import CustomScroll from 'react-custom-scroll';
 
 const CRITERIA = ["danceability", "energy", "valence"];
 // Has to be part of the props to make it a reusable element
@@ -256,8 +257,6 @@ class TrackList extends Component {
                     // In case the click on Load more was returning null
                     this.setState({ loadmore: {nomore: true}});
                 }
-
-                console.log("!!!!!!!!", this.state);
     }
 
     // Sorting functions
@@ -560,11 +559,16 @@ class TrackList extends Component {
                                         Load More...
                                 </div>
                             }
+                            <CustomScroll allowOuterScroll={true}>
+                            <section className="tableTrackWrapper">
                             <Table
                                 className = "tableTrack"  
                                 hover
                                 borderless
                                 size="sm"
+                                style={{
+                                    maxHeight: "100vh"
+                                }}
                             >
                                 <tbody>
                                     {filteredTracksFeatures.map( (track, i) => 
@@ -604,6 +608,8 @@ class TrackList extends Component {
                                     }
                                 </tbody>
                             </Table>
+                            </section>
+                            </CustomScroll>
                         </div>
                     </div>
                 </CSSTransition>

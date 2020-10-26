@@ -21,6 +21,7 @@ class SlidersPanel extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
 
+    console.log("i was here");
     if( nextProps.reverse !== prevState.reverse){
       return { reverse: nextProps.reverse };
     }

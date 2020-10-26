@@ -9,6 +9,7 @@ import '../cssTransition.css';
 import noPlaylists from '../images/no_playlists.svg';
 import noPlaylistThumbnail from '../images/no_playlist_thumbnail.svg'
 import store from "store";
+import CustomScroll from 'react-custom-scroll';
 
 class Playlists extends Component {
     constructor(props) {
@@ -49,11 +50,12 @@ class Playlists extends Component {
             store.set('playlists', JSON.stringify(playlists));
         }
         
-        return ( 
+        return (
             <main className="redirectPlaylists">
                 {playlists.length > 1 ?
                 <>
                     <h2>Select one of your playlist to PlayLits it!</h2>
+                    <CustomScroll allowOuterScroll={true}>
                     <CSSTransition 
                                 in={this.state.inProp}
                                 timeout={750}
@@ -94,6 +96,7 @@ class Playlists extends Component {
                         }
                         </div>
                     </CSSTransition>
+                    </CustomScroll>
                 </>
                 : <CSSTransition 
                     in={this.state.inProp}
@@ -113,7 +116,6 @@ class Playlists extends Component {
                             Load More...
                     </div>
                 }
-                
             </main>
          ); 
     }

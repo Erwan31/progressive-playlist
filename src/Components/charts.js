@@ -15,6 +15,7 @@ const Charts = ({tracksFeatures}) => {
     const labels = features.map( () => "");
 
     const data = (arr, label, color) =>{
+
         return {
             labels: labels,
             datasets: [
@@ -71,9 +72,9 @@ const Charts = ({tracksFeatures}) => {
                     scaleLabel: {
                         display: true,
                         labelString: yLabel,
-                        fontFamily: 'Helvetica',
+                        fontFamily: 'Nunito',
                         fontStyle: 'bold',
-                        fontSize: 17,
+                        fontSize: 16,
                         fontColor: '#eeeeee'
                     },
                     gridLines: {
@@ -112,74 +113,3 @@ const Charts = ({tracksFeatures}) => {
 }
  
 export default Charts;
-
-/*
-    <div className="chartLabel">Danceability</div>
-    <div className="chartLabel">Energy</div> 
-    <div className="chartLabel">Mood</div> 
-*/
-/* <Chart options={options2} series={series} type="line" width={"100%"} height={"100%"} /> */
-/*
-{
-                <>
-                    <Line
-                        className="chart" 
-                        data={data(danceability, "Danceability", "green")}
-                    />
-                    <Line 
-                        className="chart"
-                        data={data(energy, "Energy", "blue")}
-                    />
-                    <Line 
-                        className="chart"
-                        data={data(valence, "Mood", "Yellow")}
-                    />
-                </>
-            }
-*/
-
-/*
-    const options2 = {
-        options: {
-            chart: {
-              height: 350,
-              type: 'line',
-              zoom: {
-                enabled: false
-              }
-            },
-            colors: ['#EEEEEE'],
-            fill: {
-                type: 'gradient',
-            },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              curve: 'smooth'
-            },
-            markers: {
-                size: 0,
-            },
-            title: {
-              text: 'Product Trends by Month',
-              align: 'left'
-            },
-            grid: {
-              row: {
-                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                opacity: 0
-              },
-            },
-            xaxis: {
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-            }
-          },
-    };
-    
-    const series = [{
-        name: 'series-1',
-        data: [30, 40, 45, 50, 49, 60, 70, 91],
-        type: 'line',
-    }];
-*/

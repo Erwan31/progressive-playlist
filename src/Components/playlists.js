@@ -6,8 +6,8 @@ import { CSSTransition } from 'react-transition-group';
 import { Button } from 'reactstrap';
 
 import '../cssTransition.css';
-import noPlaylists from '../no_playlists.svg';
-import noPlaylistThumbnail from '../no_playlist_thumbnail.svg'
+import noPlaylists from '../images/no_playlists.svg';
+import noPlaylistThumbnail from '../images/no_playlist_thumbnail.svg'
 import store from "store";
 
 class Playlists extends Component {

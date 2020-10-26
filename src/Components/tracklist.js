@@ -8,9 +8,9 @@ import CreatePlaylits from './createPlaylits';
 import { CSSTransition } from 'react-transition-group';
 
 import '../cssTransition.css'
-import reverseArrows from '../reverse_arrows.svg'
+import reverseArrows from '../images/reverse_arrows.svg'
 import ModalDisplay from './modal';
-import parametersDescription from '../parameters-description.jpg'
+import parametersDescription from '../images/parameters-description.jpg'
 import store from "store"
 
 const CRITERIA = ["danceability", "energy", "valence"];
@@ -247,7 +247,10 @@ class TrackList extends Component {
                             }
                             return null;
                         });
-                        this.setState( { inProp: true, filteredTracksFeatures, tracksFeatures: filteredTracksFeatures, loadmore: {offset: this.state.tracks.length } });
+
+                        const currentFTF = this.state.filteredTracksFeatures.push(filteredTracksFeatures);
+
+                        this.setState( { inProp: true, filteredTracksFeatures: currentFTF, tracksFeatures: currentFTF, loadmore: {offset: this.state.tracks.length } });
                     }
 
                 }
@@ -255,6 +258,8 @@ class TrackList extends Component {
                     // In case the click on Load more was returning null
                     this.setState({ loadmore: {nomore: true}});
                 }
+
+                console.log("!!!!!!!!", this.state);
     }
 
     // Sorting functions

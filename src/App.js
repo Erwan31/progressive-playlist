@@ -16,9 +16,9 @@ import BackButton from './Components/backButton';
 import store from "store"
 
 // Images
-import logoCustom from "./logoCustom.svg"
-import github from "./github.svg"
-import link from "./link.svg"
+import logoCustom from "./images/logoCustom.svg"
+import github from "./images/github.svg"
+import link from "./images/link.svg"
 
 class App extends Component {
   constructor() {

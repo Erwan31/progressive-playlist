@@ -6,6 +6,8 @@ defaults.global.defaultFontFamily = 'Nunito';
 
 const Charts = ({tracksFeatures}) => {
 
+    console.log(tracksFeatures);
+
     const features = tracksFeatures.map( track => track[1]);
     const danceability = features.map( track => track.danceability);
     const energy = features.map( track => track.energy);

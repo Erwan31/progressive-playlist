@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import { authEndpoint, clientId, redirectUri, scopes } from "../config";
-import spotify from '../spotify.svg'
+import spotify from '../images/spotify.svg'
 import ModalDisplay from './modal'
-import instruction1 from '../instruction1.png'
-import instruction2 from '../instruction2.png'
+import instruction1 from '../images/instruction1.png'
+import instruction2 from '../images/instruction2.png'
 
 // Has to be part of the props to make it a reusable element
 const items = [

@@ -1,5 +1,5 @@
 import React from 'react';
-import backImage from '../back_button.svg';
+import backImage from '../images/back_button.svg';
 
 const BackButton = ({history}) => {
 

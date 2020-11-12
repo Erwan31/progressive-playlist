@@ -5,8 +5,7 @@
   font-family: 'Nunito', sans-serif;
   color: white;
   height:  auto;
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none; /* mozilla */
+
 /*  background-color: #F1E6B2; /* Find another color PANTONE 12-0804 TCX */
 }
 
@@ -18,10 +17,13 @@ html{
   min-width: 600px; /* Beware for Responsive !! */
   font-size: 62.5%;
   overflow: scroll;
+
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; /* mozilla */
 }
 
 /* No Scrollbars but custom */
-*::-webkit-scrollbar { 
+html::-webkit-scrollbar { 
   display: none;  /* Safari and Chrome */
 }
 
@@ -356,7 +358,13 @@ tr:hover > th > a > img{
   max-height: 70vh;
   min-height: 250px;
   overflow: scroll;
-  scrollbar-width: none;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none; /* mozilla */
+}
+
+/* No Scrollbars but custom */
+.tableTrackWrapper::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
 }
 
 .tableTrack{

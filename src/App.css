@@ -28,6 +28,10 @@ html::-webkit-scrollbar {
 }
 
 body{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   /*
   background: rgb(253,29,29);
   background: linear-gradient(286deg, rgba(253,29,29,1) 0%, rgba(252,176,69,1) 100%); 
@@ -35,10 +39,24 @@ body{
   /*background-image: linear-gradient(to right bottom, #f1e6b2, #f0dba7, #eecf9d, #edc494, #ebb88d, #e6ba88, #e1bc83, #dabf7f, #c5d189, #a9e1a1, #87f0c5, #5ffbf1);*/
   /*background: rgb(30,35,52);
   background: linear-gradient(90deg, rgba(30,35,52,1) 0%, rgba(86,108,244,1) 100%);*/
-  background: rgb(30,35,52);
   background: linear-gradient(135deg, rgba(30,35,52,1) 0%, rgba(85,107,242,1) 50%, rgba(169,80,254,1) 100%);  
   background-repeat: no-repeat;
   background-attachment: fixed;
+  z-index: -3;
+}
+
+
+/* https://redstapler.co/css-film-grain-effect/  */
+body::after{
+  content:"";
+  position: absolute;
+  width:200vw;
+  height: 200vh;
+  left: -50%;
+  top: -50%;
+  background: url('./images/paper_1.png');
+  opacity: 0.1;
+  z-index: -2;
 }
 
 
